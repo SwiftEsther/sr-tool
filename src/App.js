@@ -1,25 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import "./styles/main.css";
+import SideNav from './shared/SideNav';
+import { Route, Switch } from 'react-router';
+import { Router } from "react-router-dom";
+import Results from './Pages/Results/Index';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="text-black">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Switch>
+        <Route path="/results" component={Results} />
+      </Switch>
   );
 }
 
