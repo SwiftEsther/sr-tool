@@ -6,6 +6,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
+      xs: '280px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -26,6 +27,12 @@ module.exports = {
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
+
+      primary: '#31326f',
+      lightGray: '#c0c0c0',
+      mediumGray: '#f7f7f7',
+      darkGray: '#424242',
+      shadow: '#e1e1e1'
     },
     spacing: {
       px: '1px',
@@ -124,7 +131,7 @@ module.exports = {
       8: '8px',
     },
     boxShadow: {
-      sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+      sm: '0 1px 5px 0 rgba(49, 50, 111, 0.5)',
       DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
       md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
       lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
@@ -163,6 +170,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        'Gelion', 
         'ui-sans-serif',
         'system-ui',
         '-apple-system',
@@ -178,7 +186,7 @@ module.exports = {
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
       ],
-      serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+      serif: ['Gelion','ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
       mono: [
         'ui-monospace',
         'SFMono-Regular',
@@ -201,6 +209,7 @@ module.exports = {
       '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
       '5xl': ['3rem', { lineHeight: '1' }],
       '6xl': ['3.75rem', { lineHeight: '1' }],
+      '6\.5xl': ['4rem', { lineHeight: '1' }],
       '7xl': ['4.5rem', { lineHeight: '1' }],
       '8xl': ['6rem', { lineHeight: '1' }],
       '9xl': ['8rem', { lineHeight: '1' }],
@@ -689,6 +698,24 @@ module.exports = {
       '3/6': '50%',
       '4/6': '66.666667%',
       '5/6': '83.333333%',
+      '1/10': '10%',
+      '1\.5/10': '15%',
+      '2/10': '20%',
+      '2\.5/10': '25%',
+      '3/10': '30%',
+      '3\.5/10': '35%',
+      '4/10': '40%',
+      '4\.5/10': '45%',
+      '5/10': '50%',
+      '5\.5/10': '55%',
+      '6/10': '60%',
+      '6\.5/10': '65%',
+      '7/10': '70%',
+      '7\.5/10': '75%',
+      '8/10': '80%',
+      '8\.5/10': '85%',
+      '9/10': '90%',
+      '9\.5/10': '95%',
       '1/12': '8.333333%',
       '2/12': '16.666667%',
       '3/12': '25%',

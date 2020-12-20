@@ -2,13 +2,13 @@ import React from "react";
 
 const SideNav = () => {
     return (
-        <div class="flex md:flex-row-reverse flex-wrap">
-            <div class="w-full md:w-4/5 bg-gray-100">
-                <div class="container bg-gray-100 pt-16 px-6">
+        <div class="side-nav h-screen bg-white fixed">
+            <div class="">
+                <div class="">
                 knbvhcgfxdfcghvjbkn
                 </div>
             </div>
-            <div class="w-0 md:w-1/5 bg-gray-900 md:bg-gray-900 px-2 text-center fixed md:pt-8 top-0 md:left-0 h-16 md:h-screen md:border-r-4 md:border-gray-600">
+            {/* <div class="w-0 md:w-1/5 bg-gray-900 md:bg-gray-900 px-2 text-center fixed md:pt-8 top-0 md:left-0 h-16 md:h-screen md:border-r-4 md:border-gray-600">
                 <div class="md:relative mx-auto lg:float-right lg:px-6">
                 <ul class="list-reset flex flex-row md:flex-col text-center md:text-left">
                     <li class="mr-3 flex-1">
@@ -33,7 +33,7 @@ const SideNav = () => {
                     </li>
                 </ul>
                 </div>
-            </div>
+            </div> */}
          </div>
     );
 }
