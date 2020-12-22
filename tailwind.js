@@ -32,7 +32,8 @@ module.exports = {
       lightGray: '#c0c0c0',
       mediumGray: '#f7f7f7',
       darkGray: '#424242',
-      shadow: '#e1e1e1'
+      shadow: '#e1e1e1',
+      textRed: '#fb0909'
     },
     spacing: {
       px: '1px',

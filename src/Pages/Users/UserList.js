@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 const UserList = ({users}) => {
     return (
@@ -17,7 +19,13 @@ const UserList = ({users}) => {
                         <div className="table-row-data w-2/10">Akinloose</div>
                         <div className="table-row-data w-2/10">esther.akinloose@gmail.com</div>
                         <div className="table-row-data w-2/10">Administrator</div>
-                        <div className="table-row-data w-2/10">ellipsis</div>
+                        <div className="table-row-data w-2/10"> 
+                            <span data-tip data-for='ellipsis'>ellipsis</span>
+                            <ReactTooltip id='ellipsis' place="bottom" type="light" effect="solid" border borderColor="#979797">
+                                <Link to="/" className="text-sm text-darkGray block text-left">Edit</Link>
+                                <Link to="/" className="text-sm text-textRed block text-left">Delete</Link>
+                            </ReactTooltip>
+                        </div>
                     </div>
 
                     <div className="custom-table-row w-full">
@@ -25,7 +33,13 @@ const UserList = ({users}) => {
                         <div className="table-row-data w-2/10">Akinloose</div>
                         <div className="table-row-data w-2/10">esther.akinloose@gmail.com</div>
                         <div className="table-row-data w-2/10">Administrator</div>
-                        <div className="table-row-data w-2/10">ellipsis</div>
+                        <div className="table-row-data w-2/10"> 
+                            <span data-tip data-for='ellipsis'>ellipsis</span>
+                            <ReactTooltip id='ellipsis' place="bottom" type="light" effect="solid" border borderColor="#979797">
+                                <Link to="/" className="text-sm text-darkGray block text-left">Edit</Link>
+                                <Link to="/" className="text-sm text-textRed block text-left">Delete</Link>
+                            </ReactTooltip>
+                        </div>
                     </div>
                 </div>
             </div>
