@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './shared/AuthenticatedRoute';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
+import CreateUser from './Pages/Users/CreateUser';
 
 function App() {
   const [userState, dispatch] = useContext(UserContext);
@@ -18,6 +19,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/results" component={Results} />
+        <Route path="/users/create" component={CreateUser} />
         <Route path="/users"  component={Users} />
       </Switch>
     </>

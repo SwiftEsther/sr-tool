@@ -3,11 +3,16 @@ body {
 }
 
 /* Breadcrumbs container styling */
-.breadcrumbs-container {
+.shadow-container {
   box-shadow: 0 1px 4px 0 rgba(139, 139, 139, 0.5);
 }
 
 /* Button styles override */
 button.bg-primary:disabled {
   opacity: 0.8;
+  cursor: default;
+}
+
+.button-padding {
+  padding: 1rem 4.75rem;
 }

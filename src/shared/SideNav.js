@@ -2,10 +2,10 @@ import React from "react";
 
 const SideNav = () => {
     return (
-        <div class="side-nav h-screen bg-white fixed">
-            <div class="">
-                <div class="">
-                knbvhcgfxdfcghvjbkn
+        <div className="side-nav h-screen bg-white fixed">
+            <div className="">
+                <div className="">
+                    SideNav
                 </div>
             </div>
             {/* <div class="w-0 md:w-1/5 bg-gray-900 md:bg-gray-900 px-2 text-center fixed md:pt-8 top-0 md:left-0 h-16 md:h-screen md:border-r-4 md:border-gray-600">
