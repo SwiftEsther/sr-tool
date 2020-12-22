@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const initialState = {
   loading: false,
   success: false,
+  isLoggedIn: false,
   user: null,
   error: null,
 };
@@ -24,6 +25,7 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
+        isLoggedIn: true,
         user: action.payload.response,
       };
     case 'LOGIN_FAILURE':
@@ -31,6 +33,7 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         success: false,
+        isLoggedIn: false,
         error: action.payload.error,
       };
     default:

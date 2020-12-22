@@ -7,16 +7,16 @@ const Results = ({match}) => {
         <Layout>
             <Breadcrumbs className="breadcrumbs-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold"/>
             <Breadcrumb data={{
-                title: 'Results',
-                pathname: "/results"
+                title: 'Users',
+                pathname: "/users"
             }}>
                 <Breadcrumb data={{
                 title: 'A title',
                 pathname: "/some"
             }}>
-                <div>Results Page</div>
+                <div>Users Page</div>
             </Breadcrumb>
-                <div>Results Page</div>
+                <div>Users Page</div>
             </Breadcrumb>
             
         </Layout>
