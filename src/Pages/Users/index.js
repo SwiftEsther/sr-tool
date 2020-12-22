@@ -31,7 +31,7 @@ const Results = ({match}) => {
                             Add User
                         </Link>
                     </div>
-                    <div className="w-full flex mt-16">
+                    <div className="w-full flex mt-16 items-center">
                         <div className="w-1/2">
                             <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search users by name"/>
                         </div>

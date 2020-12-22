@@ -16,3 +16,51 @@ button.bg-primary:disabled {
 .button-padding {
   padding: 1rem 4.75rem;
 }
+
+/* Table styles */
+.table,
+.table .table-header,
+.table .table-body {
+  width: 100%;
+  color: #424242;
+}
+
+.table .table-header {
+  background-color: #f7f7f7;
+  font-weight: bold;
+}
+
+.table .table-header,
+.table .table-body .custom-table-row {
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.table .table-header,
+.table .table-body .custom-table-row {
+  padding: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.table .table-body .custom-table-row:nth-child(off) {
+  background-color: #fff;
+}
+
+.table .table-body .custom-table-row:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.table .table-header .table-header-data,
+.table .table-body .custom-table-row .table-row-data {
+  display: inline-block;
+  padding-left: 2.5rem;
+  padding-right: 0.5rem;
+}
+
+.table .table-body .custom-table-row .table-row-data {
+  font-size: 14px;
+}
+
+.table .table-body .custom-table-row .table-row-data:last-child {
+  text-align: right;
+}
+
