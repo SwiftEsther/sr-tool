@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import { UserContext } from '../../contexts/UserContext';
 import {login} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
-import { toast } from 'react-toastify';
+import { showToast } from '../../helpers/showToast';
  
  const Login = () => {
      const [userState, dispatch] = useContext(UserContext);
@@ -17,15 +17,7 @@ import { toast } from 'react-toastify';
             })
             .catch((err) => {
                 dispatch({type: 'LOGIN_FAILURE', payload: {error: err}});
-                toast.error('Something went wrong. Please try again later', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                showToast('error', 'Something went wrong. Please try again later')
                 setSubmitting(false);
             });
      }
