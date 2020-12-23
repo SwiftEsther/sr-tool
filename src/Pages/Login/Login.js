@@ -6,7 +6,7 @@ import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
  
  const Login = () => {
-     const [userState, dispatch] = useContext(AuthContext);
+     const [authState, dispatch] = useContext(AuthContext);
      const handleLogin = (values, {setSubmitting}) => {
          dispatch({type: 'LOGIN'});
          setSubmitting(true);
