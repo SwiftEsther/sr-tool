@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import { Formik } from 'formik';
-import { UserContext } from '../../contexts/UserContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import {login} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
  
  const Login = () => {
-     const [userState, dispatch] = useContext(UserContext);
+     const [userState, dispatch] = useContext(AuthContext);
      const handleLogin = (values, {setSubmitting}) => {
          dispatch({type: 'LOGIN'});
          setSubmitting(true);
-         apiRequest(login, 'post')
+         apiRequest(login, 'post', {...values})
             .then((res) => {
                 dispatch({type: 'LOGIN_SUCCESS', payload: {response: res}});
                 setSubmitting(false);

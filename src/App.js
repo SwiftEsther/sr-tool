@@ -8,12 +8,12 @@ import Login from './Pages/Login/Login';
 import { ToastContainer } from 'react-toastify';
 import AuthenticatedRoute from './shared/AuthenticatedRoute';
 import { useContext } from 'react';
-import { UserContext } from './contexts/UserContext';
+import { AuthContext } from './contexts/AuthContext';
 import CreateUser from './Pages/Users/CreateUser';
 import UpdateUser from './Pages/Users/UpdateUser';
 
 function App() {
-  const [userState, dispatch] = useContext(UserContext);
+  const [userState, dispatch] = useContext(AuthContext);
   return (
     <>
       <ToastContainer />

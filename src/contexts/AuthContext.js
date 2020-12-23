@@ -11,9 +11,9 @@ const initialState = {
 
 const initialContext = [{...initialState}, () => {}];
 
-export const UserContext = createContext(initialContext);
+export const AuthContext = createContext(initialContext);
 
-const userReducer = (state, action) => {
+const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
       return {
@@ -43,16 +43,16 @@ const userReducer = (state, action) => {
   }
 };
 
-export function UserController(props) {
-  const [state, dispatch] = useReducer(userReducer, initialState);
+export function AuthController(props) {
+  const [state, dispatch] = useReducer(authReducer, initialState);
   const value = useMemo(() => [state, dispatch], [state]);
 
   return (
-    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
+    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
   );
 }
 
-UserController.propTypes = {
+AuthController.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
