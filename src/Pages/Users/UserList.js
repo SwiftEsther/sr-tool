@@ -5,17 +5,20 @@ import ReactTooltip from 'react-tooltip';
 const UserList = ({users}) => {
     const some = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     return (
-        <div className="py-4">
+        <div className="py-4 overflow-auto">
             <div className="table">
                 <div className="table-header">
-                    <div className="table-header-data w-2/10">First Name</div>
-                    <div className="table-header-data w-2/10">Last Name</div>
-                    <div className="table-header-data w-2/10">Email</div>
-                    <div className="table-header-data w-2/10">Group</div>
-                    <div className="table-header-data w-2/10"></div>
+                    <div className="custom-table-row w-full flex">
+                        <div className="table-header-data w-2/10">First Name</div>
+                        <div className="table-header-data w-2/10">Last Name</div>
+                        <div className="table-header-data w-2/10">Email</div>
+                        <div className="table-header-data w-2/10">Group</div>
+                        <div className="table-header-data w-2/10"></div>
+                    </div>
+                    
                 </div>
                 <div className="table-body">
-                    {some.map((s) => (<div key={s} className="custom-table-row w-full">
+                    {some.map((s) => (<div key={s} className="custom-table-row w-full flex">
                         <div className="table-row-data w-2/10">Esther</div>
                         <div className="table-row-data w-2/10">Akinloose</div>
                         <div className="table-row-data w-2/10">esther.akinloose@gmail.com</div>

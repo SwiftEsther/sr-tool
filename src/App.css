@@ -30,12 +30,12 @@ button.bg-primary:disabled {
   font-weight: bold;
 }
 
-.table .table-header,
+.table .table-header .custom-table-row,
 .table .table-body .custom-table-row {
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
 }
 
-.table .table-header,
+.table .table-header .custom-table-row,
 .table .table-body .custom-table-row {
   padding: 1.25rem;
   margin-top: 0.5rem;
@@ -49,11 +49,13 @@ button.bg-primary:disabled {
   background-color: #f7f7f7;
 }
 
-.table .table-header .table-header-data,
+.table .table-header .custom-table-row .table-header-data,
 .table .table-body .custom-table-row .table-row-data {
   display: inline-block;
   padding-left: 2.5rem;
   padding-right: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .table .table-body .custom-table-row .table-row-data {
