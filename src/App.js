@@ -2,7 +2,8 @@ import './App.css';
 import "./styles/main.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { Route, Switch } from 'react-router';
-import Results from './Pages/Results';
+import Modal from 'react-modal';
+// import Results from './Pages/Results';
 import Users from './Pages/Users';
 import Login from './Pages/Login/Login';
 import { ToastContainer } from 'react-toastify';
@@ -13,6 +14,8 @@ import CreateUser from './Pages/Users/CreateUser';
 import UpdateUser from './Pages/Users/UpdateUser';
 import { UserController } from './contexts/UserContext';
 
+Modal.setAppElement("#root");
+
 function App() {
   const [userState, dispatch] = useContext(AuthContext);
   return (
@@ -20,7 +23,7 @@ function App() {
       <ToastContainer />
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/results" component={Results} />
+        {/* <Route path="/results" component={Results} /> */}
         <Route path="/users/create" render ={routerProps => <UserController><CreateUser {...routerProps}/></UserController>} />
         <Route path="/users/:id" render ={routerProps => <UserController><UpdateUser {...routerProps}/></UserController>} />
         <Route path="/users"  render ={routerProps => <UserController><Users {...routerProps}/></UserController>} />
