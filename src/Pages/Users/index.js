@@ -25,13 +25,13 @@ const Users = ({match}) => {
                 }}>
                     <div>Create USer</div>
                 </Breadcrumb> */}
-                <div className="my-6 shadow-container pl-3.5 pr-7 py-6">
-                    <div className="flex justify-end">
+                <div className="my-6 shadow-container pl-2.5 pr-7 py-6">
+                    <div className="flex justify-end px-1">
                         <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/users/create">
                             Add User
                         </Link>
                     </div>
-                    <div className="w-full flex mt-16 items-center">
+                    <div className="w-full flex mt-16 items-center px-1">
                         <div className="w-1/2">
                             <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search users by name"/>
                         </div>

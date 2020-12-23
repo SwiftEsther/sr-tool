@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import Ellipsis from '../../shared/components/Ellipsis';
 
 const UserList = ({users}) => {
     const some = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     return (
-        <div className="py-4 overflow-auto">
+        <div className="py-4 px-1 overflow-auto">
             <div className="table">
                 <div className="table-header">
                     <div className="custom-table-row w-full flex">
@@ -24,7 +25,9 @@ const UserList = ({users}) => {
                         <div className="table-row-data w-2/10">esther.akinloose@gmail.com</div>
                         <div className="table-row-data w-2/10">Administrator</div>
                         <div className="table-row-data w-2/10"> 
-                            <span data-tip data-for='ellipsis'>ellipsis</span>
+                            <span data-tip data-for='ellipsis'>
+                                <Ellipsis />
+                            </span>
                             <ReactTooltip id='ellipsis' place="bottom" type="light" effect="solid" border borderColor="#979797" clickable>
                                 <Link to="/" className="text-sm text-darkGray block text-left">Edit</Link>
                                 <Link to="/" className="text-sm text-textRed block text-left">Delete</Link>
