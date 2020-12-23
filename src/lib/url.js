@@ -3,5 +3,8 @@ import env from '../config/env.config';
 export const baseUrl = env().baseUrl;
 export const version = env().version;
 
-//----USER/AUTH URLS----//
+//----AUTH URLS----//
 export const login = `${baseUrl}/login`;
+
+//----USER URLS----//
+export const users = `${baseUrl}/users`;

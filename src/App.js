@@ -11,6 +11,7 @@ import { useContext } from 'react';
 import { AuthContext } from './contexts/AuthContext';
 import CreateUser from './Pages/Users/CreateUser';
 import UpdateUser from './Pages/Users/UpdateUser';
+import { UserController } from './contexts/UserContext';
 
 function App() {
   const [userState, dispatch] = useContext(AuthContext);
@@ -20,9 +21,9 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/results" component={Results} />
-        <Route path="/users/create" component={CreateUser} />
-        <Route path="/users/:id" component={UpdateUser} />
-        <Route path="/users"  component={Users} />
+        <Route path="/users/create" render ={routerProps => <UserController><CreateUser {...routerProps}/></UserController>} />
+        <Route path="/users/:id" render ={routerProps => <UserController><UpdateUser {...routerProps}/></UserController>} />
+        <Route path="/users"  render ={routerProps => <UserController><Users {...routerProps}/></UserController>} />
       </Switch>
     </>
   );

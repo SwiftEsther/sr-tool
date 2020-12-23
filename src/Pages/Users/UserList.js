@@ -29,7 +29,7 @@ const UserList = ({users}) => {
                                 <Ellipsis />
                             </span>
                             <ReactTooltip id={`ellipsis-user-${s}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                <Link to={`/users/${s}`} className="text-sm text-darkGray block text-left">Edit</Link>
+                                <Link to={{pathname: `/users/${s}`, state: {user: s}}} className="text-sm text-darkGray block text-left">Edit</Link>
                                 <Link to="/" className="text-sm text-textRed block text-left">Delete</Link>
                             </ReactTooltip>
                         </div>
