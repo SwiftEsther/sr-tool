@@ -77,7 +77,7 @@ import { showToast } from '../../helpers/showToast';
                                         />
                                         {errors.password && touched.password && <span className="text-xs text-red-600">{errors.password}</span>}
                                     </div>
-                                    <button type="submit" disabled={isSubmitting || errors.password?.length > 0 || errors.username?.length > 0} className="bg-primary w-9.5/10 m-auto py-3 sm:py-6 text-white font-bold rounded-xl">
+                                    <button type="submit" disabled={isSubmitting || errors.password?.length > 0 || errors.username?.length > 0} className="bg-primary w-9.5/10 m-auto py-3 sm:py-6 text-white font-bold rounded-xl focus:outline-none">
                                         Sign in
                                     </button>
                                 </form>

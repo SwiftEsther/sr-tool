@@ -46,7 +46,7 @@ const UserList = ({users}) => {
         >
             <div className="flex justify-between items-center mb-12">
                 <p className="text-darkGray font-bold text-lg">Are you sure you want to delete {currentUser}?</p>
-                <button onClick={closeModal}>close</button>
+                <button onClick={closeModal} className="focus:outline-none">close</button>
             </div>
           
           <div className="text-center my-4">Kindly note that this action is not reversible</div>
@@ -78,7 +78,7 @@ const UserList = ({users}) => {
                             </span>
                             <ReactTooltip id={`ellipsis-user-${s}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
                                 <Link to={{pathname: `/users/${s}`, state: {user: s}}} className="text-sm text-darkGray block text-left">Edit</Link>
-                                <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left">Delete</button>
+                                <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                             </ReactTooltip>
                         </div>
                     </div>))}
