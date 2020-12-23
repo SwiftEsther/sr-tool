@@ -25,11 +25,11 @@ const UserList = ({users}) => {
                         <div className="table-row-data w-2/10">esther.akinloose@gmail.com</div>
                         <div className="table-row-data w-2/10">Administrator</div>
                         <div className="table-row-data w-2/10"> 
-                            <span data-tip data-for='ellipsis'>
+                            <span data-tip data-for={`ellipsis-user-${s}`} data-event='click'>
                                 <Ellipsis />
                             </span>
-                            <ReactTooltip id='ellipsis' place="bottom" type="light" effect="solid" border borderColor="#979797" clickable>
-                                <Link to="/" className="text-sm text-darkGray block text-left">Edit</Link>
+                            <ReactTooltip id={`ellipsis-user-${s}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                <Link to={`/users/${s}`} className="text-sm text-darkGray block text-left">Edit</Link>
                                 <Link to="/" className="text-sm text-textRed block text-left">Delete</Link>
                             </ReactTooltip>
                         </div>

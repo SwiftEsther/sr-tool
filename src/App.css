@@ -2,7 +2,7 @@ body {
   font-family: Gelion;
 }
 
-/* Breadcrumbs container styling */
+/* Shadow container styling */
 .shadow-container {
   box-shadow: 0 1px 4px 0 rgba(139, 139, 139, 0.5);
 }
@@ -78,3 +78,15 @@ button.bg-primary:disabled {
   font-size: 18px;
   font-weight: bolder;
 }
+
+/* Form components styles */
+select {
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3e%3cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%239fa6b2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e") no-repeat right 0.3rem center/14px 4px;
+}
+
+/* React Tooltip style */
+.__react_component_tooltip.allow_hover,
+.__react_component_tooltip { pointer-events: auto !important; }

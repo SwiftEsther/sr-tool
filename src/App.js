@@ -10,6 +10,7 @@ import AuthenticatedRoute from './shared/AuthenticatedRoute';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 import CreateUser from './Pages/Users/CreateUser';
+import UpdateUser from './Pages/Users/UpdateUser';
 
 function App() {
   const [userState, dispatch] = useContext(UserContext);
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/results" component={Results} />
         <Route path="/users/create" component={CreateUser} />
+        <Route path="/users/:id" component={UpdateUser} />
         <Route path="/users"  component={Users} />
       </Switch>
     </>

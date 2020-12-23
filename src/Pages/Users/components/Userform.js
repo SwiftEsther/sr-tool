@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 const UserForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
+    const groups = ['LGA', 'LAG'];
     let initialValues = {
         first_name: '',
         last_name: '',
@@ -19,6 +20,8 @@ const UserForm = ({formFields, handleFormSubmit}) => {
             errors.last_name = 'Last Name is required';
         }   else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
             errors.email = 'Invalid email address';
+        }   else if(!values.group) {
+            errors.group = 'Group is required';
         }   else if(!values.password) {
             errors.password = 'Password is required';
         }   else {
@@ -81,6 +84,19 @@ const UserForm = ({formFields, handleFormSubmit}) => {
                                 placeholder="Email"
                             />
                             {errors.email && touched.email && <span className="text-xs text-red-600">{errors.email}</span>}
+                        </div>
+                        <div className="mt-4 mb-12">
+                            <select 
+                                name="group" 
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.group}
+                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkGray font-medium text-sm"
+                            >
+                                <option value='' disabled></option>
+                                {groups.map(group => (<option key={group} value={group}>{group}</option>))}
+                            </select>
+                            {errors.group && touched.group && <span className="text-xs text-red-600">{errors.group}</span>}
                         </div>
                         <div className="mt-4 mb-12">
                             <input
