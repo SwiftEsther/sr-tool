@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
 import UserList from "./UserList";
 
-const Results = ({match}) => {
+const Users = ({match}) => {
     const [search, setSearch] = useState('');
 
     const handleChange = (event) => {
@@ -17,7 +17,7 @@ const Results = ({match}) => {
             <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold"/>
             <Breadcrumb data={{
                 title: 'Users',
-                pathname: "/users"
+                pathname: match.path
             }}>
                 {/* <Breadcrumb data={{
                     title: 'A title',
@@ -49,4 +49,4 @@ const Results = ({match}) => {
     );
 }
 
-export default Results;
+export default Users;

@@ -64,3 +64,15 @@ button.bg-primary:disabled {
   text-align: right;
 }
 
+/* Breadcrumbs style overide */
+
+.breadcrumbs__inner {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbs__inner .breadcrumbs__separator {
+  padding: 0 4px;
+  font-size: 18px;
+  font-weight: bolder;
+}
