@@ -72,6 +72,25 @@ const userReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
+    case 'DELETE_USER':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'DELETE_USER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        user: action.payload.response,
+      };
+    case 'DELETE_USER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
     default:
       return {
         ...initialState,
