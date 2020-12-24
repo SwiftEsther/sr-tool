@@ -13,6 +13,10 @@ import { AuthContext } from './contexts/AuthContext';
 import CreateUser from './Pages/Users/CreateUser';
 import UpdateUser from './Pages/Users/UpdateUser';
 import { UserController } from './contexts/UserContext';
+import States from './Pages/States';
+import { StateController } from './contexts/StateContext';
+import CreateState from './Pages/States/CreateState';
+import UpdateState from './Pages/States/UpdateState';
 
 Modal.setAppElement("#root");
 
@@ -27,6 +31,9 @@ function App() {
         <Route path="/users/create" render ={routerProps => <UserController><CreateUser {...routerProps}/></UserController>} />
         <Route path="/users/:id" render ={routerProps => <UserController><UpdateUser {...routerProps}/></UserController>} />
         <Route path="/users"  render ={routerProps => <UserController><Users {...routerProps}/></UserController>} />
+        <Route path="/territories/states/create"  render ={routerProps => <StateController><CreateState {...routerProps}/></StateController>} />
+        <Route path="/territories/states/:id" render ={routerProps => <StateController><UpdateState {...routerProps}/></StateController>} />
+        <Route path="/territories/states"  render ={routerProps => <StateController><States {...routerProps}/></StateController>} />
       </Switch>
     </>
   );

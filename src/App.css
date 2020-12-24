@@ -90,3 +90,33 @@ select {
 /* React Tooltip style */
 .__react_component_tooltip.allow_hover,
 .__react_component_tooltip { pointer-events: auto !important; }
+
+/* Radio button styles */
+
+input[type='radio']:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d8d8d8;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid #979797;
+}
+
+input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #31326f;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid #31326f;
+}

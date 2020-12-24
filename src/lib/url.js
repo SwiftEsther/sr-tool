@@ -8,3 +8,6 @@ export const login = `${baseUrl}/login`;
 
 //----USER URLS----//
 export const users = `${baseUrl}/users`;
+
+//----STATE URLS----//
+export const states = `${baseUrl}/states`;
