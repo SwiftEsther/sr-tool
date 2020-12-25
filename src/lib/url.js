@@ -11,3 +11,6 @@ export const users = `${baseUrl}/users`;
 
 //----STATE URLS----//
 export const states = `${baseUrl}/states`;
+
+//----LGA URLS----//
+export const lgas = `${baseUrl}/lgas`;
