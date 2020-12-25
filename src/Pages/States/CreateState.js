@@ -7,20 +7,27 @@ import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
 import StateForm from './components/Stateform';
 
-const CreateState = ({match}) => {
+const CreateState = ({match, history}) => {
     const [state, dispatch] = useContext(StateContext);
     const handleCreate = (values, {setSubmitting}) => {
+        console.log('vs;',values)
+        let formData = new FormData();
+        formData.append('name', values.name);
+        formData.append('map', values.map)
+        console.log('Req', formData.name)
         dispatch({type: 'CREATE_STATE'});
          setSubmitting(true);
-         apiRequest(states, 'post', {...values})
+         apiRequest(states, 'post', {...formData}, {})
             .then((res) => {
                 dispatch({type: 'CREATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                history.push("/territories/states");
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_STATE_FAILURE', payload: {error: err}});
                 showToast('error', 'Something went wrong. Please try again later')
                 setSubmitting(false);
+                history.push("/territories/states");
             });
     }
     return (

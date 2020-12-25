@@ -33,7 +33,8 @@ module.exports = {
       lighterGray: '#d8d8d8',
       defaultGray: '#979797',
       mediumGray: '#f7f7f7',
-      darkGray: '#424242',
+      darkGray: '#cdcdd2',
+      darkerGray: '#424242',
       shadow: '#e1e1e1',
       textRed: '#fb0909'
     },

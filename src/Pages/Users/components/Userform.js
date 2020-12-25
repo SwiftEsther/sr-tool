@@ -56,7 +56,7 @@ const UserForm = ({formFields, handleFormSubmit}) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.first_name}
-                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkGray font-medium text-sm"
+                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                                 placeholder="First Name"
                             />
                             {errors.first_name && touched.first_name && <span className="text-xs text-red-600">{errors.first_name}</span>}
@@ -68,7 +68,7 @@ const UserForm = ({formFields, handleFormSubmit}) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.last_name}
-                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkGray font-medium text-sm"
+                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                                 placeholder="Last Name"
                             />
                             {errors.last_name && touched.last_name && <span className="text-xs text-red-600">{errors.last_name}</span>}
@@ -80,7 +80,7 @@ const UserForm = ({formFields, handleFormSubmit}) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.email}
-                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkGray font-medium text-sm"
+                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                                 placeholder="Email"
                             />
                             {errors.email && touched.email && <span className="text-xs text-red-600">{errors.email}</span>}
@@ -91,7 +91,7 @@ const UserForm = ({formFields, handleFormSubmit}) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.group}
-                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkGray font-medium text-sm"
+                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                             >
                                 <option value='' disabled></option>
                                 {groups.map(group => (<option key={group} value={group}>{group}</option>))}
@@ -105,7 +105,7 @@ const UserForm = ({formFields, handleFormSubmit}) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
-                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkGray font-medium text-sm"
+                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                                 placeholder="Password"
                             />
                             {errors.password && touched.password && <span className="text-xs text-red-600">{errors.password}</span>}
