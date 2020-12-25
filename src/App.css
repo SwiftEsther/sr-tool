@@ -93,7 +93,6 @@ select {
 
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
-  /* background: #cdcdd2 url('./shared/assets/upload.svg') no-repeat right 1rem center; */
 }
 
 .custom-file-input::before {
@@ -108,6 +107,28 @@ select {
   cursor: pointer;
   color: #424242;
   font-size: 16px;
+  width: 100%;
+}
+
+.bulk-upload-btn::-webkit-file-upload-button {
+  visibility: hidden;
+  width: 150px;
+}
+
+.bulk-upload-btn::before {
+  content: 'Bulk Upload';
+  display: inline-block;
+  background: #31326f;
+  border-radius: 8px;
+  padding: 17px 0;
+  text-align: center;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
   width: 100%;
 }
 
