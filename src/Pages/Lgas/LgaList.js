@@ -8,11 +8,12 @@ import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { LgaContext } from '../../contexts/LgaContext';
 
-const LgaList = ({}) => {
-    const some = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const LgaList = ({lgas}) => {
+    const some = lgas || [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const [lgaState, dispatch] = useContext(LgaContext);
     const [showModal, setShowModal] = useState(false);
     const [currentLga, setCurrentLga] = useState('');
+    console.log('some', some)
     const customStyles = {
         overlay: {
             backgroundColor: 'transparent'
@@ -88,10 +89,10 @@ const LgaList = ({}) => {
                 </div>
                 <div className="table-body">
                     {some.map((s) => (<div key={s} className="custom-table-row w-full flex">
-                        <div className="table-row-data w-2/10">LGA</div>
-                        <div className="table-row-data w-2/10">KAno North</div>
-                        <div className="table-row-data w-2/10">Gwale</div>
-                        <div className="table-row-data w-2/10">1200</div>
+                        <div className="table-row-data w-2/10">{s.lga || 'LGA'}</div>
+                        <div className="table-row-data w-2/10">{s.senatorialDistrict || 'KAno North'}</div>
+                        <div className="table-row-data w-2/10">{s.state || 'Gwale'}</div>
+                        <div className="table-row-data w-2/10">{s.number || 1200}</div>
                         <div className="table-row-data w-2/10"> 
                             <span data-tip data-for={`ellipsis-lga-${s}`} data-event='click'>
                                 <Ellipsis />
