@@ -9,6 +9,7 @@ import { showToast } from '../../helpers/showToast';
 import LgaList from "./LgaList";
 import { LgaContext, LgaController } from "../../contexts/LgaContext";
 import Uploader from "../../shared/components/Uploader";
+import Downloader from "../../shared/components/Downloader";
 
 const Lgas = ({match}) => {
     const [search, setSearch] = useState('');
@@ -143,7 +144,8 @@ const Lgas = ({match}) => {
                                 placeholder="Bulk Upload"
                             /> */}
                             <Uploader dispatch={dispatch} action="GET_LGAS_SUCCESS"/>
-                            <button className="border border-primary py-4 px-8 text-primary font-bold rounded-lg focus:outline-none" onClick={()=>console.log('Download')}>Download</button>
+                            <Downloader dispatch={dispatch} action="GET_LGAS_SUCCESS" />
+                            {/* <button className="border border-primary py-4 px-8 text-primary font-bold rounded-lg focus:outline-none" onClick={()=>console.log('Download')}>Download</button> */}
                         </div>
                         <div>
                             Pagination
