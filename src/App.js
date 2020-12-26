@@ -32,6 +32,7 @@ import UpdatePollingUnit from './Pages/PollingUnits/UpdatePollingUnit';
 import Parties from './Pages/Parties';
 import { PartyController } from './contexts/PartyContext';
 import CreateParty from './Pages/Parties/CreateParty';
+import UpdateParty from './Pages/Parties/UpdateParty';
 
 Modal.setAppElement("#root");
 
@@ -63,7 +64,7 @@ function App() {
         <Route path="/territories/polling-units"  render ={routerProps => <PUController><PollingUnits {...routerProps}/></PUController>} />
 
         <Route path="/parties/create"  render ={routerProps => <PartyController><CreateParty {...routerProps}/></PartyController>} />
-        <Route path="/territories/polling-units/:id" render ={routerProps => <PartyController><UpdatePollingUnit {...routerProps}/></PartyController>} />
+        <Route path="/parties/:id" render ={routerProps => <PartyController><UpdateParty {...routerProps}/></PartyController>} />
         <Route path="/parties"  render ={routerProps => <PartyController><Parties {...routerProps}/></PartyController>} />
       </Switch>
     </>
