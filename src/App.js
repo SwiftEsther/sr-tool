@@ -24,6 +24,7 @@ import UpdateLga from './Pages/Lgas/UpdateLga';
 import { WardController } from './contexts/WardContext';
 import Wards from './Pages/Wards';
 import CreateWard from './Pages/Wards/CreateLga';
+import UpdateWard from './Pages/Wards/UpdateLga';
 
 Modal.setAppElement("#root");
 
@@ -47,7 +48,7 @@ function App() {
         <Route path="/territories/lgas"  render ={routerProps => <LgaController><Lgas {...routerProps}/></LgaController>} />
 
         <Route path="/territories/wards/create"  render ={routerProps => <WardController><CreateWard {...routerProps}/></WardController>} />
-        <Route path="/territories/wards/:id" render ={routerProps => <WardController><UpdateLga {...routerProps}/></WardController>} />
+        <Route path="/territories/wards/:id" render ={routerProps => <WardController><UpdateWard {...routerProps}/></WardController>} />
         <Route path="/territories/wards"  render ={routerProps => <WardController><Wards {...routerProps}/></WardController>} />
       </Switch>
     </>
