@@ -23,8 +23,8 @@ import CreateLga from './Pages/Lgas/CreateLga';
 import UpdateLga from './Pages/Lgas/UpdateLga';
 import { WardController } from './contexts/WardContext';
 import Wards from './Pages/Wards';
-import CreateWard from './Pages/Wards/CreateLga';
-import UpdateWard from './Pages/Wards/UpdateLga';
+import CreateWard from './Pages/Wards/CreateWard';
+import UpdateWard from './Pages/Wards/UpdateWard';
 
 Modal.setAppElement("#root");
 
