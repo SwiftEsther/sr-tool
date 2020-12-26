@@ -27,7 +27,7 @@ const CreateLga = ({match}) => {
         <Layout>
             <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
                 pathname: "/territories"}, {id: 2,title: 'LGAs',
-                pathname: "/territories/states"}, {id: 3,title: 'Add LGA',
+                pathname: "/territories/lgas"}, {id: 3,title: 'Add LGA',
                 pathname: match.path}]}/>
             <div className="py-9 px-3.5">
                 <LgaForm handleFormSubmit={handleCreate}/>
