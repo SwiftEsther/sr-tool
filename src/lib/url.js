@@ -18,4 +18,12 @@ export const createLga = `${baseUrl}/api/v${version}/lga`;
 export const getLgaById = `${baseUrl}/api/v${version}/lga`;
 export const getLgaByCode = `${baseUrl}/api/v${version}/lga`;
 export const updateLga = `${baseUrl}/api/v${version}/lga`;
-export const deleteLga = `${baseUrl}/api/v${version}/lga`;
+export const deleteLga = `${baseUrl}/api/v${version}/lga/delete`;
+
+//----WARD URLS----//
+export const allWards = `${baseUrl}/api/v${version}/wards`;
+export const createWard = `${baseUrl}/api/v${version}/ward`;
+export const getWardById = `${baseUrl}/api/v${version}/ward`;
+export const getWardByCode = `${baseUrl}/api/v${version}/ward`;
+export const updateWard = `${baseUrl}/api/v${version}/ward`;
+export const deleteWard = `${baseUrl}/api/v${version}/ward/delete`;
