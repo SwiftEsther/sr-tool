@@ -5,163 +5,163 @@ const initialState = {
   loading: false,
   success: false,
   error: null,
-  wards: [],
-  ward: null,
+  pollingUnits: [],
+  pollingUnit: null,
   message: ''
 };
 
 const initialContext = [{...initialState}, () => {}];
 
-export const WardContext = createContext(initialContext);
+export const PUContext = createContext(initialContext);
 
-const wardReducer = (state, action) => {
+const puReducer = (state, action) => {
   switch (action.type) {
-    case 'GET_WARDS':
+    case 'GET_POLLING_UNITS':
       return {
         ...state,
         loading: true,
       };
-    case 'GET_WARDS_SUCCESS':
+    case 'GET_POLLING_UNITS_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
-        wards: action.payload.response,
+        pollingUnits: action.payload.response,
       };
-    case 'GET_WARDS_FAILURE':
+    case 'GET_POLLING_UNITS_FAILURE':
       return {
         ...state,
         loading: false,
         success: false,
         error: action.payload.error,
       };
-    case 'CREATE_WARD':
+    case 'CREATE_POLLING_UNIT':
       return {
         ...state,
         loading: true,
       };
-    case 'CREATE_WARD_SUCCESS':
+    case 'CREATE_POLLING_UNIT_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        pollingUnit: action.payload.response,
       };
-    case 'CREATE_WARD_FAILURE':
+    case 'CREATE_POLLING_UNIT_FAILURE':
       return {
         ...state,
         loading: false,
         success: false,
         error: action.payload.error,
       };
-    case 'UPDATE_WARD':
+    case 'UPDATE_POLLING_UNIT':
       return {
         ...state,
         loading: true,
       };
-    case 'UPDATE_WARD_SUCCESS':
+    case 'UPDATE_POLLING_UNIT_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        pollingUnit: action.payload.response,
       };
-    case 'UPDATE_WARD_FAILURE':
+    case 'UPDATE_POLLING_UNIT_FAILURE':
       return {
         ...state,
         loading: false,
         success: false,
         error: action.payload.error,
       };
-    case 'DELETE_WARD':
+    case 'DELETE_POLLING_UNIT':
       return {
         ...state,
         loading: true,
       };
-    case 'DELETE_WARD_SUCCESS':
+    case 'DELETE_POLLING_UNIT_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        pollingUnit: action.payload.response,
       };
-    case 'DELETE_WARD_FAILURE':
+    case 'DELETE_POLLING_UNIT_FAILURE':
       return {
         ...state,
         loading: false,
         success: false,
         error: action.payload.error,
       };
-    case 'GET_WARD_BY_ID':
+    case 'GET_POLLING_UNIT_BY_ID':
       return {
         ...state,
         loading: true,
       };
-    case 'GET_WARD_BY_ID_SUCCESS':
+    case 'GET_POLLING_UNIT_BY_ID_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        pollingUnit: action.payload.response,
       };
-    case 'GET_WARD_BY_ID_FAILURE':
+    case 'GET_POLLING_UNIT_BY_ID_FAILURE':
       return {
         ...state,
         loading: false,
         success: false,
         error: action.payload.error,
       };
-    case 'GET_WARD_BY_CODE':
+    case 'GET_POLLING_UNIT_BY_CODE':
       return {
         ...state,
         loading: true,
       };
-    case 'GET_WARD_BY_CODE_SUCCESS':
+    case 'GET_POLLING_UNIT_BY_CODE_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        pollingUnit: action.payload.response,
       };
-    case 'GET_WARD_BY_CODE_FAILURE':
+    case 'GET_POLLING_UNIT_BY_CODE_FAILURE':
       return {
         ...state,
         loading: false,
         success: false,
         error: action.payload.error,
       };
-      case 'UPLAOD_WARD':
+      case 'UPLAOD_POLLING_UNIT':
       return {
         ...state,
         loading: true,
       };
-    case 'UPLAOD_WARD_SUCCESS':
+    case 'UPLAOD_POLLING_UNIT_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
         message: action.payload.message,
       };
-    case 'UPLAOD_WARD_FAILURE':
+    case 'UPLAOD_POLLING_UNIT_FAILURE':
       return {
         ...state,
         loading: false,
         success: false,
         error: action.payload.error,
       };
-    case 'DOWNLOAD_WARD':
+    case 'DOWNLOAD_POLLING_UNIT':
       return {
         ...state,
         loading: true,
       };
-    case 'DOWNLOAD_WARD_SUCCESS':
+    case 'DOWNLOAD_POLLING_UNIT_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
         message: action.payload.message,
       };
-    case 'DOWNLOAD_WARD_FAILURE':
+    case 'DOWNLOAD_POLLING_UNIT_FAILURE':
       return {
         ...state,
         loading: false,
@@ -175,16 +175,16 @@ const wardReducer = (state, action) => {
   }
 };
 
-export function WardController(props) {
-  const [state, dispatch] = useReducer(wardReducer, initialState);
+export function PUController(props) {
+  const [state, dispatch] = useReducer(puReducer, initialState);
   const value = useMemo(() => [state, dispatch], [state]);
 
   return (
-    <WardContext.Provider value={value}>{props.children}</WardContext.Provider>
+    <PUContext.Provider value={value}>{props.children}</PUContext.Provider>
   );
 }
 
-WardController.propTypes = {
+PUController.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
