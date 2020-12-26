@@ -1,15 +1,17 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
 
-const LgaForm = ({formFields, handleFormSubmit}) => {
+const WardForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
     const states = ['LGA', 'LAG'];
+    const lgas = ['LGA', 'LAG'];
     const districts = ['Distrits', 'Districts'];
     let initialValues = {
         state: '',
         senatorialDistrict: '',
         name: '',
-        number: ''
+        number: '',
+        lga: ''
     }
 
     const validate = (values) => {
@@ -17,10 +19,12 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
         const errors = {};
         if (!values.state) {
             errors.first_name = 'State is required';
+        }   else if (!values.lga) {
+            errors.lga = 'LGA is required';
         }   else if (!values.senatorialDistrict) {
             errors.senatorialDistrict = 'Senatorial District is required is required';
         }   else if(!values.name) {
-            errors.group = 'LGA name is required';
+            errors.group = 'Ward name is required';
         }   else if(!values.number) {
             errors.number = 'Number is required';
         }   else {
@@ -75,6 +79,19 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                             {errors.senatorialDistrict && touched.senatorialDistrict && <span className="text-xs text-red-600">{errors.senatorialDistrict}</span>}
                         </div>
                         <div className="mt-4 mb-12">
+                            <select 
+                                name="lga" 
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.lga}
+                                className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
+                            >
+                                <option value='' disabled>LGA</option>
+                                {lgas.map(lga => (<option key={lga} value={lga}>{lga}</option>))}
+                            </select>
+                            {errors.lga && touched.lga && <span className="text-xs text-red-600">{errors.lga}</span>}
+                        </div>
+                        <div className="mt-4 mb-12">
                             <input
                                 type="text"
                                 name="name"
@@ -82,7 +99,7 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                                 onBlur={handleBlur}
                                 value={values.name}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
-                                placeholder="Local Government Area"
+                                placeholder="Ward"
                             />
                             {errors.name && touched.name && <span className="text-xs text-red-600">{errors.name}</span>}
                         </div>
@@ -100,7 +117,7 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                         </div>
                         <div className="flex justify-between items-center">
                             <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 px-16 text-white font-bold rounded-sm focus:outline-none">
-                                {formFields ? 'Update' : 'Add'} LGA
+                                {formFields ? 'Update' : 'Add'} Ward
                             </button>
                             <button className="border border-primary py-4 px-16 text-primary font-bold rounded-sm focus:outline-none" onClick={handleReset} >
                                 Cancel
@@ -113,4 +130,4 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
     )
 }
 
-export default LgaForm;
+export default WardForm;
