@@ -6,7 +6,8 @@ const initialState = {
   success: false,
   error: null,
   lgas: [],
-  lga: null
+  lga: null,
+  message: ''
 };
 
 const initialContext = [{...initialState}, () => {}];
@@ -85,6 +86,82 @@ const lgaReducer = (state, action) => {
         lga: action.payload.response,
       };
     case 'DELETE_LGA_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+    case 'GET_LGA_BY_ID':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_LGA_BY_ID_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        lga: action.payload.response,
+      };
+    case 'GET_LGA_BY_ID_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+    case 'GET_LGA_BY_CODE':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_LGA_BY_CODE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        lga: action.payload.response,
+      };
+    case 'GET_LGA_BY_CODE_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+      case 'UPLAOD_LGA':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'UPLAOD_LGA_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        message: action.payload.message,
+      };
+    case 'UPLAOD_LGA_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+    case 'DOWNLOAD_LGA':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'DOWNLOAD_LGA_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        message: action.payload.message,
+      };
+    case 'DOWNLOAD_LGA_FAILURE':
       return {
         ...state,
         loading: false,
