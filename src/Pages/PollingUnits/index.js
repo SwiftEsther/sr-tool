@@ -112,7 +112,7 @@ const PollingUnits = ({match}) => {
                             {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
                         </select>
                     </div>
-                    <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/territories/polling_units/create">
+                    <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/territories/polling-units/create">
                         Add Polling Unit
                     </Link>
                 </div>

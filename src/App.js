@@ -27,6 +27,8 @@ import CreateWard from './Pages/Wards/CreateWard';
 import UpdateWard from './Pages/Wards/UpdateWard';
 import { PUController } from './contexts/PollingUnitContext';
 import PollingUnits from './Pages/PollingUnits';
+import CreatePollingUnit from './Pages/PollingUnits/CreatePollingUnit';
+import UpdatePollingUnit from './Pages/PollingUnits/UpdatePollingUnit';
 
 Modal.setAppElement("#root");
 
@@ -53,8 +55,8 @@ function App() {
         <Route path="/territories/wards/:id" render ={routerProps => <WardController><UpdateWard {...routerProps}/></WardController>} />
         <Route path="/territories/wards"  render ={routerProps => <WardController><Wards {...routerProps}/></WardController>} />
 
-        <Route path="/territories/polling-units/create"  render ={routerProps => <PUController><CreateWard {...routerProps}/></PUController>} />
-        <Route path="/territories/polling-units/:id" render ={routerProps => <PUController><UpdateWard {...routerProps}/></PUController>} />
+        <Route path="/territories/polling-units/create"  render ={routerProps => <PUController><CreatePollingUnit {...routerProps}/></PUController>} />
+        <Route path="/territories/polling-units/:id" render ={routerProps => <PUController><UpdatePollingUnit {...routerProps}/></PUController>} />
         <Route path="/territories/polling-units"  render ={routerProps => <PUController><PollingUnits {...routerProps}/></PUController>} />
       </Switch>
     </>
