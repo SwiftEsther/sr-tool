@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import * as XLSX from 'xlsx';
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
@@ -18,83 +17,14 @@ const Lgas = ({match}) => {
     const [filter, setFilter] = useState({senatorialDistrict: '', state: ''});
     const [districts, setDistricts] = useState([]);
     const [states, setStates] = useState([]);
- 
-  // process CSV data
-  const processData = dataString => {
-    const dataStringLines = dataString.split(/\r\n|\n/);
-    const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
- 
-    const list = [];
-    for (let i = 1; i < dataStringLines.length; i++) {
-      const row = dataStringLines[i].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
-      if (headers && row.length == headers.length) {
-        const obj = {};
-        for (let j = 0; j < headers.length; j++) {
-          let d = row[j];
-          if (d.length > 0) {
-            if (d[0] == '"')
-              d = d.substring(1, d.length - 1);
-            if (d[d.length - 1] == '"')
-              d = d.substring(d.length - 2, 1);
-          }
-          if (headers[j]) {
-            let header = headers[j].split(" ");
-            header[0] = header[0].toLowerCase();
-            obj[header.join("")] = d;
-          }
-        }
- 
-        // remove the blank rows
-        if (Object.values(obj).filter(x => x).length > 0) {
-          list.push(obj);
-        }
-      }
-    }
-
-    console.log(headers,list)
- 
-    // prepare columns list from headers
-    // const columns = headers.map(c => ({
-    //   name: c,
-    //   selector: c,
-    // }));
- 
-    // setData(list);
-    // setColumns(columns);
-
-    dispatch({type: 'GET_LGAS_SUCCESS', payload: {response: list}});
-        // setSubmitting(false);
-  }
- 
-  // handle file upload
-  const handleFileUpload = e => {
-    const file = e.target.files[0];
-    if(file){
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-        /* Parse data */
-        const bstr = evt.target.result;
-        const wb = XLSX.read(bstr, { type: 'binary' });
-        /* Get first worksheet */
-        const wsname = wb.SheetNames[0];
-        const ws = wb.Sheets[wsname];
-        /* Convert array of arrays */
-        const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-          processData(data);
-        // console.log(data)
-        };
-        reader.readAsBinaryString(file);
-    }
-  }
 
     const handleChange = (event) => {
         setSearch(event.target.value);
-        console.log(event.target.value)
     }
 
     const filterData = (e) => {
         const name = e.currentTarget.name;
-        const value = e.currentTarget.vale;
+        const value = e.currentTarget.value;
         setFilter({...filter, [name]: value})
         let query = pickBy(filter);
         if(Object.keys(query).length) { dispatch({type: 'GET_LGAS'});
