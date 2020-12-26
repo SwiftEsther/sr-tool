@@ -95,11 +95,11 @@ const LgaList = ({lgas}) => {
                             <div className="table-row-data w-2/10">{s.state || 'Gwale'}</div>
                             <div className="table-row-data w-2/10">{s.number || 1200}</div>
                             <div className="table-row-data w-2/10"> 
-                                <span data-tip data-for={`ellipsis-lga-${s}`} data-event='click'>
+                                <span data-tip data-for={`ellipsis-lga-${s.number}`} data-event='click'>
                                     <Ellipsis />
                                 </span>
-                                <ReactTooltip id={`ellipsis-lga-${s}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                    <Link to={{pathname: `/lgas/${s}`, state: {lga: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                <ReactTooltip id={`ellipsis-lga-${s.number}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                    <Link to={{pathname: `/territories/lgas/${s.number}`, state: {lga: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
                                     <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                                 </ReactTooltip>
                             </div>

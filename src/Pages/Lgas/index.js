@@ -172,7 +172,7 @@ const Lgas = ({match}) => {
                                 {districts.map(district => (<option key={district.id} value={district.code}>{district.name}</option>))}
                             </select>
                         </div>
-                        <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/lgas/create">
+                        <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/territories/lgas/create">
                             Add Lga
                         </Link>
                     </div>

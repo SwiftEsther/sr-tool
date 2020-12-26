@@ -19,6 +19,8 @@ import CreateState from './Pages/States/CreateState';
 import UpdateState from './Pages/States/UpdateState';
 import Lgas from './Pages/Lgas';
 import { LgaController } from './contexts/LgaContext';
+import CreateLga from './Pages/Lgas/CreateLga';
+import UpdateLga from './Pages/Lgas/UpdateLga';
 
 Modal.setAppElement("#root");
 
@@ -37,8 +39,8 @@ function App() {
         <Route path="/territories/states/:id" render ={routerProps => <StateController><UpdateState {...routerProps}/></StateController>} />
         <Route path="/territories/states"  render ={routerProps => <StateController><States {...routerProps}/></StateController>} />
 
-        {/* <Route path="/territories/states/create"  render ={routerProps => <StateController><CreateState {...routerProps}/></StateController>} />
-        <Route path="/territories/states/:id" render ={routerProps => <StateController><UpdateState {...routerProps}/></StateController>} /> */}
+        <Route path="/territories/lgas/create"  render ={routerProps => <LgaController><CreateLga {...routerProps}/></LgaController>} />
+        <Route path="/territories/lgas/:id" render ={routerProps => <LgaController><UpdateLga {...routerProps}/></LgaController>} />
         <Route path="/territories/lgas"  render ={routerProps => <LgaController><Lgas {...routerProps}/></LgaController>} />
       </Switch>
     </>
