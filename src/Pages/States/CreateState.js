@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Breadcrumbs } from 'react-breadcrumbs';
 import Layout from '../../shared/Layout';
-import {states} from '../../lib/url.js';
+import {createState} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
@@ -17,7 +17,7 @@ const CreateState = ({match, history}) => {
         console.log('Req', formData.name)
         dispatch({type: 'CREATE_STATE'});
          setSubmitting(true);
-         apiRequest(states, 'post', {...formData}, {})
+         apiRequest(createState, 'post', {...formData}, {})
             .then((res) => {
                 dispatch({type: 'CREATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);

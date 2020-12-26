@@ -91,6 +91,25 @@ const userReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
+    case 'GET_USER_BY_NAME':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_USER_BY_NAME_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        user: action.payload.response,
+      };
+    case 'GET_USER_BY_NAME_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
     default:
       return {
         ...initialState,

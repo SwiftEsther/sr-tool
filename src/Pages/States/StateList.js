@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Modal from 'react-modal';
 import Ellipsis from '../../shared/components/Ellipsis';
-import {states} from '../../lib/url.js';
+import {deleteState} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
@@ -32,7 +32,7 @@ const StateList = ({}) => {
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_STATE'});
-         apiRequest(states, 'delete')
+         apiRequest(deleteState, 'delete')
             .then((res) => {
                 dispatch({type: 'DELETE_STATE_SUCCESS', payload: {response: res}});
                 setShowModal(false);

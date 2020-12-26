@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Breadcrumbs } from 'react-breadcrumbs';
 import Layout from '../../shared/Layout';
-import {states} from '../../lib/url.js';
+import {updateState} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
@@ -16,7 +16,7 @@ const UpdateState = ({match, location}) => {
     const handleUpdate = (values, {setSubmitting}) => {
         dispatch({type: 'UPDATE_STATE'});
          setSubmitting(true);
-         apiRequest(states, 'put', {...values})
+         apiRequest(updateState, 'put', {...values})
             .then((res) => {
                 dispatch({type: 'UPDATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);

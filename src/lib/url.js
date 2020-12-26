@@ -10,7 +10,12 @@ export const login = `${baseUrl}/api/v${version}/login`;
 export const users = `${baseUrl}/api/v${version}/users`;
 
 //----STATE URLS----//
-export const states = `${baseUrl}/api/v${version}/states`;
+export const allStates = `${baseUrl}/api/v${version}/states`;
+export const createState = `${baseUrl}/api/v${version}/state`;
+export const getStateById = `${baseUrl}/api/v${version}/state`;
+export const getStateByCode = `${baseUrl}/api/v${version}/state`;
+export const updateState = `${baseUrl}/api/v${version}/state`;
+export const deleteState = `${baseUrl}/api/v${version}/state/delete`;
 
 //----LGA URLS----//
 export const allLgas = `${baseUrl}/api/v${version}/lgas`;
