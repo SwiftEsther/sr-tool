@@ -28,10 +28,18 @@ export const getWardByCode = `${baseUrl}/api/v${version}/ward`;
 export const updateWard = `${baseUrl}/api/v${version}/ward`;
 export const deleteWard = `${baseUrl}/api/v${version}/ward/delete`;
 
-//----POLLING UNITS URLS----//
+//----POLLING UNIT URLS----//
 export const allPollingUnits = `${baseUrl}/api/v${version}/pus`;
 export const createPollingUnit = `${baseUrl}/api/v${version}/pu`;
 export const getPollingUnitById = `${baseUrl}/api/v${version}/pu`;
 export const getPollingUnitByCode = `${baseUrl}/api/v${version}/pu`;
 export const updatePollingUnit = `${baseUrl}/api/v${version}/pu`;
 export const deletePollingUnit = `${baseUrl}/api/v${version}/pu/delete`;
+
+//----POLITICAL PARTY URLS----//
+export const allParties = `${baseUrl}/api/v${version}/political-party/all`;
+export const createParty = `${baseUrl}/api/v${version}/political-party`;
+export const getPartyById = `${baseUrl}/api/v${version}/political-party`;
+export const getPartyByCode = `${baseUrl}/api/v${version}/political-party`;
+export const updateParty = `${baseUrl}/api/v${version}/political-party`;
+export const deleteParty = `${baseUrl}/api/v${version}/political-party/delete`;
