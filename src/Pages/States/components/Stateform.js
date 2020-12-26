@@ -64,7 +64,7 @@ const StateForm = ({formFields, handleFormSubmit}) => {
                                 onBlur={(event) => {
                                     setFieldValue("map", event.currentTarget.files[0]);
                                 }}
-                                accept="image/*"
+                                accept=".svg"
                                 // multiple
                                 // onChange={(event) => setFile(event.target.files[0])}
                                 // value={values.name}
