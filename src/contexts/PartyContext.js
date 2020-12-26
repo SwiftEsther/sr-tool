@@ -91,6 +91,25 @@ const partyReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
+    case 'GET_PARTY_BY_CODE':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_PARTY_BY_CODE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        party: action.payload.response,
+      };
+    case 'GET_PARTY_BY_CODE_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
     default:
       return {
         ...initialState,
