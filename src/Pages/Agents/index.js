@@ -111,7 +111,7 @@ const Agents = ({match}) => {
                             {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.code}>{pollingUnit.name}</option>))}
                         </select>
                     </div>
-                    <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/territories/lgas/create">
+                    <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/agents/create">
                         Add Agent
                     </Link>
                 </div>
