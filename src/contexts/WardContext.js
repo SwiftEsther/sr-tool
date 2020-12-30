@@ -130,19 +130,19 @@ const wardReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
-      case 'UPLAOD_WARD':
+      case 'UPLOAD_WARD':
       return {
         ...state,
         loading: true,
       };
-    case 'UPLAOD_WARD_SUCCESS':
+    case 'UPLOAD_WARD_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
         message: action.payload.message,
       };
-    case 'UPLAOD_WARD_FAILURE':
+    case 'UPLOAD_WARD_FAILURE':
       return {
         ...state,
         loading: false,

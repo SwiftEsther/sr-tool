@@ -130,19 +130,19 @@ const puReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
-      case 'UPLAOD_POLLING_UNIT':
+      case 'UPLOAD_POLLING_UNIT':
       return {
         ...state,
         loading: true,
       };
-    case 'UPLAOD_POLLING_UNIT_SUCCESS':
+    case 'UPLOAD_POLLING_UNIT_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
         message: action.payload.message,
       };
-    case 'UPLAOD_POLLING_UNIT_FAILURE':
+    case 'UPLOAD_POLLING_UNIT_FAILURE':
       return {
         ...state,
         loading: false,

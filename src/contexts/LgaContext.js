@@ -130,19 +130,19 @@ const lgaReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
-      case 'UPLAOD_LGA':
+      case 'UPLOAD_LGA':
       return {
         ...state,
         loading: true,
       };
-    case 'UPLAOD_LGA_SUCCESS':
+    case 'UPLOAD_LGA_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
         message: action.payload.message,
       };
-    case 'UPLAOD_LGA_FAILURE':
+    case 'UPLOAD_LGA_FAILURE':
       return {
         ...state,
         loading: false,
