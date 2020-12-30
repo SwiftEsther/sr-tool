@@ -48,3 +48,12 @@ export const getPartyById = `${baseUrl}/api/v${version}/political-party`;
 export const getPartyByCode = `${baseUrl}/api/v${version}/political-party`;
 export const updateParty = `${baseUrl}/api/v${version}/political-party`;
 export const deleteParty = `${baseUrl}/api/v${version}/political-party/delete`;
+
+//----AGENT URLS----//
+export const allAgents = `${baseUrl}/api/v${version}/party-agent/all`;
+export const createAgent = `${baseUrl}/api/v${version}/party-agent`;
+export const getAgentByPhone = `${baseUrl}/api/v${version}/party-agent/phone`;
+export const searchAgentByName = `${baseUrl}/api/v${version}/party-agent`;
+export const getAgent = `${baseUrl}/api/v${version}/party-agent`;
+export const updateAgent = `${baseUrl}/api/v${version}/party-agent`;
+export const deleteAgent = `${baseUrl}/api/v${version}/party-agent/delete`;
