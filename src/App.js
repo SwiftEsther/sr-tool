@@ -33,6 +33,8 @@ import Parties from './Pages/Parties';
 import { PartyController } from './contexts/PartyContext';
 import CreateParty from './Pages/Parties/CreateParty';
 import UpdateParty from './Pages/Parties/UpdateParty';
+import { AgentController } from './contexts/AgentContext';
+import Agents from './Pages/Agents';
 
 Modal.setAppElement("#root");
 
@@ -66,6 +68,10 @@ function App() {
         <Route path="/parties/create"  render ={routerProps => <PartyController><CreateParty {...routerProps}/></PartyController>} />
         <Route path="/parties/:id" render ={routerProps => <PartyController><UpdateParty {...routerProps}/></PartyController>} />
         <Route path="/parties"  render ={routerProps => <PartyController><Parties {...routerProps}/></PartyController>} />
+
+        <Route path="/agents/create"  render ={routerProps => <AgentController><CreateParty {...routerProps}/></AgentController>} />
+        <Route path="/agents/:id" render ={routerProps => <AgentController><UpdateParty {...routerProps}/></AgentController>} />
+        <Route path="/agents"  render ={routerProps => <AgentController><Agents {...routerProps}/></AgentController>} />
       </Switch>
     </>
   );
