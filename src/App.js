@@ -36,6 +36,7 @@ import UpdateParty from './Pages/Parties/UpdateParty';
 import { AgentController } from './contexts/AgentContext';
 import Agents from './Pages/Agents';
 import CreateAgent from './Pages/Agents/CreateAgent';
+import UpdateAgent from './Pages/Agents/UpdateAgent';
 
 Modal.setAppElement("#root");
 
@@ -71,7 +72,7 @@ function App() {
         <Route path="/parties"  render ={routerProps => <PartyController><Parties {...routerProps}/></PartyController>} />
 
         <Route path="/agents/create"  render ={routerProps => <AgentController><CreateAgent {...routerProps}/></AgentController>} />
-        <Route path="/agents/:id" render ={routerProps => <AgentController><UpdateParty {...routerProps}/></AgentController>} />
+        <Route path="/agents/:id" render ={routerProps => <AgentController><UpdateAgent {...routerProps}/></AgentController>} />
         <Route path="/agents"  render ={routerProps => <AgentController><Agents {...routerProps}/></AgentController>} />
       </Switch>
     </>

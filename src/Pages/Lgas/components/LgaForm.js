@@ -16,11 +16,11 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
         console.log(values);
         const errors = {};
         if (!values.state) {
-            errors.first_name = 'State is required';
+            errors.state = 'State is required';
         }   else if (!values.senatorialDistrict) {
             errors.senatorialDistrict = 'Senatorial District is required is required';
         }   else if(!values.name) {
-            errors.group = 'LGA name is required';
+            errors.name = 'LGA name is required';
         }   else if(!values.number) {
             errors.number = 'Number is required';
         }   else {
