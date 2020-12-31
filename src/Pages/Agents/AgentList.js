@@ -7,8 +7,9 @@ import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { AgentContext } from '../../contexts/AgentContext';
 import { deleteAgent } from '../../lib/url';
+import Loader from '../../shared/components/Loader';
 
-const AgentList = ({agents}) => {
+const AgentList = ({agents, loading}) => {
     const some = agents || [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const [agentState, dispatch] = useContext(AgentContext);
     const [showModal, setShowModal] = useState(false);
@@ -89,27 +90,31 @@ const AgentList = ({agents}) => {
                     </div>
                     
                 </div>
-                <div className="table-body">
-                    {agents.length > 0 ? 
-                        some.map((s) => (<div key={s} className="custom-table-row w-full flex">
-                            <div className="table-row-data w-2/12">{s.first_name || ''}</div>
-                            <div className="table-row-data w-2/12">{s.last_name || ''}</div>
-                            <div className="table-row-data w-3/12">{s.lga || ''}</div>
-                            <div className="table-row-data w-1/12">{s.ward || 'KAno North'}</div>
-                            <div className="table-row-data w-2/12">{s.pollingUnit || 'Gwale'}</div>
-                            <div className="table-row-data w-2/12">{s.phoneNumber || 1200}<img src="../../shared/assets/phone.svg"/></div>
-                            <div className="table-row-data w-2/12"> 
-                                <span data-tip data-for={`ellipsis-agent-${s.number}`} data-event='click'>
-                                    <Ellipsis />
-                                </span>
-                                <ReactTooltip id={`ellipsis-agent-${s.number}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                    <Link to={{pathname: `/agents/${s.number}`, state: {agent: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
-                                    <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
-                                </ReactTooltip>
-                            </div>
-                        </div>))
-                    : <div className="table-row-data w-full text-center my-4">There are no Agents to display</div>}
-                </div>
+                {loading ? 
+                    <div className="flex justify-center my-6">
+                        <Loader />
+                    </div> :
+                    <div className="table-body">
+                        {agents.length > 0 ? 
+                            some.map((s) => (<div key={s} className="custom-table-row w-full flex">
+                                <div className="table-row-data w-2/12">{s.first_name || ''}</div>
+                                <div className="table-row-data w-2/12">{s.last_name || ''}</div>
+                                <div className="table-row-data w-3/12">{s.lga || ''}</div>
+                                <div className="table-row-data w-1/12">{s.ward || 'KAno North'}</div>
+                                <div className="table-row-data w-2/12">{s.pollingUnit || 'Gwale'}</div>
+                                <div className="table-row-data w-2/12">{s.phoneNumber || 1200}<img src="../../shared/assets/phone.svg"/></div>
+                                <div className="table-row-data w-2/12"> 
+                                    <span data-tip data-for={`ellipsis-agent-${s.number}`} data-event='click'>
+                                        <Ellipsis />
+                                    </span>
+                                    <ReactTooltip id={`ellipsis-agent-${s.number}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                        <Link to={{pathname: `/agents/${s.number}`, state: {agent: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                        <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
+                                    </ReactTooltip>
+                                </div>
+                            </div>))
+                        : <div className="table-row-data w-full text-center my-4">There are no Agents to display</div>}
+                    </div>}
             </div>
         </div>
     );

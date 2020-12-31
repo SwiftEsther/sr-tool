@@ -7,7 +7,8 @@ const initialState = {
   error: null,
   agents: [],
   agent: null,
-  message: ''
+  message: '',
+  response: null
 };
 
 const initialContext = [{...initialState}, () => {}];
@@ -26,7 +27,8 @@ const agentReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        agents: action.payload.response,
+        response: action.payload.response,
+        agents: action.payload.response.partyAgents
       };
     case 'GET_AGENTS_FAILURE':
       return {

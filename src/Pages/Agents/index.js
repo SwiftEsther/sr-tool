@@ -78,6 +78,7 @@ const Agents = ({match}) => {
          apiRequest(allAgents, 'get')
             .then((res) => {
                 dispatch({type: 'GET_AGENTS_SUCCESS', payload: {response: res}});
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
                 // setSubmitting(false);
             })
             .catch((err) => {
@@ -139,8 +140,8 @@ const Agents = ({match}) => {
                         </button>
                     </div>
                 </div>
-                <AgentList agents={agentState.agents}/>
-                <div className="flex justify-between items-center mt-4">
+                <AgentList agents={agentState.agents} loading={agentState.loading}/>
+                {!agentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="GET_AGENTS_SUCCESS"/>
                         {agentState.agents.length > 0 && <Downloader dispatch={dispatch} action="GET_AGENTS_SUCCESS" />}
@@ -148,7 +149,7 @@ const Agents = ({match}) => {
                     {agentState.agents.length > 0 && <div>
                         <Pagination totalRecords={200} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
-                </div>
+                </div>}
             </div>
         </Layout>
     );
