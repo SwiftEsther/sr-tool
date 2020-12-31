@@ -10,6 +10,7 @@ import Downloader from "../../shared/components/Downloader";
 import pickBy from 'lodash/pickBy'
 import { AgentContext } from "../../contexts/AgentContext";
 import AgentList from "./AgentList";
+import Pagination from "../../shared/components/Pagination";
 
 const Agents = ({match}) => {
     const [search, setSearch] = useState('');
@@ -18,6 +19,9 @@ const Agents = ({match}) => {
     const [lgas, setLgas] = useState([]);
     const [wards, setWards] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [agents, setAgents] = useState([]);
+    // const [totalPages, ]
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -56,6 +60,16 @@ const Agents = ({match}) => {
                 showToast('error', 'Something went wrong. Please try again later')
                 // setSubmitting(false);
             });
+    }
+
+    const onPageChanged = data => {
+        // const { allCountries } = this.state;
+        // const { currentPage, totalPages, pageLimit } = data;
+        // const offset = (currentPage - 1) * pageLimit;
+        // const currentCountries = allCountries.slice(offset, offset + pageLimit);
+
+        // this.setState({ currentPage, currentCountries, totalPages });
+        console.log('Page changed',data)
     }
 
     useEffect(() => {
@@ -132,7 +146,7 @@ const Agents = ({match}) => {
                         {agentState.agents.length > 0 && <Downloader dispatch={dispatch} action="GET_AGENTS_SUCCESS" />}
                     </div>
                     {agentState.agents.length > 0 && <div>
-                        Pagination
+                        <Pagination totalRecords={200} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
                 </div>
             </div>

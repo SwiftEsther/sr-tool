@@ -122,7 +122,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
     return (
         <>
         <nav aria-label="Pagination" className="flex items-center">
-                    <button className="bg-primary px-4 py-2 text-white focus:outline-none rounded-sm" onClick={() => gotoPage(currentPage - 1)} disabled={currentPage <= 1}>Previous</button>
+        <button className="bg-primary px-4 py-2 text-white focus:outline-none rounded-sm" onClick={() => gotoPage(currentPage - 1)} disabled={currentPage <= 1}>Previous</button>
           <ul className="pagination flex">
             { pages.map((page, index) => {
 
@@ -153,7 +153,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
             }) }
 
           </ul>
-                    <button className="bg-primary px-4 py-2 text-white focus:outline-none rounded-sm" onClick={() => gotoPage(currentPage + 1)} disabled={currentPage == allPages}>Next</button>
+        <button className="bg-primary px-4 py-2 text-white focus:outline-none rounded-sm" onClick={() => gotoPage(currentPage + 1)} disabled={currentPage == allPages}>Next</button>
         </nav>
       </>
     )
