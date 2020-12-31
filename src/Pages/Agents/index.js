@@ -74,17 +74,14 @@ const Agents = ({match}) => {
 
     useEffect(() => {
         dispatch({type: 'GET_AGENTS'});
-        //  setSubmitting(true);
          apiRequest(allAgents, 'get')
             .then((res) => {
                 dispatch({type: 'GET_AGENTS_SUCCESS', payload: {response: res}});
                 showToast('success', `${res.statusCode}: ${res.statusMessage}`)
-                // setSubmitting(false);
             })
             .catch((err) => {
                 dispatch({type: 'GET_AGENTS_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
     }, []);
 

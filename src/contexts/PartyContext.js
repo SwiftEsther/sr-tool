@@ -1,11 +1,13 @@
 import React, {useReducer, useMemo, createContext} from 'react';
 import PropTypes from 'prop-types';
+import { act } from 'react-dom/test-utils';
 
 const initialState = {
   loading: false,
   success: false,
   error: null,
   parties: [],
+  response: null,
   party: null
 };
 
@@ -25,7 +27,8 @@ const partyReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        parties: action.payload.response,
+        response: action.payload.response,
+        parties: action.payload.response.politicalParties
       };
     case 'GET_PARTIES_FAILURE':
       return {

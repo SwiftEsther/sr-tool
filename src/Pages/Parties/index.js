@@ -7,10 +7,12 @@ import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { PartyContext } from "../../contexts/PartyContext";
 import PartyList from "./PartyList";
+import Pagination from "../../shared/components/Pagination";
 
 const Parties = ({match}) => {
     const [search, setSearch] = useState('');
     const [partyState, dispatch] = useContext(PartyContext);
+    const [currentParties, setCurrentParties] = useState([]);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -32,18 +34,26 @@ const Parties = ({match}) => {
             });
     }
 
+    const onPageChanged = data => {
+        const { currentPage, totalPages, pageLimit } = data;
+        const offset = (currentPage - 1) * pageLimit;
+        const parties = partyState.response.politicalParties.slice(offset, offset + pageLimit);
+        setCurrentParties(parties);
+        // this.setState({ currentPage, currentCountries, totalPages });
+        console.log('Page changed',data)
+    }
+
     useEffect(() => {
         dispatch({type: 'GET_PARTIES'});
-        //  setSubmitting(true);
          apiRequest(allParties, 'get')
             .then((res) => {
                 dispatch({type: 'GET_PARTIES_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                setCurrentParties(res.politicalParties.slice(0, 10));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_PARTIES_FAILURE', payload: {error: err}});
                 showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
             });
     }, []);
 
@@ -70,7 +80,12 @@ const Parties = ({match}) => {
                             Add Party
                         </Link>
                     </div>
-                    <PartyList parties={partyState.parties}/>
+                    <PartyList parties={currentParties} loading={partyState.loading}/>
+                    {!partyState.loading && <div className="flex justify-end items-center mt-4">
+                    {partyState.response?.politicalParties?.length > 0 && <div>
+                        <Pagination totalRecords={partyState.response?.politicalParties?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                    </div>}
+                </div>}
                 </div>
             </Breadcrumb>
         </Layout>
