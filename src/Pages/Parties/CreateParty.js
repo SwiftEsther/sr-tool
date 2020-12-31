@@ -7,7 +7,7 @@ import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import PartyForm from './components/Partyform';
 
-const CreateParty = ({match}) => {
+const CreateParty = ({match, history}) => {
     const [userState, dispatch] = useContext(UserContext);
     const handleCreate = (values, {setSubmitting}) => {
         dispatch({type: 'CREATE_PARTY'});
@@ -16,6 +16,8 @@ const CreateParty = ({match}) => {
             .then((res) => {
                 dispatch({type: 'CREATE_PARTY_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                history.push("/parties");
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_PARTY_FAILURE', payload: {error: err}});

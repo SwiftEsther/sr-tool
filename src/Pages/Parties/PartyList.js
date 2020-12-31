@@ -7,9 +7,9 @@ import {deleteParty} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { PartyContext } from '../../contexts/PartyContext';
+import Loader from '../../shared/components/Loader';
 
-const PartyList = ({}) => {
-    const some = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const PartyList = ({parties, loading}) => {
     const [partyState, dispatch] = useContext(PartyContext);
     const [showModal, setShowModal] = useState(false);
     const [currentParty, setCurrentParty] = useState(null);
@@ -84,21 +84,27 @@ const PartyList = ({}) => {
                     </div>
                     
                 </div>
+
+                {loading ? 
+                <div className="flex justify-center my-6">
+                        <Loader />
+                    </div>:
                 <div className="table-body">
-                    {some.map((s) => (<div key={s} className="custom-table-row w-full flex">
-                        <div className="table-row-data w-3/10">People’s Democratic Party</div>
-                        <div className="table-row-data w-3/10">PDP</div>
+                    {parties.length > 0 ?  parties.map((party) => (<div key={party.id} className="custom-table-row w-full flex">
+                        <div className="table-row-data w-3/10">{party.name}</div>
+                        <div className="table-row-data w-3/10">{party.code}</div>
                         <div className="table-row-data w-4/10"> 
-                            <span data-tip data-for={`ellipsis-party-${s}`} data-event='click'>
+                            <span data-tip data-for={`ellipsis-party-${party.id}`} data-event='click'>
                                 <Ellipsis />
                             </span>
-                            <ReactTooltip id={`ellipsis-party-${s}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                <Link to={{pathname: `/parties/${s}`, state: {party: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
-                                <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
+                            <ReactTooltip id={`ellipsis-party-${party.id}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                <Link to={{pathname: `/parties/${party.id}`, state: {party: party}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                <button onClick={()=>triggerDelete(party)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                             </ReactTooltip>
                         </div>
-                    </div>))}
-                </div>
+                    </div>))
+                    : <div className="table-row-data w-full text-center my-4">There are no parties to display</div>}
+                </div>}
             </div>
         </div>
     );

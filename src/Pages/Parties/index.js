@@ -43,19 +43,23 @@ const Parties = ({match}) => {
         console.log('Page changed',data)
     }
 
-    useEffect(() => {
+    const getAllParties = () => {
         dispatch({type: 'GET_PARTIES'});
          apiRequest(allParties, 'get')
             .then((res) => {
                 dispatch({type: 'GET_PARTIES_SUCCESS', payload: {response: res}});
-                setCurrentParties(res.politicalParties.slice(0, 10));
+                setCurrentParties(res.politicalParties.slice(0, 11));
                 showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_PARTIES_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
-    }, []);
+    }
+
+    useEffect(() => {
+        getAllParties();
+    }, [dispatch]);
 
     return (
         <Layout>
