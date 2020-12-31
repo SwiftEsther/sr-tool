@@ -34,12 +34,12 @@ export const updateWard = `${baseUrl}/api/v${version}/ward`;
 export const deleteWard = `${baseUrl}/api/v${version}/ward/delete`;
 
 //----POLLING UNIT URLS----//
-export const allPollingUnits = `${baseUrl}/api/v${version}/pus`;
-export const createPollingUnit = `${baseUrl}/api/v${version}/pu`;
-export const getPollingUnitById = `${baseUrl}/api/v${version}/pu`;
-export const getPollingUnitByCode = `${baseUrl}/api/v${version}/pu`;
-export const updatePollingUnit = `${baseUrl}/api/v${version}/pu`;
-export const deletePollingUnit = `${baseUrl}/api/v${version}/pu/delete`;
+export const allPollingUnits = `${baseUrl}/api/v${version}/polling-unit`;
+export const createPollingUnit = `${baseUrl}/api/v${version}/polling-unit`;
+export const getPollingUnitById = `${baseUrl}/api/v${version}/polling-unit`;
+export const getPollingUnitByCode = `${baseUrl}/api/v${version}/polling-unit`;
+export const updatePollingUnit = `${baseUrl}/api/v${version}/polling-unit`;
+export const deletePollingUnit = `${baseUrl}/api/v${version}/polling-unit/delete`;
 
 //----POLITICAL PARTY URLS----//
 export const allParties = `${baseUrl}/api/v${version}/political-party/all`;

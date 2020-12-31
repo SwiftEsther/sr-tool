@@ -1,11 +1,14 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { showToast } from "../../../helpers/showToast";
+import { apiRequest } from "../../../lib/api";
+import { allLgas, allPollingUnits, allWards } from "../../../lib/url";
 
 const AgentForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
-    const wards = ['LGA', 'LAG'];
-    const lgas = ['LGA', 'LAG'];
-    const pollingUnits = ['Distrits', 'Districts'];
+    const [wards, setWards] = useState([]);
+    const [lgas, setLgas] = useState([]);
+    const [pollingUnits, setPollingUnits] = useState([]);
     let initialValues = {
         pollingUnit: '',
         lga: '',
@@ -33,6 +36,42 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
         }
         return errors;
     }
+
+    const getLgas = () =>{
+        apiRequest(allLgas, 'get')
+            .then((res) => {
+                setLgas(res.lgas)
+            })
+            .catch((err) => {
+                showToast('error', 'Couldn\'t fetch Local Government Areas. Kindly reload the page')
+            });
+    }
+
+    const getWards = () =>{
+        apiRequest(allWards, 'get')
+            .then((res) => {
+                setWards(res.wards)
+            })
+            .catch((err) => {
+                showToast('error', 'Couldn\'t fetch Wards. Kindly reload the page')
+            });
+    }
+
+    const getPollingUnits = () =>{
+        apiRequest(allPollingUnits, 'get')
+            .then((res) => {
+                setPollingUnits(res.pollingUnits)
+            })
+            .catch((err) => {
+                showToast('error', 'Couldn\'t fetch Polling Units. Kindly reload the page');
+            });
+    }
+
+    useEffect(() => {
+        getLgas();
+        getWards();
+        getPollingUnits();
+    }, []);
 
     return (
         <div className="w-3/10">
@@ -86,7 +125,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Local Government Area</option>
-                                {lgas.map(lga => (<option key={lga} value={lga}>{lga}</option>))}
+                                {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
                             </select>
                             {errors.lga && touched.lga && <span className="text-xs text-red-600">{errors.lga}</span>}
                         </div>
@@ -99,7 +138,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Ward</option>
-                                {wards.map(ward => (<option key={ward} value={ward}>{ward}</option>))}
+                                {wards.map(ward => (<option key={ward.id} value={ward.code}>{ward.name}</option>))}
                             </select>
                             {errors.ward && touched.ward && <span className="text-xs text-red-600">{errors.ward}</span>}
                         </div>
@@ -112,7 +151,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Polling Unit</option>
-                                {pollingUnits.map(unit => (<option key={unit} value={unit}>{unit}</option>))}
+                                {pollingUnits.map(unit => (<option key={unit.id} value={unit.code}>{unit.name}</option>))}
                             </select>
                             {errors.pollingUnit && touched.pollingUnit && <span className="text-xs text-red-600">{errors.pollingUnit}</span>}
                         </div>
