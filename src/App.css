@@ -161,3 +161,13 @@ input[type='radio']:checked:after {
   visibility: visible;
   border: 1px solid #31326f;
 }
+
+/* Loader styling */
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #31326f; /* Primary color */
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+}
