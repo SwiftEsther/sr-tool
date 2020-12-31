@@ -122,12 +122,12 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
     return (
         <>
         <nav aria-label="Pagination" className="flex items-center">
-                    <button className="bg-primary px-4 py-2 text-white" onClick={() => gotoPage(currentPage - 1)} disabled={currentPage <= 1}>Previous</button>
+                    <button className="bg-primary px-4 py-2 text-white focus:outline-none rounded-sm" onClick={() => gotoPage(currentPage - 1)} disabled={currentPage <= 1}>Previous</button>
           <ul className="pagination flex">
             { pages.map((page, index) => {
 
               if (page === LEFT_PAGE) return (
-                <li key={index} className="page-item bg-primary px-4 py-2 border border-primary mx-4 text-white">
+                <li key={index} className="page-item bg-primary px-4 py-2 border border-primary mx-4 text-white focus:outline-none rounded-sm">
                   <a className="page-link" href="#" aria-label="Previous" onClick={handleMoveLeft}>
                     <span aria-hidden="true">&hellip;</span>
                     <span className="sr-only">Previous</span>
@@ -136,7 +136,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
               );
 
               if (page === RIGHT_PAGE) return (
-                <li key={index} className="page-item bg-primary px-4 py-2 border border-primary mx-4 text-white">
+                <li key={index} className="page-item bg-primary px-4 py-2 border border-primary mx-4 text-white focus:outline-none rounded-sm">
                   <a className="page-link" href="#" aria-label="Next" onClick={handleMoveRight}>
                     <span aria-hidden="true">&hellip;</span>
                     <span className="sr-only">Next</span>
@@ -145,7 +145,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
               );
 
               return (
-                <li key={index} className={`page-item${ currentPage === page ? ' active' : ''} bg-primary text-center w-12 py-2 border border-primary  mx-4 text-white`}>
+                <li key={index} className={`page-item ${ currentPage === page ? 'bg-white text-primary' : 'bg-primary text-white'} text-center w-12 py-2 border border-primary rounded-sm mx-4 focus:outline-none`}>
                   <a className="page-link" href="#" onClick={handleClick(page) }>{ page }</a>
                 </li>
               );
@@ -153,7 +153,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
             }) }
 
           </ul>
-                    <button className="bg-primary px-4 py-2 text-white" onClick={() => gotoPage(currentPage + 1)} disabled={currentPage == allPages}>Next</button>
+                    <button className="bg-primary px-4 py-2 text-white focus:outline-none rounded-sm" onClick={() => gotoPage(currentPage + 1)} disabled={currentPage == allPages}>Next</button>
         </nav>
       </>
     )
