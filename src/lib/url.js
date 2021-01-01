@@ -58,3 +58,10 @@ export const searchAgentByName = `${baseUrl}/api/v${version}/party-agent`;
 export const getAgent = `${baseUrl}/api/v${version}/party-agent`;
 export const updateAgent = `${baseUrl}/api/v${version}/party-agent`;
 export const deleteAgent = `${baseUrl}/api/v${version}/party-agent/delete`;
+
+//----RESULT URLS----//
+export const allResults = `${baseUrl}/api/v${version}/result/all`;
+export const createResult = `${baseUrl}/api/v${version}/result`;
+export const getResultById = `${baseUrl}/api/v${version}/result`;
+export const updateResult = `${baseUrl}/api/v${version}/result`;
+export const deleteResult = `${baseUrl}/api/v${version}/result/delete`;
