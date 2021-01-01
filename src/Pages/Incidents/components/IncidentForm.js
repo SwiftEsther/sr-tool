@@ -204,7 +204,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                                 onBlur={handleBlur}
                                 value={values.phoneNumber}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
-                                placeholder="Accredited Voters"
+                                placeholder="Phone Number"
                             />
                             {errors.phoneNumber && touched.phoneNumber && <span className="text-xs text-red-600">{errors.phoneNumber}</span>}
                         </div>
