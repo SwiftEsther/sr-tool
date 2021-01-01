@@ -4,12 +4,12 @@ import Layout from '../../shared/Layout';
 import {updateAgent} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
-import { LgaContext } from '../../contexts/LgaContext';
 import AgentForm from './components/AgentForm';
+import { AgentContext } from '../../contexts/AgentContext';
 
 const UpdateAgent = ({match, location}) => {
     console.log(location)
-    const [lgaState, dispatch] = useContext(LgaContext);
+    const [agentState, dispatch] = useContext(AgentContext);
     const handleUpdate = (values, {setSubmitting}) => {
         dispatch({type: 'UPDATE_AGENT'});
          setSubmitting(true);

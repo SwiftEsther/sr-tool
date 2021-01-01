@@ -39,6 +39,8 @@ import CreateAgent from './Pages/Agents/CreateAgent';
 import UpdateAgent from './Pages/Agents/UpdateAgent';
 import { ResultController } from './contexts/ResultContext';
 import Results from './Pages/Results';
+import CreateResult from './Pages/Results/CreateResult';
+import UpdateResult from './Pages/Results/UpdateResult';
 
 Modal.setAppElement("#root");
 
@@ -77,8 +79,8 @@ function App() {
         <Route path="/agents/:id" render ={routerProps => <AgentController><UpdateAgent {...routerProps}/></AgentController>} />
         <Route path="/agents"  render ={routerProps => <AgentController><Agents {...routerProps}/></AgentController>} />
 
-        <Route path="/results/create"  render ={routerProps => <ResultController><CreateParty {...routerProps}/></ResultController>} />
-        <Route path="/results/:id" render ={routerProps => <ResultController><UpdateParty {...routerProps}/></ResultController>} />
+        <Route path="/results/create"  render ={routerProps => <ResultController><CreateResult {...routerProps}/></ResultController>} />
+        <Route path="/results/:id" render ={routerProps => <ResultController><UpdateResult {...routerProps}/></ResultController>} />
         <Route path="/results"  render ={routerProps => <ResultController><Results {...routerProps}/></ResultController>} />
       </Switch>
     </>
