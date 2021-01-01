@@ -41,6 +41,7 @@ import { ResultController } from './contexts/ResultContext';
 import Results from './Pages/Results';
 import CreateResult from './Pages/Results/CreateResult';
 import UpdateResult from './Pages/Results/UpdateResult';
+import Incidents from './Pages/Incidents';
 
 Modal.setAppElement("#root");
 
@@ -82,6 +83,10 @@ function App() {
         <Route path="/results/create"  render ={routerProps => <ResultController><CreateResult {...routerProps}/></ResultController>} />
         <Route path="/results/:id" render ={routerProps => <ResultController><UpdateResult {...routerProps}/></ResultController>} />
         <Route path="/results"  render ={routerProps => <ResultController><Results {...routerProps}/></ResultController>} />
+
+        <Route path="/incidents/create"  render ={routerProps => <ResultController><CreateResult {...routerProps}/></ResultController>} />
+        <Route path="/incidents/:id" render ={routerProps => <ResultController><UpdateResult {...routerProps}/></ResultController>} />
+        <Route path="/incidents"  render ={routerProps => <ResultController><Incidents {...routerProps}/></ResultController>} />
       </Switch>
     </>
   );
