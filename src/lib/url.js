@@ -67,8 +67,8 @@ export const updateResult = `${baseUrl}/api/v${version}/result`;
 export const deleteResult = `${baseUrl}/api/v${version}/result/delete`;
 
 //----INCIDENT URLS----//
-export const allIncidentts = `${baseUrl}/api/v${version}/incidentt/all`;
-export const createIncidentt = `${baseUrl}/api/v${version}/incidentt`;
-export const getincIdenttById = `${baseUrl}/api/v${version}/incidentt`;
-export const updateIncidentt = `${baseUrl}/api/v${version}/incidentt`;
-export const deleteIncidentt = `${baseUrl}/api/v${version}/result/delete`;
+export const allIncidents = `${baseUrl}/api/v${version}/Incident/all`;
+export const createIncident = `${baseUrl}/api/v${version}/Incident`;
+export const getIncidentById = `${baseUrl}/api/v${version}/Incident`;
+export const updateIncident = `${baseUrl}/api/v${version}/Incident`;
+export const deleteIncident = `${baseUrl}/api/v${version}/result/delete`;

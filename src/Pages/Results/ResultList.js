@@ -104,9 +104,9 @@ const ResultList = ({results, loading}) => {
                                 <div className="table-row-data w-3/12">{s.lga || 'Gwale'}</div>
                                 <div className="table-row-data w-1/12">{s.ward || 'KAno North'}</div>
                                 <div className="table-row-data w-2/12">{s.pollingUnit || 'Gwale'}</div>
-                                <div className="table-row-data w-1/12">{s.apc || 1200}<img src="../../shared/assets/phone.svg"/></div>
-                                <div className="table-row-data w-1/12">{s.pdp || 1200}<img src="../../shared/assets/phone.svg"/></div>
-                                <div className="table-row-data w-1/12">{s.others || 1200}<img src="../../shared/assets/phone.svg"/></div>
+                                <div className="table-row-data w-1/12">{s.apc || 1200}</div>
+                                <div className="table-row-data w-1/12">{s.pdp || 1200}</div>
+                                <div className="table-row-data w-1/12">{s.others || 1200}</div>
                                 <div className="table-row-data w-1/12"> 
                                     <span data-tip data-for={`ellipsis-result-${s.id}`} data-event='click'>
                                         <Ellipsis />
