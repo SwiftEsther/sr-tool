@@ -47,7 +47,7 @@ const partyReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        party: action.payload.response,
+        response: action.payload.response,
       };
     case 'CREATE_PARTY_FAILURE':
       return {
@@ -66,7 +66,7 @@ const partyReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        party: action.payload.response,
+        response: action.payload.response,
       };
     case 'UPDATE_PARTY_FAILURE':
       return {
@@ -85,7 +85,7 @@ const partyReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        party: action.payload.response,
+        response: action.payload.response,
       };
     case 'DELETE_PARTY_FAILURE':
       return {
@@ -104,9 +104,28 @@ const partyReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        party: action.payload.response,
+        response: action.payload.response,
       };
     case 'GET_PARTY_BY_CODE_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+    case 'SEARCH_PARTY_BY_NAME':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'SEARCH_PARTY_BY_NAME_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        response: action.payload.response,
+      };
+    case 'SEARCH_PARTY_BY_NAME_FAILURE':
       return {
         ...state,
         loading: false,

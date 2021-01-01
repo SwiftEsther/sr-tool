@@ -46,6 +46,7 @@ export const allParties = `${baseUrl}/api/v${version}/political-party/all`;
 export const createParty = `${baseUrl}/api/v${version}/political-party`;
 export const getPartyById = `${baseUrl}/api/v${version}/political-party`;
 export const getPartyByCode = `${baseUrl}/api/v${version}/political-party`;
+export const filterPartyByName = `${baseUrl}/api/v${version}/political-party/filter`;
 export const updateParty = `${baseUrl}/api/v${version}/political-party`;
 export const deleteParty = `${baseUrl}/api/v${version}/political-party/delete`;
 

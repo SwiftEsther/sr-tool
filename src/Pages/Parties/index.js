@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs, Breadcrumb } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allParties, getPartyByCode, deleteParty} from '../../lib/url.js';
+import {allParties, filterPartyByName, deleteParty} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { PartyContext } from "../../contexts/PartyContext";
@@ -20,17 +20,16 @@ const Parties = ({match}) => {
     }
 
     const handleSearch = () => {
-        dispatch({type: 'GET_PARTY_BY_CODE'});
-        //  setSubmitting(true);
-         apiRequest(getPartyByCode, 'get', {params: {code: search}})
+        dispatch({type: 'SEARCH_PARTY_BY_NAME'});
+         apiRequest(filterPartyByName, 'get', {params: {name: search}})
             .then((res) => {
-                dispatch({type: 'GET_PARTY_BY_CODE_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                dispatch({type: 'SEARCH_PARTY_BY_NAME_SUCCESS', payload: {response: res}});
+                setCurrentParties(res.politicalParties.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
-                dispatch({type: 'GET_PARTY_BY_CODE_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                dispatch({type: 'SEARCH_PARTY_BY_NAME_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
     }
 
@@ -59,7 +58,7 @@ const Parties = ({match}) => {
 
     useEffect(() => {
         getAllParties();
-    }, [dispatch]);
+    }, []);
 
     return (
         <Layout>
