@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Modal from 'react-modal';
@@ -9,7 +9,7 @@ import { showToast } from '../../helpers/showToast';
 import { PartyContext } from '../../contexts/PartyContext';
 import Loader from '../../shared/components/Loader';
 
-const PartyList = ({parties, loading}) => {
+const PartyList = ({parties, loading, getParties}) => {
     const [partyState, dispatch] = useContext(PartyContext);
     const [showModal, setShowModal] = useState(false);
     const [currentParty, setCurrentParty] = useState(null);
@@ -31,16 +31,17 @@ const PartyList = ({parties, loading}) => {
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_PARTY'});
-         apiRequest(deleteParty, 'delete')
+         apiRequest(`${deleteParty}/${currentParty.id}`, 'delete')
             .then((res) => {
                 dispatch({type: 'DELETE_PARTY_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                // setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                getParties();
             })
             .catch((err) => {
                 dispatch({type: 'DELETE_PARTY_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
                 setShowModal(false);
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong while deleting party. Please try again later."}`);
             });
     }
 
@@ -65,7 +66,7 @@ const PartyList = ({parties, loading}) => {
           contentLabel="Delete Modal"
         >
             <div className="flex justify-between items-center mb-12">
-                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentParty}?</p>
+                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentParty?.name}?</p>
                 <button onClick={closeModal} className="focus:outline-none">close</button>
             </div>
           

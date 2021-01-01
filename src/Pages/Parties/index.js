@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs, Breadcrumb } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allParties, getPartyByCode} from '../../lib/url.js';
+import {allParties, getPartyByCode, deleteParty} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { PartyContext } from "../../contexts/PartyContext";
@@ -84,7 +84,7 @@ const Parties = ({match}) => {
                             Add Party
                         </Link>
                     </div>
-                    <PartyList parties={currentParties} loading={partyState.loading}/>
+                    <PartyList parties={currentParties} loading={partyState.loading} getParties={getAllParties}/>
                     {!partyState.loading && <div className="flex justify-end items-center mt-4">
                     {partyState.response?.politicalParties?.length > 0 && <div>
                         <Pagination totalRecords={partyState.response?.politicalParties?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
