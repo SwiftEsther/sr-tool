@@ -37,7 +37,7 @@ import Agents from './Pages/Agents';
 import CreateAgent from './Pages/Agents/CreateAgent';
 import UpdateAgent from './Pages/Agents/UpdateAgent';
 import { ResultController } from './contexts/ResultContext';
-import Results from './Pages/Results/index';
+// import Results from './Pages/Results';
 import CreateResult from './Pages/Results/CreateResult';
 import UpdateResult from './Pages/Results/UpdateResult';
 import Incidents from './Pages/Incidents';
@@ -84,7 +84,7 @@ function App() {
 
         <Route path="/results/create"  render ={routerProps => <ResultController><CreateResult {...routerProps}/></ResultController>} />
         <Route path="/results/:id" render ={routerProps => <ResultController><UpdateResult {...routerProps}/></ResultController>} />
-        <Route path="/results"  render ={routerProps => <ResultController><Results {...routerProps}/></ResultController>} />
+        {/* <Route path="/results"  render ={routerProps => <ResultController><Results {...routerProps}/></ResultController>} /> */}
 
         <Route path="/incidents/create"  render ={routerProps => <IncidentController><CreateIncident {...routerProps}/></IncidentController>} />
         <Route path="/incidents/:id" render ={routerProps => <IncidentController><UpdateIncident {...routerProps}/></IncidentController>} />
