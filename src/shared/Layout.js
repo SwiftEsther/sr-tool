@@ -3,7 +3,7 @@ import SideNav from "./SideNav";
 
 const Layout = ({children}) => {
     return (
-        <div>
+        <div id="layout">
             <div>
                 <SideNav />
                 <div className="ml-44 pl-1.5 pt-2.5 pr-4">
