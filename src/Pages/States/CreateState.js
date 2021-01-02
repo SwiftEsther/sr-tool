@@ -6,10 +6,11 @@ import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
 import StateForm from './components/Stateform';
+import axios from 'axios';
 
 const CreateState = ({match, history}) => {
     const [state, dispatch] = useContext(StateContext);
-    const handleCreate = (values, {setSubmitting}) => {
+    const handleCreate = async(values, {setSubmitting}) => {
         console.log('vs;',values)
         let formData = new FormData();
         formData.append('name', values.name);
@@ -17,7 +18,14 @@ const CreateState = ({match, history}) => {
         console.log('Req', formData.name)
         dispatch({type: 'CREATE_STATE'});
          setSubmitting(true);
-         apiRequest(createState, 'post', {...formData}, {})
+         await axios({
+             method: 'post',
+             url: createState,
+             data: formData,
+             headers: {
+                'Content-Type': 'multipart/form-data'
+             }
+         })
             .then((res) => {
                 dispatch({type: 'CREATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
