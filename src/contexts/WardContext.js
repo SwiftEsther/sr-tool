@@ -170,19 +170,19 @@ const wardReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
-    case 'SEARCH_NAME_BY_NAME':
+    case 'SEARCH_WARD_BY_NAME':
       return {
         ...state,
         loading: true,
       };
-    case 'SEARCH_NAME_BY_NAME_SUCCESS':
+    case 'SEARCH_WARD_BY_NAME_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
         response: action.payload.response,
       };
-    case 'SEARCH_NAME_BY_NAME_FAILURE':
+    case 'SEARCH_WARD_BY_NAME_FAILURE':
       return {
         ...state,
         loading: false,

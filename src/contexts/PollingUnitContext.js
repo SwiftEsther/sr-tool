@@ -7,7 +7,8 @@ const initialState = {
   error: null,
   pollingUnits: [],
   pollingUnit: null,
-  message: ''
+  message: '',
+  response: null
 };
 
 const initialContext = [{...initialState}, () => {}];
@@ -26,7 +27,8 @@ const puReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        pollingUnits: action.payload.response,
+        response: action.payload.response,
+        pollingUnits: action.payload.response.pollingUnits,
       };
     case 'GET_POLLING_UNITS_FAILURE':
       return {
@@ -45,7 +47,7 @@ const puReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        pollingUnit: action.payload.response,
+        response: action.payload.response,
       };
     case 'CREATE_POLLING_UNIT_FAILURE':
       return {
@@ -64,7 +66,7 @@ const puReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        pollingUnit: action.payload.response,
+        response: action.payload.response,
       };
     case 'UPDATE_POLLING_UNIT_FAILURE':
       return {
@@ -83,7 +85,7 @@ const puReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        pollingUnit: action.payload.response,
+        response: action.payload.response,
       };
     case 'DELETE_POLLING_UNIT_FAILURE':
       return {
@@ -102,7 +104,7 @@ const puReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        pollingUnit: action.payload.response,
+        response: action.payload.response,
       };
     case 'GET_POLLING_UNIT_BY_ID_FAILURE':
       return {
@@ -121,7 +123,7 @@ const puReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        pollingUnit: action.payload.response,
+        response: action.payload.response,
       };
     case 'GET_POLLING_UNIT_BY_CODE_FAILURE':
       return {
@@ -162,6 +164,25 @@ const puReducer = (state, action) => {
         message: action.payload.message,
       };
     case 'DOWNLOAD_POLLING_UNIT_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+    case 'SEARCH_POLLING_UNIT_BY_NAME':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'SEARCH_POLLING_UNIT_BY_NAME_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        response: action.payload.response,
+      };
+    case 'SEARCH_POLLING_UNIT_BY_NAME_FAILURE':
       return {
         ...state,
         loading: false,
