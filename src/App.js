@@ -38,7 +38,7 @@ import Agents from './Pages/Agents';
 import CreateAgent from './Pages/Agents/CreateAgent';
 import UpdateAgent from './Pages/Agents/UpdateAgent';
 import { ResultController } from './contexts/ResultContext';
-import Results from './Pages/Results';
+import Results from './Pages/Results/index';
 import CreateResult from './Pages/Results/CreateResult';
 import UpdateResult from './Pages/Results/UpdateResult';
 import Incidents from './Pages/Incidents';
