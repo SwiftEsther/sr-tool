@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allWards, getWardByCode} from '../../lib/url.js';
+import {allWards, filterWardByName, getWardByCode} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -10,6 +10,7 @@ import Downloader from "../../shared/components/Downloader";
 import pickBy from 'lodash/pickBy'
 import { WardContext } from "../../contexts/WardContext";
 import WardList from "./WardList";
+import Pagination from "../../shared/components/Pagination";
 
 const Wards = ({match}) => {
     const [search, setSearch] = useState('');
@@ -18,6 +19,7 @@ const Wards = ({match}) => {
     const [districts, setDistricts] = useState([]);
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
+    const [currentWards, setCurrentWards] = useState([]);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -44,33 +46,44 @@ const Wards = ({match}) => {
     }
 
     const handleSearch = () => {
-        dispatch({type: 'GET_WARD_BY_CODE'});
-        //  setSubmitting(true);
-         apiRequest(getWardByCode, 'get', {params: {code: search}})
+       dispatch({type: 'SEARCH_WARD_BY_NAME'});
+         apiRequest(filterWardByName, 'get', {params: {name: search}})
             .then((res) => {
-                dispatch({type: 'GET_WARD_BY_CODE_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                dispatch({type: 'SEARCH_WARD_BY_NAME_SUCCESS', payload: {response: res}});
+                setCurrentWards(res.wards.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
-                dispatch({type: 'GET_WARD_BY_CODE_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                dispatch({type: 'SEARCH_WARD_BY_NAME_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+            });
+    }
+
+     const onPageChanged = data => {
+        const { currentPage, totalPages, pageLimit } = data;
+        const offset = (currentPage - 1) * pageLimit;
+        const wards = wardState.wards.slice(offset, offset + pageLimit);
+        setCurrentWards(wards);
+        // this.setState({ currentPage, currentCountries, totalPages });
+        console.log('Page changed',data)
+    }
+
+      const getAllWards = () => {
+        dispatch({type: 'GET_WARDS'});
+         apiRequest(allWards, 'get')
+            .then((res) => {
+                dispatch({type: 'GET_WARDS_SUCCESS', payload: {response: res}});
+                setCurrentWards(res.wards.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+            })
+            .catch((err) => {
+                dispatch({type: 'GET_WARDS_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
     }
 
     useEffect(() => {
-        dispatch({type: 'GET_WARDS'});
-        //  setSubmitting(true);
-         apiRequest(allWards, 'get')
-            .then((res) => {
-                dispatch({type: 'GET_WARDS_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
-            })
-            .catch((err) => {
-                dispatch({type: 'GET_WARDS_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
-            });
+        getAllWards();
     }, []);
 
     return (
@@ -126,14 +139,14 @@ const Wards = ({match}) => {
                         </button>
                     </div>
                 </div>
-                <WardList wards={wardState.wards}/>
+                <WardList wards={currentWards} loading={wardState.loading} getWards={getAllWards}/>
                 <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="GET_WARDS_SUCCESS"/>
-                        {wardState.wards.length > 0 && <Downloader dispatch={dispatch} action="GET_WARDS_SUCCESS" />}
+                        <Uploader dispatch={dispatch} action="UPLOAD_WARDS_SUCCESS"/>
+                        {wardState.wards.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_WARDS_SUCCESS" />}
                     </div>
-                    {wardState.wards.length > 0 && <div>
-                        Pagination
+                    {wardState.response?.wards?.length > 0 && <div>
+                        <Pagination totalRecords={wardState.response?.wards?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
                 </div>
             </div>
