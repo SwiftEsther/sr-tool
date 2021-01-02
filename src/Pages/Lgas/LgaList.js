@@ -7,13 +7,12 @@ import {lgas} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { LgaContext } from '../../contexts/LgaContext';
+import Loader from '../../shared/components/Loader';
 
-const LgaList = ({lgas}) => {
-    const some = lgas || [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const LgaList = ({lgas, loading, getLgas}) => {
     const [lgaState, dispatch] = useContext(LgaContext);
     const [showModal, setShowModal] = useState(false);
     const [currentLga, setCurrentLga] = useState('');
-    console.log('some', some)
     const customStyles = {
         overlay: {
             backgroundColor: 'transparent'
@@ -87,25 +86,29 @@ const LgaList = ({lgas}) => {
                     </div>
                     
                 </div>
-                <div className="table-body">
+                {loading ? 
+                <div className="flex justify-center my-6">
+                        <Loader />
+                    </div>:
+                    <div className="table-body">
                     {lgas.length > 0 ? 
-                        some.map((s) => (<div key={s} className="custom-table-row w-full flex">
-                            <div className="table-row-data w-2/10">{s.lga || 'LGA'}</div>
-                            <div className="table-row-data w-2/10">{s.senatorialDistrict || 'KAno North'}</div>
-                            <div className="table-row-data w-2/10">{s.state || 'Gwale'}</div>
-                            <div className="table-row-data w-2/10">{s.number || 1200}</div>
+                        lgas.map((lga) => (<div key={lga.id} className="custom-table-row w-full flex">
+                            <div className="table-row-data w-2/10">{lga.code || 'LGA'}</div>
+                            <div className="table-row-data w-2/10">{lga.senatorialDistrict || 'KAno North'}</div>
+                            <div className="table-row-data w-2/10">{lga.state || 'Gwale'}</div>
+                            <div className="table-row-data w-2/10">{lga.number || 1200}</div>
                             <div className="table-row-data w-2/10"> 
-                                <span data-tip data-for={`ellipsis-lga-${s.number}`} data-event='click'>
+                                <span data-tip data-for={`ellipsis-lga-${lga.id}`} data-event='click'>
                                     <Ellipsis />
                                 </span>
-                                <ReactTooltip id={`ellipsis-lga-${s.number}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                    <Link to={{pathname: `/territories/lgas/${s.number}`, state: {lga: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
-                                    <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
+                                <ReactTooltip id={`ellipsis-lga-${lga.id}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                    <Link to={{pathname: `/territories/lgas/${lga.id}`, state: {lga: lga}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                    <button onClick={()=>triggerDelete(lga)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                                 </ReactTooltip>
                             </div>
                         </div>))
                     : <div className="table-row-data w-full text-center my-4">There are no LGAs to display</div>}
-                </div>
+                </div>}
             </div>
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allLgas, getLgaByCode} from '../../lib/url.js';
+import {allLgas, filterLgaByName} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import LgaList from "./LgaList";
@@ -45,17 +45,16 @@ const Lgas = ({match}) => {
     }
 
     const handleSearch = () => {
-        dispatch({type: 'GET_LGA_BY_CODE'});
-        //  setSubmitting(true);
-         apiRequest(getLgaByCode, 'get', {params: {code: search}})
+        dispatch({type: 'SEARCH_LGA_BY_NAME'});
+         apiRequest(filterLgaByName, 'get', {params: {name: search}})
             .then((res) => {
-                dispatch({type: 'GET_LGA_BY_CODE_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                dispatch({type: 'SEARCH_LGA_BY_NAME_SUCCESS', payload: {response: res}});
+                setCurrentLgas(res.lgas.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
-                dispatch({type: 'GET_LGA_BY_CODE_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                dispatch({type: 'SEARCH_LGA_BY_NAME_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
     }
 
@@ -68,19 +67,22 @@ const Lgas = ({match}) => {
         console.log('Page changed',data)
     }
 
-    useEffect(() => {
+    const getAllLgas = () => {
         dispatch({type: 'GET_LGAS'});
-        //  setSubmitting(true);
          apiRequest(allLgas, 'get')
             .then((res) => {
                 dispatch({type: 'GET_LGAS_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                setCurrentLgas(res.lgas.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_LGAS_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
+    }
+
+    useEffect(() => {
+        getAllLgas();
     }, []);
 
     return (
@@ -127,15 +129,15 @@ const Lgas = ({match}) => {
                             </button>
                         </div>
                     </div>
-                    <LgaList lgas={lgaState.lgas}/>
+                    <LgaList lgas={currentLgas} loading={lgaState.loading} getLgas={getAllLgas}/>
                     <div className="flex justify-between items-center mt-4">
                         <div className="flex">
-                            <Uploader dispatch={dispatch} action="GET_LGAS_SUCCESS"/>
-                            {lgaState.lgas.length > 0 && <Downloader dispatch={dispatch} action="GET_LGAS_SUCCESS" />}
+                            <Uploader dispatch={dispatch} action="UPLOAD_LGAS_SUCCESS"/>
+                            {lgaState.response?.lgas?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_LGAS_SUCCESS" />}
                         </div>
-                        {lgaState.lgas.length > 0 && <div>
-                            <Pagination totalRecords={lgaState.lgas.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
-                        </div>}
+                        {lgaState.response?.lgas?.length > 0 && <div>
+                        <Pagination totalRecords={lgaState.response?.lgas?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                    </div>}
                     </div>
                 </div>
             </Layout>
