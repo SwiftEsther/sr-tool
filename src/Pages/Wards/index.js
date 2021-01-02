@@ -68,7 +68,7 @@ const Wards = ({match}) => {
         console.log('Page changed',data)
     }
 
-      const getAllWards = () => {
+    const getAllWards = () => {
         dispatch({type: 'GET_WARDS'});
          apiRequest(allWards, 'get')
             .then((res) => {

@@ -11,11 +11,9 @@ import { WardContext } from '../../contexts/WardContext';
 import Loader from '../../shared/components/Loader';
 
 const WardList = ({wards, loading, getWards}) => {
-    const some = wards || [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const [wardState, dispatch] = useContext(WardContext);
     const [showModal, setShowModal] = useState(false);
     const [currentWard, setCurrentWard] = useState('');
-    console.log('some', some)
     const customStyles = {
         overlay: {
             backgroundColor: 'transparent'
@@ -98,7 +96,7 @@ const WardList = ({wards, loading, getWards}) => {
                     {wards.length > 0 ? 
                         wards.map((ward) => (<div key={ward.id} className="custom-table-row w-full flex">
                             <div className="table-row-data w-2/10">{ward.code || 'WARD'}</div>
-                            <div className="table-row-data w-2/10">{ward.lga || 'LGA'}</div>
+                            <div className="table-row-data w-2/10">{ward.lga?.name || 'LGA'}</div>
                             <div className="table-row-data w-2/10">{ward.senatorialDistrict || 'KAno North'}</div>
                             <div className="table-row-data w-2/10">{ward.state || 'Gwale'}</div>
                             <div className="table-row-data w-2/10">{ward.number || 1200}</div>
@@ -107,7 +105,7 @@ const WardList = ({wards, loading, getWards}) => {
                                     <Ellipsis />
                                 </span>
                                 <ReactTooltip id={`ellipsis-lga-${ward.id}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                    <Link to={{pathname: `/territories/lgas/${ward.number}`, state: {ward: ward}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                    <Link to={{pathname: `/territories/wards/${ward.id}`, state: {ward: ward}}} className="text-sm text-darkerGray block text-left">Edit</Link>
                                     <button onClick={()=>triggerDelete(ward)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                                 </ReactTooltip>
                             </div>
