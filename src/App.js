@@ -3,7 +3,6 @@ import "./styles/main.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { Route, Switch } from 'react-router';
 import Modal from 'react-modal';
-// import Results from './Pages/Results';
 import Users from './Pages/Users';
 import Login from './Pages/Login/Login';
 import { ToastContainer } from 'react-toastify';
