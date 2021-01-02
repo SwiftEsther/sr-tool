@@ -7,19 +7,29 @@ import { showToast } from '../../helpers/showToast';
 import WardForm from './components/WardForm';
 import { WardContext } from '../../contexts/WardContext';
 
-const CreateWard = ({match}) => {
+const CreateWard = ({match, history}) => {
     const [wardState, dispatch] = useContext(WardContext);
     const handleCreate = (values, {setSubmitting}) => {
         dispatch({type: 'CREATE_WARD'});
+        const requestBody = {
+            code: values.name,
+            name: values.name,
+            stateId: values.state,
+            senatorialDistrictId: values.senatorialDistrict,
+            lgaId: values.lga,
+            number: values.name
+        };
          setSubmitting(true);
-         apiRequest(createWard, 'post', {...values})
+         apiRequest(createWard, 'post', {...requestBody})
             .then((res) => {
                 dispatch({type: 'CREATE_WARD_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                history.push("/territories/wards");
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_WARD_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong while creating ward. Please try again later."}`);
                 setSubmitting(false);
             });
     }

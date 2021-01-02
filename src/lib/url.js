@@ -25,6 +25,7 @@ export const getLgaByCode = `${baseUrl}/api/v${version}/lga`;
 export const updateLga = `${baseUrl}/api/v${version}/lga`;
 export const deleteLga = `${baseUrl}/api/v${version}/lga/delete`;
 export const filterLgaByName = `${baseUrl}/api/v${version}/lga/filter`;
+export const getLgasByStateId = `${baseUrl}/api/v${version}/lga/state`;
 
 //----WARD URLS----//
 export const allWards = `${baseUrl}/api/v${version}/wards`;

@@ -48,9 +48,13 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                 setSenatorialDistricts(res.senatorialDistricts);
             })
             .catch(err => {
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch senatorial districts. Please try again later."}`)
             })
     }
+    // if(formFields) {
+    //     console.log(formFields)
+    //     getSenatorialDistricts(formFields.state);
+    // }
 
     const handleStateChange = (event, setFieldValue) => {
         const state =  event.currentTarget.value;
