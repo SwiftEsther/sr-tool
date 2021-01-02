@@ -1,10 +1,13 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { showToast } from "../../../helpers/showToast";
+import { apiRequest } from "../../../lib/api";
+import { allStates, getSenatorialDistrictsByStateId } from "../../../lib/url";
 
 const LgaForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
-    const states = ['LGA', 'LAG'];
-    const districts = ['Distrits', 'Districts'];
+    const [states, setStates] = useState([]);
+    const [senatorialDistricts, setSenatorialDistricts] = useState([]);
     let initialValues = {
         state: '',
         senatorialDistrict: '',
@@ -29,6 +32,37 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
         return errors;
     }
 
+    const getStates = () => {
+        apiRequest(allStates, 'get')
+            .then(res => {
+                setStates(res.states);
+            })
+            .catch(err => {
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch states. Please try again later."}`)
+            })
+    }
+
+    const getSenatorialDistricts = (stateId) => {
+        apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
+            .then(res => {
+                setSenatorialDistricts(res.senatorialDistricts);
+            })
+            .catch(err => {
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch states. Please try again later."}`)
+            })
+    }
+
+    const handleStateChange = (event, setFieldValue) => {
+        const state =  event.currentTarget.value;
+        console.log(state)
+        setFieldValue("state", state);
+        getSenatorialDistricts(state);
+    }
+
+    useEffect(() => {
+        getStates();
+    }, []);
+
     return (
         <div className="w-3/10">
             <Formik
@@ -46,18 +80,19 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
+                    setFieldValue
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className="mt-4 mb-12">
                             <select 
                                 name="state" 
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                onChange={(e)=>handleStateChange(e, setFieldValue)}
+                                onBlur={(e)=>handleStateChange(e,setFieldValue)}
                                 value={values.state}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>State</option>
-                                {states.map(state => (<option key={state} value={state}>{state}</option>))}
+                                {states.map(state => (<option key={state.id} value={state.id}>{state.name}</option>))}
                             </select>
                             {errors.state && touched.state && <span className="text-xs text-red-600">{errors.state}</span>}
                         </div>
@@ -68,9 +103,10 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                                 onBlur={handleBlur}
                                 value={values.senatorialDistrict}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
+                                disabled={!values.state}
                             >
                                 <option value='' disabled>Senatorial District</option>
-                                {districts.map(district => (<option key={district} value={district}>{district}</option>))}
+                                {senatorialDistricts.map(district => (<option key={district.id} value={district.id}>{district.name}</option>))}
                             </select>
                             {errors.senatorialDistrict && touched.senatorialDistrict && <span className="text-xs text-red-600">{errors.senatorialDistrict}</span>}
                         </div>
