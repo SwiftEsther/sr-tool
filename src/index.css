@@ -1,8 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: Gelion;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +8,24 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@font-face {
+  font-family: 'Gelion';
+  font-style: normal;
+  font-weight: normal;
+  src:
+    local('Gelion Regular'),
+    local('Gelion-Regular'),
+    url(./shared/fonts/Gelion/Gelion-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Gelion';
+  font-style: normal;
+  font-weight: bold;
+  src:
+    local('Gelion Medium'),
+    local('Gelion-Medium'),
+    url(./shared/fonts/Gelion/Gelion-Bold.ttf) format('truetype');
 }

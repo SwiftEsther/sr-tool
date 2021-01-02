@@ -11,11 +11,18 @@ const CreateLga = ({match}) => {
     const [lgaState, dispatch] = useContext(LgaContext);
     const handleCreate = (values, {setSubmitting}) => {
         dispatch({type: 'CREATE_LGA'});
+        const requestBody = {
+            code: values.state,
+            name: values.name,
+            stateId: 2,
+            senatorialDistrictId: 4
+        };
          setSubmitting(true);
-         apiRequest(createLga, 'post', {...values})
+         apiRequest(createLga, 'post', {...requestBody})
             .then((res) => {
                 dispatch({type: 'CREATE_LGA_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_LGA_FAILURE', payload: {error: err}});

@@ -10,6 +10,7 @@ import { LgaContext, LgaController } from "../../contexts/LgaContext";
 import Uploader from "../../shared/components/Uploader";
 import Downloader from "../../shared/components/Downloader";
 import pickBy from 'lodash/pickBy'
+import Pagination from "../../shared/components/Pagination";
 
 const Lgas = ({match}) => {
     const [search, setSearch] = useState('');
@@ -17,6 +18,7 @@ const Lgas = ({match}) => {
     const [filter, setFilter] = useState({senatorialDistrict: '', state: ''});
     const [districts, setDistricts] = useState([]);
     const [states, setStates] = useState([]);
+    const [currentLgas, setCurrentLgas] = useState([]);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -55,6 +57,15 @@ const Lgas = ({match}) => {
                 showToast('error', 'Something went wrong. Please try again later')
                 // setSubmitting(false);
             });
+    }
+
+    const onPageChanged = data => {
+        const { currentPage, totalPages, pageLimit } = data;
+        const offset = (currentPage - 1) * pageLimit;
+        const lgas = lgaState.lgas.slice(offset, offset + pageLimit);
+        setCurrentLgas(lgas);
+        // this.setState({ currentPage, currentCountries, totalPages });
+        console.log('Page changed',data)
     }
 
     useEffect(() => {
@@ -123,7 +134,7 @@ const Lgas = ({match}) => {
                             {lgaState.lgas.length > 0 && <Downloader dispatch={dispatch} action="GET_LGAS_SUCCESS" />}
                         </div>
                         {lgaState.lgas.length > 0 && <div>
-                            Pagination
+                            <Pagination totalRecords={lgaState.lgas.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                         </div>}
                     </div>
                 </div>
