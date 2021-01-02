@@ -7,7 +7,8 @@ const initialState = {
   error: null,
   wards: [],
   ward: null,
-  message: ''
+  message: '',
+  response: null
 };
 
 const initialContext = [{...initialState}, () => {}];
@@ -26,7 +27,8 @@ const wardReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        wards: action.payload.response,
+        response: action.payload.response,
+        wards: action.payload.response.wards,
       };
     case 'GET_WARDS_FAILURE':
       return {
@@ -45,7 +47,7 @@ const wardReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        response: action.payload.response,
       };
     case 'CREATE_WARD_FAILURE':
       return {
@@ -64,7 +66,7 @@ const wardReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        response: action.payload.response,
       };
     case 'UPDATE_WARD_FAILURE':
       return {
@@ -83,7 +85,7 @@ const wardReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        response: action.payload.response,
       };
     case 'DELETE_WARD_FAILURE':
       return {
@@ -102,7 +104,7 @@ const wardReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        response: action.payload.response,
       };
     case 'GET_WARD_BY_ID_FAILURE':
       return {
@@ -121,7 +123,7 @@ const wardReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        ward: action.payload.response,
+        response: action.payload.response,
       };
     case 'GET_WARD_BY_CODE_FAILURE':
       return {
@@ -162,6 +164,25 @@ const wardReducer = (state, action) => {
         message: action.payload.message,
       };
     case 'DOWNLOAD_WARD_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+    case 'SEARCH_NAME_BY_NAME':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'SEARCH_NAME_BY_NAME_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        response: action.payload.response,
+      };
+    case 'SEARCH_NAME_BY_NAME_FAILURE':
       return {
         ...state,
         loading: false,

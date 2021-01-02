@@ -33,6 +33,7 @@ export const getWardById = `${baseUrl}/api/v${version}/ward`;
 export const getWardByCode = `${baseUrl}/api/v${version}/ward`;
 export const updateWard = `${baseUrl}/api/v${version}/ward`;
 export const deleteWard = `${baseUrl}/api/v${version}/ward/delete`;
+export const filterWardByName = `${baseUrl}/api/v${version}/ward/filter`;
 
 //----POLLING UNIT URLS----//
 export const allPollingUnits = `${baseUrl}/api/v${version}/polling-unit`;
