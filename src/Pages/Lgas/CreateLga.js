@@ -7,26 +7,27 @@ import { showToast } from '../../helpers/showToast';
 import { LgaContext } from '../../contexts/LgaContext';
 import LgaForm from './components/LgaForm';
 
-const CreateLga = ({match}) => {
+const CreateLga = ({match, history}) => {
     const [lgaState, dispatch] = useContext(LgaContext);
     const handleCreate = (values, {setSubmitting}) => {
         dispatch({type: 'CREATE_LGA'});
         const requestBody = {
-            code: values.state,
+            code: values.name,
             name: values.name,
-            stateId: 2,
-            senatorialDistrictId: 4
+            stateId: values.state,
+            senatorialDistrictId: values.senatorialDistrict
         };
          setSubmitting(true);
          apiRequest(createLga, 'post', {...requestBody})
             .then((res) => {
                 dispatch({type: 'CREATE_LGA_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                history.push("/territories/lgas");
                 showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_LGA_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', 'Something went wrong. Please try again later');
                 setSubmitting(false);
             });
     }
