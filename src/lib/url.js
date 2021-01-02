@@ -24,6 +24,7 @@ export const getLgaById = `${baseUrl}/api/v${version}/lga`;
 export const getLgaByCode = `${baseUrl}/api/v${version}/lga`;
 export const updateLga = `${baseUrl}/api/v${version}/lga`;
 export const deleteLga = `${baseUrl}/api/v${version}/lga/delete`;
+export const filterLgaByName = `${baseUrl}/api/v${version}/lga/filter`;
 
 //----WARD URLS----//
 export const allWards = `${baseUrl}/api/v${version}/wards`;
@@ -72,3 +73,6 @@ export const createIncident = `${baseUrl}/api/v${version}/Incident`;
 export const getIncidentById = `${baseUrl}/api/v${version}/Incident`;
 export const updateIncident = `${baseUrl}/api/v${version}/Incident`;
 export const deleteIncident = `${baseUrl}/api/v${version}/result/delete`;
+
+//----SENATORIAL DISTRICT URLS----//
+export const getSenatorialDistrictsByStateId = `${baseUrl}/api/v${version}/senatorial-district/state`;
