@@ -1,5 +1,5 @@
 export const dev = {
   env: 'dev',
-  baseUrl: 'http://174.138.44.178:5000',
+  baseUrl: 'https://174.138.44.178:8443',
   version: 1,
 };

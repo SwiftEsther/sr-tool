@@ -82,6 +82,13 @@ const SideNav = ({location}) => {
             active: false,
             subMenus: [],
             path: '/users'
+        },
+        {
+            name: 'Parties',
+            icon: () => <UserIcon />,
+            active: false,
+            subMenus: [],
+            path: '/parties'
         }
     ];
 
@@ -91,7 +98,7 @@ const SideNav = ({location}) => {
     const [activeMenu, setActiveMenu] = useState();
 
     const updateNav = () => {
-            console.log('jhg')
+            console.log('jhg', location.pathname)
         for(let i = 0; i < menus.length; ++i) {
             if(location.pathname === menus[i].path || location.pathname.indexOf(menus[i].path) === 0) {
                 setTop(menus.slice(0, i));
