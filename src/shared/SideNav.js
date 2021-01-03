@@ -91,23 +91,24 @@ const SideNav = ({location}) => {
     const [activeMenu, setActiveMenu] = useState();
 
     const updateNav = () => {
-        console.log(location.pathname);
+            console.log('jhg')
         for(let i = 0; i < menus.length; ++i) {
-            console.log(menus[i].path)
             if(location.pathname === menus[i].path || location.pathname.indexOf(menus[i].path) === 0) {
                 setTop(menus.slice(0, i));
                 setActiveMenu({...menus[i], active : true});
                 setBottom(menus.slice(i+1, menus.length))
             }
         };
-        // check if the current route == item.path or matches it in any way
     }
 
     const updateSubmenu = () => {
+        console.log('sub', activeMenu)
         if(activeMenu?.subMenus.length > 0) {
             for(let i = 0; i < activeMenu.subMenus.length; ++i) {
                 if(activeMenu.subMenus[i].path === location.pathname || location.pathname.indexOf(activeMenu.subMenus[i].path) === 0) {
                     activeMenu.subMenus[i] = {...activeMenu.subMenus[i], active:true}
+                }   else  {
+                    activeMenu.subMenus[i] = {...activeMenu.subMenus[i], active:false}
                 }
             }
         }
@@ -119,7 +120,7 @@ const SideNav = ({location}) => {
 
     useEffect(() => {
         updateSubmenu();
-    }, [activeMenu])
+    }, [location, activeMenu])
 
     return (
         <div className="side-nav h-screen bg-white fixed text-sm text-primary">
@@ -171,7 +172,7 @@ const SideNav = ({location}) => {
                                 {activeMenu.subMenus.map((subMenu, idx) => (
                                     <li key={idx} className="">
                                         <Link to={subMenu.path} className="flex w-full items-center py-1.5">
-                                            <span className={`${subMenu.active ? "font-bold" : ""} mr-2 ml-4`}>{subMenu.name}</span>
+                                            <span className={`${(subMenu.active || (subMenu.path === location.pathname || location.pathname.indexOf(subMenu.path) === 0)) ? "font-bold" : ""} mr-2 ml-4`}>{subMenu.name}</span>
                                         </Link>
                                     </li>
                                 ))}
