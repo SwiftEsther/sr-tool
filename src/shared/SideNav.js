@@ -1,13 +1,200 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import AgentIcon from "./assets/icons/AgentIcon";
+import DashboardIcon from "./assets/icons/DahsboardIcon";
+import IncidentIcon from "./assets/icons/IncidentIcon";
+import ResultIcon from "./assets/icons/ResultIcon";
+import TerritoryIcon from "./assets/icons/TerritoryIcon";
+import UserIcon from "./assets/icons/UserIcon";
 
-const SideNav = () => {
+const SideNav = ({location}) => {
+    let defaultMenuList = [
+        {
+            name: 'Dashboard',
+            icon: () => <DashboardIcon />,
+            active: true,
+            subMenus: [
+                {
+                    name: 'Result',
+                    active: false,
+                    path: '/dashboard/results'
+                },
+                {
+                    name: 'Incidents',
+                    active: false,
+                    path: '/dashboard/incidents'
+                }
+            ],
+            path: '/dashboard'
+        },
+        {
+            name: 'Results',
+            icon: () => <ResultIcon />,
+            active: false,
+            subMenus: [],
+            path: '/results'
+        },
+        {
+            name: 'Incident',
+            icon: () => <IncidentIcon />,
+            active: false,
+            subMenus: [],
+            path: '/incidents'
+        },
+        {
+            name: 'Agents',
+            icon: () => <AgentIcon />,
+            active: false,
+            subMenus: [],
+            path: '/agents'
+        },
+        {
+            name: 'Territories',
+            icon: () => <TerritoryIcon />,
+            active: false,
+            subMenus: [
+                {
+                    name: 'States',
+                    active: true,
+                    path: '/territories/states'
+                },
+                {
+                    name: 'LGAs',
+                    active: false,
+                    path: '/territories/lgas'
+                },
+                {
+                    name: 'Wards',
+                    active: false,
+                    path: '/territories/wards'
+                },
+                {
+                    name: 'Polling Unit',
+                    active: false,
+                    path: '/territories/polling-units'
+                }
+            ],
+            path: '/territories'
+        },
+        {
+            name: 'Users',
+            icon: () => <UserIcon />,
+            active: false,
+            subMenus: [],
+            path: '/users'
+        }
+    ];
+
+    const [menus, setMenus] = useState(defaultMenuList);
+    const [top, setTop] = useState([]);
+    const [bottom, setBottom] = useState(defaultMenuList.slice(1, defaultMenuList.length));
+    const [activeMenu, setActiveMenu] = useState();
+
+    const updateNav = () => {
+        console.log(location.pathname);
+        for(let i = 0; i < menus.length; ++i) {
+            console.log(menus[i].path)
+            if(location.pathname == menus[i].path || location.pathname.indexOf(menus[i].path) == 0) {
+                setTop(menus.slice(0, i));
+                setActiveMenu(menus[i]);
+                setBottom(menus.slice(i+1, menus.length))
+            }
+        };
+        // check if the current route == item.path or matches it in any way
+    }
+
+    useEffect(() => {
+        updateNav();
+    }, [location])
+
     return (
-        <div className="side-nav h-screen bg-white fixed">
-            <div className="">
-                <div className="">
-                    SideNav
+        <div className="side-nav h-screen bg-white fixed text-sm text-primary">
+            <div className="flex flex-col h-full">
+                <div className="top pt-2.5 border-r border-b border-primary">
+                    <div className="mt-24">
+                        
+                    </div>
+                    <ul className="list-reset flex flex-row md:flex-col text-center md:text-left">
+                        {top.map((item, index) => (
+                            <li key={index} className="w-full border-t border-primary border-opacity-10">
+                                <a className="flex w-full items-center py-3.5 px-5">
+                                    <span className="w-2.5/10">{item.icon()}</span>
+                                    <span className="6/10 mr-2 ml-4">{item.name}</span>
+                                    {item.subMenus.length > 0 && 
+                                        <span className="1/10">&uarr;</span>
+                                    }
+                                </a>
+                                {/* {(item.active && item.subMenus.length > 0) && 
+                                        <div className="w-full flex">
+                                            <div className="w-4/10"></div>
+                                            <ul className="list-reset flex flex-column md:flex-col text-center md:text-left w-6/10 text-xs">
+                                                {item.subMenus.map((subMenu, idx) => (
+                                                    <li key={idx} className="">
+                                                        <a className="flex w-full items-center py-1.5">
+                                                            <span className={`${subMenu.active ? "font-bold" : ""} mr-2 ml-4`}>{subMenu.name}</span>
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    } */}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                {activeMenu && <div>
+                    <a className="flex w-full items-center py-3.5 px-5">
+                        <span className="w-3/10">{activeMenu.icon()}</span>
+                        <span className="6/10 mr-2 ml-4">{activeMenu.name}</span>
+                        {activeMenu.subMenus.length > 0 && 
+                            <span className="1/10">&darr;</span>
+                        }
+                    </a>
+                    {activeMenu.subMenus.length > 0 && 
+                        <div className="w-full flex mb-1">
+                            <div className="w-4/10"></div>
+                            <ul className="list-reset flex flex-column md:flex-col text-center md:text-left w-6/10 text-xs">
+                                {activeMenu.subMenus.map((subMenu, idx) => (
+                                    <li key={idx} className="">
+                                        <a className="flex w-full items-center py-1.5">
+                                            <span className={`${subMenu.active ? "font-bold" : ""} mr-2 ml-4`}>{subMenu.name}</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    }
+                </div>}
+                <div className="bottom border-r border-t border-primary flex-grow">
+                    <ul className="list-reset flex flex-row md:flex-col text-center md:text-left">
+                        {bottom.map((item, index) => (
+                            <li key={index} className="w-full border-t border-primary border-opacity-10">
+                                <a className="flex w-full items-center py-3.5 px-5">
+                                    <span className="w-2.5/10">{item.icon()}</span>
+                                    <span className="6/10 mr-2 ml-4">{item.name}</span>
+                                    {item.subMenus.length > 0 && 
+                                        <span className="1/10">&uarr;</span>
+                                    }
+                                </a>
+                                {/* {(item.active && item.subMenus.length > 0) && 
+                                        <div className="w-full flex">
+                                            <div className="w-4/10"></div>
+                                            <ul className="list-reset flex flex-column md:flex-col text-center md:text-left w-6/10 text-xs">
+                                                {item.subMenus.map((subMenu, idx) => (
+                                                    <li key={idx} className="">
+                                                        <a className="flex w-full items-center py-1.5">
+                                                            <span className={`mr-2 ml-4`}>{subMenu.name}</span>
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    } */}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
+            
             {/* <div class="w-0 md:w-1/5 bg-gray-900 md:bg-gray-900 px-2 text-center fixed md:pt-8 top-0 md:left-0 h-16 md:h-screen md:border-r-4 md:border-gray-600">
                 <div class="md:relative mx-auto lg:float-right lg:px-6">
                 <ul class="list-reset flex flex-row md:flex-col text-center md:text-left">
