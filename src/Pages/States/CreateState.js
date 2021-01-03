@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Breadcrumbs } from 'react-breadcrumbs';
 import Layout from '../../shared/Layout';
 import {createState} from '../../lib/url.js';
-import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
 import StateForm from './components/Stateform';
@@ -32,12 +31,12 @@ const CreateState = ({match, history, location}) => {
                 dispatch({type: 'CREATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/states");
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_STATE_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong while creating state. Please try again later."}`);
                 setSubmitting(false);
-                history.push("/territories/states");
             });
     }
     return (

@@ -75,7 +75,7 @@ const SideNav = ({location}) => {
                     path: '/territories/polling-units'
                 }
             ],
-            path: '/territories'
+            path: '/territories/states'
         },
         {
             name: 'Users',
@@ -86,7 +86,7 @@ const SideNav = ({location}) => {
         },
         {
             name: 'Parties',
-            icon: () => <PartyIcon />,
+            icon: (active) => <PartyIcon active={active}/>,
             active: false,
             subMenus: [],
             path: '/parties'
@@ -105,6 +105,8 @@ const SideNav = ({location}) => {
                 setTop(menus.slice(0, i));
                 setActiveMenu({...menus[i], active : true});
                 setBottom(menus.slice(i+1, menus.length))
+            }   else {
+                menus[i] = {...menus[i], active : false};
             }
         };
     }
@@ -141,7 +143,7 @@ const SideNav = ({location}) => {
                         {top.map((item, index) => (
                             <li key={index} className="w-full border-t border-primary border-opacity-10">
                                 <Link to={item.path} className="flex w-full items-center py-3.5 px-5">
-                                    <span className="w-2.5/10">{item.icon()}</span>
+                                    <span className="w-2.5/10">{item.icon(item.active)}</span>
                                     <span className="6/10 mr-2 ml-4">{item.name}</span>
                                     {item.subMenus.length > 0 && 
                                         <span className="1/10">&uarr;</span>
@@ -167,7 +169,7 @@ const SideNav = ({location}) => {
                 </div>
                 {activeMenu && <div>
                     <Link to={activeMenu.path} className="flex w-full items-center py-3.5 px-5">
-                        <span className="w-3/10">{activeMenu.icon()}</span>
+                        <span className="w-3/10">{activeMenu.icon(activeMenu.active)}</span>
                         <span className="6/10 mr-2 ml-4">{activeMenu.name}</span>
                         {activeMenu.subMenus.length > 0 && 
                             <span className="1/10">&darr;</span>
@@ -193,7 +195,7 @@ const SideNav = ({location}) => {
                         {bottom.map((item, index) => (
                             <li key={index} className="w-full border-t border-primary border-opacity-10">
                                 <Link to={item.path} className="flex w-full items-center py-3.5 px-5">
-                                    <span className="w-2.5/10">{item.icon()}</span>
+                                    <span className="w-2.5/10">{item.icon(item.active)}</span>
                                     <span className="6/10 mr-2 ml-4">{item.name}</span>
                                     {item.subMenus.length > 0 && 
                                         <span className="1/10">&uarr;</span>
