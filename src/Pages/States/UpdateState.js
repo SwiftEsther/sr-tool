@@ -11,6 +11,7 @@ const UpdateState = ({match, location}) => {
     console.log(location)
     const [state, dispatch] = useContext(StateContext);
     const [currentState, setCurrentState] = useState(location.state.state);
+
     const handleUpdate = (values, {setSubmitting}) => {
         dispatch({type: 'UPDATE_STATE'});
          setSubmitting(true);
@@ -18,6 +19,7 @@ const UpdateState = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'UPDATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_STATE_FAILURE', payload: {error: err}});

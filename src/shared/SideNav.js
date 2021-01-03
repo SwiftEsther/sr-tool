@@ -75,7 +75,7 @@ const SideNav = ({location}) => {
                     path: '/territories/polling-units'
                 }
             ],
-            path: '/territories/states'
+            path: '/territories'
         },
         {
             name: 'Users',

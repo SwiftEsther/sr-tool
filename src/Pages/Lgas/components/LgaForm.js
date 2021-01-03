@@ -14,6 +14,7 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
         name: '',
         number: ''
     }
+    const [init, setInit] = useState(initialValues);
 
     const validate = (values) => {
         console.log(values);
@@ -38,18 +39,19 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                 setStates(res.states);
             })
             .catch(err => {
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch states. Please try again later."}`)
             })
     }
 
     const getSenatorialDistricts = (stateId) => {
-        apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
+        if(stateId){apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
             .then(res => {
+                console.log(res)
                 setSenatorialDistricts(res.senatorialDistricts);
             })
             .catch(err => {
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch senatorial districts. Please try again later."}`)
-            })
+                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch senatorial districts. Please try again later."}`)
+            })}
     }
     // if(formFields) {
     //     console.log(formFields)
@@ -64,8 +66,13 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
     }
 
     useEffect(() => {
+        setInit(formFields);
         getStates();
     }, []);
+
+    useEffect(() => {
+        getSenatorialDistricts(init.state)
+    }, [init])
 
     return (
         <div className="w-3/10">

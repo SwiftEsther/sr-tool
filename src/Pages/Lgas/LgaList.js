@@ -93,10 +93,10 @@ const LgaList = ({lgas, loading, getLgas}) => {
                     <div className="table-body">
                     {lgas.length > 0 ? 
                         lgas.map((lga) => (<div key={lga.id} className="custom-table-row w-full flex">
-                            <div className="table-row-data w-2/10">{lga.name || 'LGA'}</div>
-                            <div className="table-row-data w-2/10">{lga.senatorialDistrict || 'KAno North'}</div>
-                            <div className="table-row-data w-2/10">{lga.state || 'Gwale'}</div>
-                            <div className="table-row-data w-2/10">{lga.code || 1200}</div>
+                            <div className="table-row-data w-2/10">{lga.name || ''}</div>
+                            <div className="table-row-data w-2/10">{lga.senatorialDistrict.name || ''}</div>
+                            <div className="table-row-data w-2/10">{lga.state.name || ''}</div>
+                            <div className="table-row-data w-2/10">{lga.code || ''}</div>
                             <div className="table-row-data w-2/10"> 
                                 <span data-tip data-for={`ellipsis-lga-${lga.id}`} data-event='click'>
                                     <Ellipsis />

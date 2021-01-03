@@ -27,7 +27,7 @@ const CreateLga = ({match, history,location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_LGA_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong while creating lga. Please try again later."}`);
+                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong while creating lga. Please try again later."}`);
                 setSubmitting(false);
             });
     }
