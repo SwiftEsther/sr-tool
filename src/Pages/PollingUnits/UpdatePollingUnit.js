@@ -25,7 +25,7 @@ const UpdatePollingUnit = ({match, location}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
                 pathname: "/territories"}, {id: 2,title: 'Polling Units',
                 pathname: "/territories/polling-units"}, {id: 3,title: 'Update Polling Unit',

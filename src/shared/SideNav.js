@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import AgentIcon from "./assets/icons/AgentIcon";
 import DashboardIcon from "./assets/icons/DahsboardIcon";
 import IncidentIcon from "./assets/icons/IncidentIcon";
@@ -54,7 +55,7 @@ const SideNav = ({location}) => {
             subMenus: [
                 {
                     name: 'States',
-                    active: true,
+                    active: false,
                     path: '/territories/states'
                 },
                 {
@@ -93,18 +94,32 @@ const SideNav = ({location}) => {
         console.log(location.pathname);
         for(let i = 0; i < menus.length; ++i) {
             console.log(menus[i].path)
-            if(location.pathname == menus[i].path || location.pathname.indexOf(menus[i].path) == 0) {
+            if(location.pathname === menus[i].path || location.pathname.indexOf(menus[i].path) === 0) {
                 setTop(menus.slice(0, i));
-                setActiveMenu(menus[i]);
+                setActiveMenu({...menus[i], active : true});
                 setBottom(menus.slice(i+1, menus.length))
             }
         };
         // check if the current route == item.path or matches it in any way
     }
 
+    const updateSubmenu = () => {
+        if(activeMenu?.subMenus.length > 0) {
+            for(let i = 0; i < activeMenu.subMenus.length; ++i) {
+                if(activeMenu.subMenus[i].path === location.pathname || location.pathname.indexOf(activeMenu.subMenus[i].path) === 0) {
+                    activeMenu.subMenus[i] = {...activeMenu.subMenus[i], active:true}
+                }
+            }
+        }
+    }
+
     useEffect(() => {
         updateNav();
     }, [location])
+
+    useEffect(() => {
+        updateSubmenu();
+    }, [activeMenu])
 
     return (
         <div className="side-nav h-screen bg-white fixed text-sm text-primary">
@@ -116,13 +131,13 @@ const SideNav = ({location}) => {
                     <ul className="list-reset flex flex-row md:flex-col text-center md:text-left">
                         {top.map((item, index) => (
                             <li key={index} className="w-full border-t border-primary border-opacity-10">
-                                <a className="flex w-full items-center py-3.5 px-5">
+                                <Link to={item.path} className="flex w-full items-center py-3.5 px-5">
                                     <span className="w-2.5/10">{item.icon()}</span>
                                     <span className="6/10 mr-2 ml-4">{item.name}</span>
                                     {item.subMenus.length > 0 && 
                                         <span className="1/10">&uarr;</span>
                                     }
-                                </a>
+                                </Link>
                                 {/* {(item.active && item.subMenus.length > 0) && 
                                         <div className="w-full flex">
                                             <div className="w-4/10"></div>
@@ -142,22 +157,22 @@ const SideNav = ({location}) => {
                     </ul>
                 </div>
                 {activeMenu && <div>
-                    <a className="flex w-full items-center py-3.5 px-5">
+                    <Link to={activeMenu.path} className="flex w-full items-center py-3.5 px-5">
                         <span className="w-3/10">{activeMenu.icon()}</span>
                         <span className="6/10 mr-2 ml-4">{activeMenu.name}</span>
                         {activeMenu.subMenus.length > 0 && 
                             <span className="1/10">&darr;</span>
                         }
-                    </a>
+                    </Link>
                     {activeMenu.subMenus.length > 0 && 
                         <div className="w-full flex mb-1">
                             <div className="w-4/10"></div>
                             <ul className="list-reset flex flex-column md:flex-col text-center md:text-left w-6/10 text-xs">
                                 {activeMenu.subMenus.map((subMenu, idx) => (
                                     <li key={idx} className="">
-                                        <a className="flex w-full items-center py-1.5">
+                                        <Link to={subMenu.path} className="flex w-full items-center py-1.5">
                                             <span className={`${subMenu.active ? "font-bold" : ""} mr-2 ml-4`}>{subMenu.name}</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -168,13 +183,13 @@ const SideNav = ({location}) => {
                     <ul className="list-reset flex flex-row md:flex-col text-center md:text-left">
                         {bottom.map((item, index) => (
                             <li key={index} className="w-full border-t border-primary border-opacity-10">
-                                <a className="flex w-full items-center py-3.5 px-5">
+                                <Link to={item.path} className="flex w-full items-center py-3.5 px-5">
                                     <span className="w-2.5/10">{item.icon()}</span>
                                     <span className="6/10 mr-2 ml-4">{item.name}</span>
                                     {item.subMenus.length > 0 && 
                                         <span className="1/10">&uarr;</span>
                                     }
-                                </a>
+                                </Link>
                                 {/* {(item.active && item.subMenus.length > 0) && 
                                         <div className="w-full flex">
                                             <div className="w-4/10"></div>

@@ -7,7 +7,7 @@ import {users} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 
-const CreateUser = ({match}) => {
+const CreateUser = ({match, location}) => {
     const [userState, dispatch] = useContext(UserContext);
     const handleCreate = (values, {setSubmitting}) => {
         dispatch({type: 'CREATE_USER'});
@@ -24,7 +24,7 @@ const CreateUser = ({match}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Users',
                 pathname: "/users"}, {id: 2,title: 'Add User',
                 pathname: match.path}]}/>

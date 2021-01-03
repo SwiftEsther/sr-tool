@@ -8,7 +8,7 @@ import {allStates, getStateByCode} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 
-const States = ({match}) => {
+const States = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [state, dispatch] = useContext(StateContext);
 
@@ -49,7 +49,7 @@ const States = ({match}) => {
 
     return (
         <StateController>
-            <Layout>
+            <Layout location={location}>
                 <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
                 pathname: "/territories"}, {id: 2,title: 'States',
                 pathname: match.path}]}/>

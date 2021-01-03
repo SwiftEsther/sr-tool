@@ -9,7 +9,7 @@ import { PartyContext } from "../../contexts/PartyContext";
 import PartyList from "./PartyList";
 import Pagination from "../../shared/components/Pagination";
 
-const Parties = ({match}) => {
+const Parties = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [partyState, dispatch] = useContext(PartyContext);
     const [currentParties, setCurrentParties] = useState([]);
@@ -61,7 +61,7 @@ const Parties = ({match}) => {
     }, []);
 
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold"/>
             <Breadcrumb data={{
                 title: 'Parties',

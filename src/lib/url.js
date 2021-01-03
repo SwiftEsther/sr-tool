@@ -38,7 +38,7 @@ export const filterWardByName = `${baseUrl}/api/v${version}/ward/filter`;
 export const getWardsByLgaId = `${baseUrl}/api/v${version}/ward/lga`;
 
 //----POLLING UNIT URLS----//
-export const allPollingUnits = `${baseUrl}/api/v${version}/polling-unit`;
+export const allPollingUnits = `${baseUrl}/api/v${version}/polling-unit/all`;
 export const createPollingUnit = `${baseUrl}/api/v${version}/polling-unit`;
 export const getPollingUnitById = `${baseUrl}/api/v${version}/polling-unit`;
 export const getPollingUnitByCode = `${baseUrl}/api/v${version}/polling-unit`;

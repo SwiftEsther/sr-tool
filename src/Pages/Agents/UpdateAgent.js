@@ -25,7 +25,7 @@ const UpdateAgent = ({match, location}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Agents',
                 pathname: "/agents"}, {id: 2,title: 'Update Agent',
                 pathname: match.path}]}/>

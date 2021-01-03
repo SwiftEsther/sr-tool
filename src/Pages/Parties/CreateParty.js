@@ -7,7 +7,7 @@ import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import PartyForm from './components/Partyform';
 
-const CreateParty = ({match, history}) => {
+const CreateParty = ({match, history, location}) => {
     const [userState, dispatch] = useContext(UserContext);
     const handleCreate = (values, {setSubmitting}) => {
         dispatch({type: 'CREATE_PARTY'});
@@ -26,7 +26,7 @@ const CreateParty = ({match, history}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Parties',
                 pathname: "/parties"}, {id: 2,title: 'Add Party',
                 pathname: match.path}]}/>

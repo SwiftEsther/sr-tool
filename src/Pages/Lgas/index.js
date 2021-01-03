@@ -12,7 +12,7 @@ import Downloader from "../../shared/components/Downloader";
 import pickBy from 'lodash/pickBy'
 import Pagination from "../../shared/components/Pagination";
 
-const Lgas = ({match}) => {
+const Lgas = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [lgaState, dispatch] = useContext(LgaContext);
     const [filter, setFilter] = useState({senatorialDistrict: '', state: ''});
@@ -87,7 +87,7 @@ const Lgas = ({match}) => {
 
     return (
         <LgaController>
-            <Layout>
+            <Layout location={location}>
                 <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
                 pathname: "/territories"}, {id: 2,title: 'Lgas',
                 pathname: match.path}]}/>

@@ -28,7 +28,7 @@ const UpdateParty = ({match, location, history}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Parties',
                 pathname: "/parties"}, {id: 2,title: 'Update Party',
                 pathname: match.path}]}/>

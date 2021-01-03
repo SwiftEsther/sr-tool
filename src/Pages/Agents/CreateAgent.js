@@ -7,7 +7,7 @@ import { showToast } from '../../helpers/showToast';
 import { AgentContext } from '../../contexts/AgentContext';
 import AgentForm from './components/AgentForm';
 
-const CreateAgent = ({match}) => {
+const CreateAgent = ({match, location}) => {
     const [agentState, dispatch] = useContext(AgentContext);
     const handleCreate = (values, {setSubmitting}) => {
         console.log(values)
@@ -37,7 +37,7 @@ const CreateAgent = ({match}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Agents',
                 pathname: "/agents"}, {id: 2,title: 'Add Agent',
                 pathname: match.path}]}/>

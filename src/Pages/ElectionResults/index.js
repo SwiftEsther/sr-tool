@@ -12,7 +12,7 @@ import Pagination from "../../shared/components/Pagination";
 import { ResultContext } from "../../contexts/ResultContext";
 import ResultList from "./ResultList";
 
-const Results = ({match}) => {
+const Results = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [resultState, dispatch] = useContext(ResultContext);
     const [filter, setFilter] = useState({lga: '', ward: '', pollingUnit: ''});
@@ -85,7 +85,7 @@ const Results = ({match}) => {
     }, []);
 
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Results',
             pathname: match.path}]}/>
             <div className="my-6 shadow-container pl-2.5 pr-7 py-6">

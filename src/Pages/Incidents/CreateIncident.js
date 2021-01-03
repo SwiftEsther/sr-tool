@@ -7,7 +7,7 @@ import { showToast } from '../../helpers/showToast';
 import { IncidentContext } from '../../contexts/IncidentContext';
 import IncidentForm from './components/IncidentForm';
 
-const CreateIncident = ({match}) => {
+const CreateIncident = ({match, location}) => {
     const [incidentState, dispatch] = useContext(IncidentContext);
     const handleCreate = (values, {setSubmitting}) => {
         console.log(values)
@@ -37,7 +37,7 @@ const CreateIncident = ({match}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Incidents',
                 pathname: "/incidents"}, {id: 2,title: 'Add Incident',
                 pathname: match.path}]}/>

@@ -7,12 +7,12 @@ import { showToast } from '../../helpers/showToast';
 import { LgaContext } from '../../contexts/LgaContext';
 import LgaForm from './components/LgaForm';
 
-const CreateLga = ({match, history}) => {
+const CreateLga = ({match, history,location}) => {
     const [lgaState, dispatch] = useContext(LgaContext);
     const handleCreate = (values, {setSubmitting}) => {
         dispatch({type: 'CREATE_LGA'});
         const requestBody = {
-            code: values.name,
+            code: values.number,
             name: values.name,
             stateId: values.state,
             senatorialDistrictId: values.senatorialDistrict
@@ -32,7 +32,7 @@ const CreateLga = ({match, history}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
                 pathname: "/territories"}, {id: 2,title: 'LGAs',
                 pathname: "/territories/lgas"}, {id: 3,title: 'Add LGA',

@@ -12,7 +12,7 @@ import { WardContext } from "../../contexts/WardContext";
 import WardList from "./WardList";
 import Pagination from "../../shared/components/Pagination";
 
-const Wards = ({match}) => {
+const Wards = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [wardState, dispatch] = useContext(WardContext);
     const [filter, setFilter] = useState({senatorialDistrict: '', state: '', lga: ''});
@@ -55,7 +55,7 @@ const Wards = ({match}) => {
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_WARD_BY_NAME_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+                // showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
     }
 
@@ -78,7 +78,7 @@ const Wards = ({match}) => {
             })
             .catch((err) => {
                 dispatch({type: 'GET_WARDS_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+                // showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
     }
 
@@ -87,7 +87,7 @@ const Wards = ({match}) => {
     }, []);
 
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
             pathname: "/territories"}, {id: 2,title: 'Wards',
             pathname: match.path}]}/>

@@ -97,9 +97,9 @@ const WardList = ({wards, loading, getWards}) => {
                         wards.map((ward) => (<div key={ward.id} className="custom-table-row w-full flex">
                             <div className="table-row-data w-2/10">{ward.code || 'WARD'}</div>
                             <div className="table-row-data w-2/10">{ward.lga?.name || 'LGA'}</div>
-                            <div className="table-row-data w-2/10">{ward.senatorialDistrict || 'KAno North'}</div>
-                            <div className="table-row-data w-2/10">{ward.state || 'Gwale'}</div>
-                            <div className="table-row-data w-2/10">{ward.number || 1200}</div>
+                            <div className="table-row-data w-2/10">{ward.senatorialDistrict?.name || 'KAno North'}</div>
+                            <div className="table-row-data w-2/10">{ward.state?.name || 'Gwale'}</div>
+                            <div className="table-row-data w-2/10">{ward.code || 1200}</div>
                             <div className="table-row-data w-2/10"> 
                                 <span data-tip data-for={`ellipsis-lga-${ward.id}`} data-event='click'>
                                     <Ellipsis />

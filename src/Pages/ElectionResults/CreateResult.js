@@ -7,7 +7,7 @@ import { showToast } from '../../helpers/showToast';
 import { ResultContext } from '../../contexts/ResultContext';
 import ResultForm from './components/ResultForm';
 
-const CreateResult = ({match}) => {
+const CreateResult = ({match, location}) => {
     const [resultState, dispatch] = useContext(ResultContext);
     const handleCreate = (values, {setSubmitting}) => {
         console.log(values)
@@ -37,7 +37,7 @@ const CreateResult = ({match}) => {
             });
     }
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Results',
                 pathname: "/results"}, {id: 2,title: 'Add Result',
                 pathname: match.path}]}/>

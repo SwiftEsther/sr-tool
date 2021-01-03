@@ -8,7 +8,7 @@ import {users} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 
-const Users = ({match}) => {
+const Users = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [userState, dispatch] = useContext(UserContext);
 
@@ -49,7 +49,7 @@ const Users = ({match}) => {
 
     return (
         <UserController>
-            <Layout>
+            <Layout location={location}>
                 <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold"/>
                 <Breadcrumb data={{
                     title: 'Users',

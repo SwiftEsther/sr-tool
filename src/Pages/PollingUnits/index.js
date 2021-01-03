@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allPollingUnits, getPollingUnitByCode} from '../../lib/url.js';
+import {allPollingUnits, getPollingUnitByCode, filterPollingUnitByName} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -10,14 +10,16 @@ import Downloader from "../../shared/components/Downloader";
 import pickBy from 'lodash/pickBy'
 import WardList from "./PollingUnitList";
 import { PUContext } from "../../contexts/PollingUnitContext";
+import Pagination from "../../shared/components/Pagination";
 
-const PollingUnits = ({match}) => {
+const PollingUnits = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [puState, dispatch] = useContext(PUContext);
     const [filter, setFilter] = useState({senatorialDistrict: '', state: '', lga: ''});
     const [districts, setDistricts] = useState([]);
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
+    const [currentPoullingUnits, setCurrentPollingUnits] = useState([]);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -44,37 +46,48 @@ const PollingUnits = ({match}) => {
     }
 
     const handleSearch = () => {
-        dispatch({type: 'GET_POLLING_UNIT_BY_CODE'});
-        //  setSubmitting(true);
-         apiRequest(getPollingUnitByCode, 'get', {params: {code: search}})
+        dispatch({type: 'SEARCH_POLLING_UNIT_BY_NAME'});
+         apiRequest(filterPollingUnitByName, 'get', {params: {name: search}})
             .then((res) => {
-                dispatch({type: 'GET_POLLING_UNIT_BY_CODE_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                dispatch({type: 'SEARCH_POLLING_UNIT_BY_NAME_SUCCESS', payload: {response: res}});
+                setCurrentPollingUnits(res.pollingUnits.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
-                dispatch({type: 'GET_POLLING_UNIT_BY_CODE_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                dispatch({type: 'SEARCH_POLLING_UNIT_BY_NAME_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+            });
+    }
+
+    const onPageChanged = data => {
+        const { currentPage, totalPages, pageLimit } = data;
+        const offset = (currentPage - 1) * pageLimit;
+        const units = puState.pollingUnits.slice(offset, offset + pageLimit);
+        setCurrentPollingUnits(units);
+        // this.setState({ currentPage, currentCountries, totalPages });
+        console.log('Page changed',data)
+    }
+
+    const getAllPollingUnitss = () => {
+        dispatch({type: 'GET_POLLING_UNITS'});
+         apiRequest(allPollingUnits, 'get')
+            .then((res) => {
+                dispatch({type: 'GET_POLLING_UNITS_SUCCESS', payload: {response: res}});
+                setCurrentPollingUnits(res.pollingUnits.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+            })
+            .catch((err) => {
+                dispatch({type: 'GET_POLLING_UNITS_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
     }
 
     useEffect(() => {
-        dispatch({type: 'GET_POLLING_UNITS'});
-        //  setSubmitting(true);
-         apiRequest(allPollingUnits, 'get')
-            .then((res) => {
-                dispatch({type: 'GET_POLLING_UNITS_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
-            })
-            .catch((err) => {
-                dispatch({type: 'GET_POLLING_UNITS_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
-            });
+        getAllPollingUnitss();
     }, []);
 
     return (
-        <Layout>
+        <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
             pathname: "/territories"}, {id: 2,title: 'Polling Units',
             pathname: match.path}]}/>
@@ -126,14 +139,14 @@ const PollingUnits = ({match}) => {
                         </button>
                     </div>
                 </div>
-                <WardList pollingUnits={puState.pollingUnits}/>
+                <WardList pollingUnits={puState.pollingUnits} loading={puState.loading} getPollingUnitss={getAllPollingUnitss}/>
                 <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="GET_POLLING_UNITS_SUCCESS"/>
-                        {puState.pollingUnits.length > 0 && <Downloader dispatch={dispatch} action="GET_POLLING_UNITS_SUCCESS" />}
+                        <Uploader dispatch={dispatch} action="UPLOAD_POLLING_UNITS_SUCCESS"/>
+                        {puState.pollingUnits.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_POLLING_UNITS_SUCCESS" />}
                     </div>
-                    {puState.pollingUnits.length > 0 && <div>
-                        Pagination
+                    {puState.response?.pollingUnits?.length > 0 && <div>
+                        <Pagination totalRecords={puState.response?.pollingUnits?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
                 </div>
             </div>
