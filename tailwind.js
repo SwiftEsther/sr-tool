@@ -29,6 +29,7 @@ module.exports = {
       pink: colors.pink,
 
       primary: '#31326f',
+      opaqueBlue: '#f5faf8',
       lightGray: '#c0c0c0',
       lighterGray: '#d8d8d8',
       defaultGray: '#979797',
