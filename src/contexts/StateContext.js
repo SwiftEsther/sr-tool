@@ -6,7 +6,8 @@ const initialState = {
   success: false,
   error: null,
   states: [],
-  sttae: null
+  sttae: null,
+  response: null
 };
 
 const initialContext = [{...initialState}, () => {}];
@@ -25,7 +26,8 @@ const stateReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        states: action.payload.response,
+        states: action.payload.response.states,
+        response: action.payload.response
       };
     case 'GET_STATES_FAILURE':
       return {
@@ -44,7 +46,7 @@ const stateReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        state: action.payload.response,
+        response: action.payload.response,
       };
     case 'CREATE_STATE_FAILURE':
       return {
@@ -63,7 +65,7 @@ const stateReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        state: action.payload.response,
+        response: action.payload.response,
       };
     case 'UPDATE_STATE_FAILURE':
       return {
@@ -82,9 +84,47 @@ const stateReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        state: action.payload.response,
+        response: action.payload.response,
       };
     case 'DELETE_STATE_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+    case 'GET_STATE_BY_ID':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_STATE_BY_ID_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        response: action.payload.response,
+      };
+    case 'GET_STATE_BY_ID_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
+    case 'SEARCH_STATE_BY_NAME':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'SEARCH_STATE_BY_NAME_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        response: action.payload.response,
+      };
+    case 'SEARCH_STATE_BY_NAME_FAILURE':
       return {
         ...state,
         loading: false,

@@ -7,13 +7,17 @@ import {deleteState} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
+import Loader from '../../shared/components/Loader';
+import env from '../../config/env.config';
+import Map from '../../shared/assets/map.svg';
 
-const StateList = ({}) => {
-    const some = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const StateList = ({states, loading, getStates}) => {
     const [state, dispatch] = useContext(StateContext);
     const [showModal, setShowModal] = useState(false);
     const [currentState, setCurrentState] = useState(null);
     const [defaultState, setDefaultState] = useState(null);
+    const baseUrl = env().baseUrl;
+    const version = env().version;
     const customStyles = {
         overlay: {
             backgroundColor: 'transparent'
@@ -32,16 +36,17 @@ const StateList = ({}) => {
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_STATE'});
-         apiRequest(deleteState, 'delete')
+         apiRequest(`${deleteState}/${currentState.id}`, 'delete')
             .then((res) => {
                 dispatch({type: 'DELETE_STATE_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                // setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                getStates();
             })
             .catch((err) => {
                 dispatch({type: 'DELETE_STATE_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
                 setShowModal(false);
+                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong while deleting state. Please try again later."}`);
             });
     }
 
@@ -66,7 +71,7 @@ const StateList = ({}) => {
           contentLabel="Delete Modal"
         >
             <div className="flex justify-between items-center mb-12">
-                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentState}?</p>
+                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentState?.name}?</p>
                 <button onClick={closeModal} className="focus:outline-none">close</button>
             </div>
           
@@ -87,26 +92,34 @@ const StateList = ({}) => {
                     </div>
                     
                 </div>
+                {loading ? 
+                <div className="flex justify-center my-6">
+                        <Loader />
+                    </div>:
                 <div className="table-body">
-                    {some.map((s) => (<div key={s} className="custom-table-row w-full flex">
-                        <div className="table-row-data w-2/10">Kano</div>
-                        <div className="table-row-data w-2/10">44</div>
-                        <div className="table-row-data w-2/10">Map</div>
+                    {states.length > 0 ? states.map((state) => (<div key={state.id} className="custom-table-row w-full flex">
+                        <div className="table-row-data w-2/10">{state.name}</div>
+                        <div className="table-row-data w-2/10">{state.lgas}</div>
+                        <div className="table-row-data w-2/10">
+                            <img src={state.svgUrl ? `${baseUrl}/api/v${version}${state.svgUrl}`: Map} alt="state map" width="38px" height="41px"/>
+                        </div>
                         <div className="table-row-data w-2/10">
                             <input type="radio" id="stateRadio"
-                                name="defaultState" value={s} onChange={() => setDefaultState(s)} />
+                                name="defaultState" value={state.defaultState} onChange={() => setDefaultState(state)} />
                         </div>
                         <div className="table-row-data w-2/10"> 
-                            <span data-tip data-for={`ellipsis-state-${s}`} data-event='click'>
+                            <span data-tip data-for={`ellipsis-state-${state.id}`} data-event='click'>
                                 <Ellipsis />
                             </span>
-                            <ReactTooltip id={`ellipsis-state-${s}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                <Link to={{pathname: `/territories/states/${s}`, state: {state: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
-                                <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
+                            <ReactTooltip id={`ellipsis-state-${state.id}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                <Link to={{pathname: `/territories/states/${state.id}`, state: {state: state}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                <button onClick={()=>triggerDelete(state)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                             </ReactTooltip>
                         </div>
-                    </div>))}
-                </div>
+                    </div>))
+                    : <div className="table-row-data w-full text-center my-4">There are no states to display</div>
+                    }
+                </div>}
             </div>
         </div>
     );

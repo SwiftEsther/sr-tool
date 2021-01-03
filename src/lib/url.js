@@ -16,6 +16,7 @@ export const getStateById = `${baseUrl}/api/v${version}/state`;
 export const getStateByCode = `${baseUrl}/api/v${version}/state`;
 export const updateState = `${baseUrl}/api/v${version}/state`;
 export const deleteState = `${baseUrl}/api/v${version}/state/delete`;
+export const filterStateByName = `${baseUrl}/api/v${version}/state/filter`;
 
 //----LGA URLS----//
 export const allLgas = `${baseUrl}/api/v${version}/lgas`;

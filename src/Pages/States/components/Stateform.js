@@ -1,15 +1,21 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
 import ImageThumb from "../../../shared/components/ImageThumb";
+import env from '../../../config/env.config';
+import Map from '../../../shared/assets/map.svg';
 
 const StateForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
     const [file, setFile] = useState("");
     const [name, setName] = useState("");
+    const baseUrl = env().baseUrl;
+    const version = env().version;
     let initialValues = {
         name: '',
         map: null
     }
+
+    console.log(formFields)
 
     const validate = (values) => {
         console.log(values)
@@ -65,15 +71,13 @@ const StateForm = ({formFields, handleFormSubmit}) => {
                                     setFieldValue("map", event.currentTarget.files[0]);
                                 }}
                                 accept=".svg"
-                                // multiple
-                                // onChange={(event) => setFile(event.target.files[0])}
-                                // value={values.name}
+                                required
                                 className="custom-file-input w-full focus:outline-none placeholder-darkerGray font-medium text-sm"
                                 placeholder="Upload SVG"
                             />
+                            {values.svgUrl && <img src={`${baseUrl}/api/v${version}${values.svgUrl}`} />}
                             {values.map && <ImageThumb image={values.map} />}
-                            {/* {values.map && <p >{values.map.name}</p>} */}
-                            {/* {errors.name && touched.name && <span className="text-xs text-red-600">{errors.name}</span>} */}
+                            {errors.map && touched.map && <span className="text-xs text-red-600">{errors.map}</span>}
                         </div>
                         <div className="flex justify-between items-center">
                             <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 px-16 text-white font-bold rounded-sm focus:outline-none">

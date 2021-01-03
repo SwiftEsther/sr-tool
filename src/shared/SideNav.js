@@ -99,7 +99,6 @@ const SideNav = ({location}) => {
     const [activeMenu, setActiveMenu] = useState();
 
     const updateNav = () => {
-            console.log('jhg', location.pathname)
         for(let i = 0; i < menus.length; ++i) {
             if(location.pathname === menus[i].path || location.pathname.indexOf(menus[i].path) === 0) {
                 setTop(menus.slice(0, i));
@@ -112,7 +111,6 @@ const SideNav = ({location}) => {
     }
 
     const updateSubmenu = () => {
-        console.log('sub', activeMenu)
         if(activeMenu?.subMenus.length > 0) {
             for(let i = 0; i < activeMenu.subMenus.length; ++i) {
                 if(activeMenu.subMenus[i].path === location.pathname || location.pathname.indexOf(activeMenu.subMenus[i].path) === 0) {

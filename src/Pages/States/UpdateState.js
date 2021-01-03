@@ -1,18 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Breadcrumbs } from 'react-breadcrumbs';
 import Layout from '../../shared/Layout';
-import {updateState} from '../../lib/url.js';
+import {updateState, getStateById} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
 import StateForm from './components/Stateform';
 
 const UpdateState = ({match, location}) => {
-    const newstate = {
-        name: "kano"
-    }
     console.log(location)
     const [state, dispatch] = useContext(StateContext);
+    const [currentState, setCurrentState] = useState(location.state.state);
     const handleUpdate = (values, {setSubmitting}) => {
         dispatch({type: 'UPDATE_STATE'});
          setSubmitting(true);
@@ -27,6 +25,25 @@ const UpdateState = ({match, location}) => {
                 setSubmitting(false);
             });
     }
+
+    const getState = () => {
+        dispatch({type: 'GET_STATE_BY_ID'});
+         apiRequest(`${getStateById}/${match.params.id}`, 'get')
+            .then((res) => {
+                console.log(res.state)
+                setCurrentState(res.state);
+                dispatch({type: 'GET_STATE_BY_ID_SUCCESS', payload: {response: res}});
+            })
+            .catch((err) => {
+                dispatch({type: 'GET_STATE_BY_ID_FAILURE', payload: {error: err}});
+                showToast('error', 'Something went wrong. Please try again later')
+            });
+    }
+
+    useEffect(() => {
+        getState();
+    }, [])
+
     return (
         <Layout location={location}>
             <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
@@ -34,7 +51,7 @@ const UpdateState = ({match, location}) => {
                 pathname: "/territories/states"}, {id: 3,title: 'Update State',
                 pathname: match.path}]}/>
             <div className="py-9 px-3.5">
-                <StateForm formFields={newstate} handleFormSubmit={handleUpdate}/>
+                <StateForm formFields={currentState} handleFormSubmit={handleUpdate}/>
             </div>
         </Layout>
     );

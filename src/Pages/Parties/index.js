@@ -84,11 +84,11 @@ const Parties = ({match, location}) => {
                         </Link>
                     </div>
                     <PartyList parties={currentParties} loading={partyState.loading} getParties={getAllParties}/>
-                    {!partyState.loading && <div className="flex justify-end items-center mt-4">
-                    {partyState.response?.politicalParties?.length > 0 && <div>
-                        <Pagination totalRecords={partyState.response?.politicalParties?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
-                    </div>}
-                </div>}
+                        {!partyState.loading && <div className="flex justify-end items-center mt-4">
+                            {partyState.response?.politicalParties?.length > 0 && <div>
+                                <Pagination totalRecords={partyState.response?.politicalParties?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                            </div>}
+                        </div>}
                 </div>
             </Breadcrumb>
         </Layout>
