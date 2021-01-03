@@ -10,11 +10,13 @@ import axios from 'axios';
 
 const CreateState = ({match, history}) => {
     const [state, dispatch] = useContext(StateContext);
-    const handleCreate = async(values, {setSubmitting}) => {
+    const handleCreate = async(e, values, setSubmitting) => {
+        e.preventDefault();
         console.log('vs;',values)
         let formData = new FormData();
         formData.append('name', values.name);
-        formData.append('map', values.map)
+        formData.append('code', values.name);
+        formData.append('file', values.map)
         console.log('Req', formData.name)
         dispatch({type: 'CREATE_STATE'});
          setSubmitting(true);

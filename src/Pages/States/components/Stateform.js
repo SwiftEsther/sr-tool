@@ -27,7 +27,6 @@ const StateForm = ({formFields, handleFormSubmit}) => {
             <Formik
                 initialValues={formFields || initialValues}
                 validate={values => validate(values)}
-                onSubmit={handleFormSubmit}
                 handleReset
                 >
                 {({
@@ -40,8 +39,9 @@ const StateForm = ({formFields, handleFormSubmit}) => {
                     handleSubmit,
                     setFieldValue,
                     isSubmitting,
+                    setSubmitting
                 }) => (
-                    <form onSubmit={() => handleSubmit({name, file})} autoComplete="off">
+                    <form onSubmit={(e) => handleFormSubmit(e, values, setSubmitting)} autoComplete="off">
                         <div className="mt-4 mb-12">
                             <input
                                 type="text"
