@@ -2,6 +2,16 @@ body {
   font-family: Gelion;
 }
 
+/* Sidenav styles */
+.side-nav {
+  width: 12%;
+}
+
+.side-nav top ul.list-reset:first-child,
+.side-nav .bottom ul.list-reset:first-child{
+  border-top: none;
+}
+
 /* Shadow container styling */
 .shadow-container {
   box-shadow: 0 1px 4px 0 rgba(139, 139, 139, 0.5);
