@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AgentIcon from "./assets/icons/AgentIcon";
 import DashboardIcon from "./assets/icons/DahsboardIcon";
 import IncidentIcon from "./assets/icons/IncidentIcon";
+import PartyIcon from "./assets/icons/PartyIcon";
 import ResultIcon from "./assets/icons/ResultIcon";
 import TerritoryIcon from "./assets/icons/TerritoryIcon";
 import UserIcon from "./assets/icons/UserIcon";
@@ -85,7 +86,7 @@ const SideNav = ({location}) => {
         },
         {
             name: 'Parties',
-            icon: () => <UserIcon />,
+            icon: () => <PartyIcon />,
             active: false,
             subMenus: [],
             path: '/parties'
