@@ -53,10 +53,6 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                 showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch senatorial districts. Please try again later."}`)
             })}
     }
-    // if(formFields) {
-    //     console.log(formFields)
-    //     getSenatorialDistricts(formFields.state);
-    // }
 
     const handleStateChange = (event, setFieldValue) => {
         const state =  event.currentTarget.value;
@@ -71,7 +67,7 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
     }, []);
 
     useEffect(() => {
-        getSenatorialDistricts(init.state)
+        getSenatorialDistricts(init.state);
     }, [init])
 
     return (

@@ -32,16 +32,17 @@ const WardList = ({wards, loading, getWards}) => {
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_WARD'});
-         apiRequest(deleteWard, 'delete')
+         apiRequest(`${deleteWard}/${currentWard.id}`, 'delete')
             .then((res) => {
                 dispatch({type: 'DELETE_WARD_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                // setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                getWards();
             })
             .catch((err) => {
                 dispatch({type: 'DELETE_WARD_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
                 setShowModal(false);
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong while deleting state. Please try again later."}`);
             });
     }
 
@@ -66,7 +67,7 @@ const WardList = ({wards, loading, getWards}) => {
           contentLabel="Delete Modal"
         >
             <div className="flex justify-between items-center mb-12">
-                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentWard}?</p>
+                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentWard?.name}?</p>
                 <button onClick={closeModal} className="focus:outline-none">close</button>
             </div>
           
@@ -95,11 +96,11 @@ const WardList = ({wards, loading, getWards}) => {
                 <div className="table-body">
                     {wards.length > 0 ? 
                         wards.map((ward) => (<div key={ward.id} className="custom-table-row w-full flex">
-                            <div className="table-row-data w-2/10">{ward.code || 'WARD'}</div>
-                            <div className="table-row-data w-2/10">{ward.lga?.name || 'LGA'}</div>
-                            <div className="table-row-data w-2/10">{ward.senatorialDistrict?.name || 'KAno North'}</div>
-                            <div className="table-row-data w-2/10">{ward.state?.name || 'Gwale'}</div>
-                            <div className="table-row-data w-2/10">{ward.code || 1200}</div>
+                            <div className="table-row-data w-2/10">{ward.name || ''}</div>
+                            <div className="table-row-data w-2/10">{ward.lga?.name || ''}</div>
+                            <div className="table-row-data w-2/10">{ward.senatorialDistrict?.name || ''}</div>
+                            <div className="table-row-data w-2/10">{ward.state?.name || ''}</div>
+                            <div className="table-row-data w-2/10">{ward.code || ''}</div>
                             <div className="table-row-data w-2/10"> 
                                 <span data-tip data-for={`ellipsis-lga-${ward.id}`} data-event='click'>
                                     <Ellipsis />

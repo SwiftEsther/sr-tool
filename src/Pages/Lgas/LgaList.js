@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Modal from 'react-modal';
 import Ellipsis from '../../shared/components/Ellipsis';
-import {lgas} from '../../lib/url.js';
+import {deleteLga} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { LgaContext } from '../../contexts/LgaContext';
@@ -31,16 +31,17 @@ const LgaList = ({lgas, loading, getLgas}) => {
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_LGA'});
-         apiRequest(lgas, 'delete')
+         apiRequest(`${deleteLga}/${currentLga.id}`, 'delete')
             .then((res) => {
                 dispatch({type: 'DELETE_LGA_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                // setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                getLgas();
             })
             .catch((err) => {
                 dispatch({type: 'DELETE_LGA_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
                 setShowModal(false);
+                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while deleting state. Please try again later."}`);
             });
     }
 
@@ -65,7 +66,7 @@ const LgaList = ({lgas, loading, getLgas}) => {
           contentLabel="Delete Modal"
         >
             <div className="flex justify-between items-center mb-12">
-                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentLga}?</p>
+                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentLga?.name}?</p>
                 <button onClick={closeModal} className="focus:outline-none">close</button>
             </div>
           

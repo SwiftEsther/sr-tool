@@ -131,7 +131,7 @@ const Wards = ({match, location}) => {
                 </div>
                 <div className="w-full flex mt-16 items-center px-1">
                     <div className="w-1/2">
-                        <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search wards by code"/>
+                        <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search wards by name"/>
                     </div>
                     <div className="w-1/2">
                         <button disabled={search.length < 1} className="bg-primary button-padding py-3.5 text-white font-bold rounded-lg focus:outline-none" onClick={handleSearch}>

@@ -88,7 +88,7 @@ const States = ({match, location}) => {
                     <div className="flex justify-between px-1 mt-16">
                         <div className="w-8/10 flex items-center px-1">
                             <div className="w-7/10">
-                                <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search states by code"/>
+                                <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search states by name"/>
                             </div>
                             <div className="w-3/10">
                                 <button disabled={search.length < 1} className="bg-primary button-padding py-3.5 text-white font-bold rounded-lg focus:outline-none" onClick={handleSearch}>

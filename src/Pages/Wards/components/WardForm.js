@@ -16,6 +16,7 @@ const WardForm = ({formFields, handleFormSubmit}) => {
         number: '',
         lga: ''
     }
+    const [init, setInit] = useState(initialValues);
 
     const validate = (values) => {
         console.log(values);
@@ -75,8 +76,14 @@ const WardForm = ({formFields, handleFormSubmit}) => {
     }
 
     useEffect(() => {
+        setInit(formFields);
         getStates();
     }, []);
+
+    useEffect(() => {
+        getSenatorialDistricts(init.state);
+        getLgas(init.state);
+    }, [init])
 
     return (
         <div className="w-3/10">
