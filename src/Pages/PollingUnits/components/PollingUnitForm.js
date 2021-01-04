@@ -5,11 +5,6 @@ import { apiRequest } from "../../../lib/api";
 import { allStates, getSenatorialDistrictsByStateId, getLgasByStateId, getWardsByLgaId } from "../../../lib/url";
 
 const PollingUnitForm = ({formFields, handleFormSubmit}) => {
-    const [formValid, setFormValid] = useState(false);
-    const [states, setStates] = useState([]);
-    const [senatorialDistricts, setSenatorialDistricts] = useState([]);
-    const [lgas, setLgas] = useState([]);
-    const [wards, setWards] = useState([]);
     let initialValues = {
         state: '',
         senatorialDistrict: '',
@@ -18,6 +13,14 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
         lga: '',
         ward: ''
     }
+    const [formValid, setFormValid] = useState(false);
+    const [states, setStates] = useState([]);
+    const [senatorialDistricts, setSenatorialDistricts] = useState([]);
+    const [lgas, setLgas] = useState([]);
+    const [wards, setWards] = useState([]);
+    const [init, setInit] = useState(initialValues);
+
+    console.log('f', formFields)
 
     const validate = (values) => {
         console.log(values);
@@ -51,33 +54,33 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
     }
 
     const getSenatorialDistricts = (stateId) => {
-        apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
+        if(stateId) {apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
             .then(res => {
                 setSenatorialDistricts(res.senatorialDistricts);
             })
             .catch(err => {
                 showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch senatorial districts. Please try again later."}`)
-            })
+            })}
     }
 
     const getLgas = (stateId) => {
-        apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
+        if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
             .then(res => {
                 setLgas(res.lgas);
             })
             .catch(err => {
                 showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch lgas. Please try again later."}`)
-            })
+            })}
     }
 
     const getWards = (lgaId) => {
-        apiRequest(`${getWardsByLgaId}/${lgaId}`, 'get')
+        if(lgaId) {apiRequest(`${getWardsByLgaId}/${lgaId}`, 'get')
             .then(res => {
                 setWards(res.wards);
             })
             .catch(err => {
                 showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch wards. Please try again later."}`)
-            })
+            })}
     }
 
     const handleStateChange = (event, setFieldValue) => {
@@ -96,8 +99,15 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
     }
 
     useEffect(() => {
+        setInit(formFields);
         getStates();
     }, []);
+
+    useEffect(() => {
+        getSenatorialDistricts(init?.state);
+        getLgas(init?.state);
+        getWards(init?.lga);
+    }, [init])
 
     return (
         <div className="w-3/10">
@@ -196,7 +206,7 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
                             {errors.number && touched.number && <span className="text-xs text-red-600">{errors.number}</span>}
                         </div>
                         <div className="flex justify-between items-center">
-                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 px-16 text-white font-bold rounded-sm focus:outline-none">
+                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 px-8 text-white font-bold rounded-sm focus:outline-none">
                                 {formFields ? 'Update' : 'Add'} Polling Unit
                             </button>
                             <button className="border border-primary py-4 px-16 text-primary font-bold rounded-sm focus:outline-none" onClick={handleReset} >

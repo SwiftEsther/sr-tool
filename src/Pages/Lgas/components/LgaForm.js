@@ -67,7 +67,7 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
     }, []);
 
     useEffect(() => {
-        getSenatorialDistricts(init.state);
+        getSenatorialDistricts(init?.state);
     }, [init])
 
     return (

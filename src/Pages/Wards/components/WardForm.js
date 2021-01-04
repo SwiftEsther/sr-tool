@@ -48,23 +48,23 @@ const WardForm = ({formFields, handleFormSubmit}) => {
     }
 
     const getSenatorialDistricts = (stateId) => {
-        apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
+        if(stateId) {apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
             .then(res => {
                 setSenatorialDistricts(res.senatorialDistricts);
             })
             .catch(err => {
                 showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch senatorial districts. Please try again later."}`)
-            })
+            })}
     }
 
     const getLgas = (stateId) => {
-        apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
+        if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
             .then(res => {
                 setLgas(res.lgas);
             })
             .catch(err => {
                 showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch lgas. Please try again later."}`)
-            })
+            })}
     }
 
     const handleStateChange = (event, setFieldValue) => {
@@ -81,8 +81,8 @@ const WardForm = ({formFields, handleFormSubmit}) => {
     }, []);
 
     useEffect(() => {
-        getSenatorialDistricts(init.state);
-        getLgas(init.state);
+        getSenatorialDistricts(init?.state);
+        getLgas(init?.state);
     }, [init])
 
     return (

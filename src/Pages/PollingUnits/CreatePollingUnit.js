@@ -29,7 +29,7 @@ const CreatePollingUnit = ({match, history, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_POLLING_UNIT_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong while creating polling unit. Please try again later."}`);
+                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while creating polling unit. Please try again later."}`);
                 setSubmitting(false);
             });
     }
