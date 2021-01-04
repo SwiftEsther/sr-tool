@@ -142,7 +142,7 @@ const Agents = ({match, location}) => {
                         </button>
                     </div>
                 </div>
-                <AgentList agents={currentAgents} loading={agentState.loading}/>
+                <AgentList agents={currentAgents} loading={agentState.loading} getAgents={getAllAgents}/>
                 {!agentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_AGENTS_SUCCESS"/>

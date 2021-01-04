@@ -7,7 +7,7 @@ import { showToast } from '../../helpers/showToast';
 import { AgentContext } from '../../contexts/AgentContext';
 import AgentForm from './components/AgentForm';
 
-const CreateAgent = ({match, location}) => {
+const CreateAgent = ({match, location, history}) => {
     const [agentState, dispatch] = useContext(AgentContext);
     const handleCreate = (values, {setSubmitting}) => {
         console.log(values)
@@ -15,24 +15,25 @@ const CreateAgent = ({match, location}) => {
             firstname:values.first_name,
             lastname: values.last_name,
             phone: values.phoneNumber,
-            // email: values.email,
-            // address: values.address,
-            lgaId: values.lga.id,
-            wardId: values.ward.id,
-            pollingUnitId: values.pollingUnit.id,
-            // politicalPartyId: values.party.id
+            email: values.email || "dmimn@gmail.com",
+            address: values.address || "Lagos, Nigeria",
+            lgaId: values.lga,
+            wardId: values.ward,
+            pollingUnitId: values.pollingUnit,
+            politicalPartyId: values.party || 2
         }
         dispatch({type: 'CREATE_AGENT'});
          setSubmitting(true);
          apiRequest(createAgent, 'post', {...requestBody})
             .then((res) => {
                 dispatch({type: 'CREATE_AGENT_SUCCESS', payload: {response: res}});
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 setSubmitting(false);
+                history.push("/agents");
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_AGENT_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong while creating agent. Please try again later."}`);
+                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while creating agent. Please try again later."}`);
                 setSubmitting(false);
             });
     }

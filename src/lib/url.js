@@ -46,6 +46,7 @@ export const getPollingUnitByCode = `${baseUrl}/api/v${version}/polling-unit`;
 export const updatePollingUnit = `${baseUrl}/api/v${version}/polling-unit`;
 export const deletePollingUnit = `${baseUrl}/api/v${version}/polling-unit/delete`;
 export const filterPollingUnitByName = `${baseUrl}/api/v${version}/polling-unit/filter`;
+export const getPollingUnitsByWardId = `${baseUrl}/api/v${version}/polling-unit/ward`;
 
 //----POLITICAL PARTY URLS----//
 export const allParties = `${baseUrl}/api/v${version}/political-party/all`;

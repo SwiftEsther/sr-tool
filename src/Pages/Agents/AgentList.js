@@ -8,13 +8,12 @@ import { showToast } from '../../helpers/showToast';
 import { AgentContext } from '../../contexts/AgentContext';
 import { deleteAgent } from '../../lib/url';
 import Loader from '../../shared/components/Loader';
+import Phone from '../../shared/assets/phone.svg';
 
-const AgentList = ({agents, loading}) => {
-    const some = agents || [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const AgentList = ({agents, loading, getAgents}) => {
     const [agentState, dispatch] = useContext(AgentContext);
     const [showModal, setShowModal] = useState(false);
     const [currentAgent, setCurrentAgent] = useState('');
-    console.log('some', some)
     const customStyles = {
         overlay: {
             backgroundColor: 'transparent'
@@ -67,7 +66,7 @@ const AgentList = ({agents, loading}) => {
           contentLabel="Delete Modal"
         >
             <div className="flex justify-between items-center mb-12">
-                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentAgent}?</p>
+                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentAgent?.name}?</p>
                 <button onClick={closeModal} className="focus:outline-none">close</button>
             </div>
           
@@ -96,20 +95,20 @@ const AgentList = ({agents, loading}) => {
                     </div> :
                     <div className="table-body">
                         {agents.length > 0 ? 
-                            some.map((s) => (<div key={s} className="custom-table-row w-full flex">
-                                <div className="table-row-data w-2/12">{s.first_name || ''}</div>
-                                <div className="table-row-data w-2/12">{s.last_name || ''}</div>
-                                <div className="table-row-data w-3/12">{s.lga || ''}</div>
-                                <div className="table-row-data w-1/12">{s.ward || 'KAno North'}</div>
-                                <div className="table-row-data w-2/12">{s.pollingUnit || 'Gwale'}</div>
-                                <div className="table-row-data w-2/12">{s.phoneNumber || 1200}<img src="../../shared/assets/phone.svg"/></div>
+                            agents.map((agent) => (<div key={agent.id} className="custom-table-row w-full flex">
+                                <div className="table-row-data w-2/12">{agent.firstname || ''}</div>
+                                <div className="table-row-data w-2/12">{agent.lastname || ''}</div>
+                                <div className="table-row-data w-3/12">{agent.lga.name || ''}</div>
+                                <div className="table-row-data w-1/12">{agent.ward.name || ''}</div>
+                                <div className="table-row-data w-2/12">{agent.pollingUnit.name || ''}</div>
+                                <div className="table-row-data w-2/12 flex">{agent.phone || ''}<img src={Phone} className="ml-1"/></div>
                                 <div className="table-row-data w-2/12"> 
-                                    <span data-tip data-for={`ellipsis-agent-${s.number}`} data-event='click'>
+                                    <span data-tip data-for={`ellipsis-agent-${agent.id}`} data-event='click'>
                                         <Ellipsis />
                                     </span>
-                                    <ReactTooltip id={`ellipsis-agent-${s.number}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                        <Link to={{pathname: `/agents/${s.number}`, state: {agent: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
-                                        <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
+                                    <ReactTooltip id={`ellipsis-agent-${agent.id}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                        <Link to={{pathname: `/agents/${agent.id}`, state: {agent: agent}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                        <button onClick={()=>triggerDelete(agent)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                                     </ReactTooltip>
                                 </div>
                             </div>))
