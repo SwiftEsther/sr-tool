@@ -92,7 +92,6 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
         const lga =  event.currentTarget.value;
         console.log(lga)
         setFieldValue("lga", lga);
-        getSenatorialDistricts(lga);
         getWards(lga);
     }
 
