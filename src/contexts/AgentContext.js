@@ -47,7 +47,7 @@ const agentReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        agent: action.payload.response,
+        response: action.payload.response,
       };
     case 'CREATE_AGENT_FAILURE':
       return {
@@ -66,7 +66,7 @@ const agentReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        agent: action.payload.response,
+        response: action.payload.response,
       };
     case 'UPDATE_AGENT_FAILURE':
       return {
@@ -85,7 +85,7 @@ const agentReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        agent: action.payload.response,
+        response: action.payload.response,
       };
     case 'DELETE_AGENT_FAILURE':
       return {
@@ -104,7 +104,7 @@ const agentReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        agent: action.payload.response,
+        response: action.payload.response,
       };
     case 'GET_AGENT_BY_ID_FAILURE':
       return {
@@ -123,7 +123,7 @@ const agentReducer = (state, action) => {
         ...state,
         loading: false,
         success: true,
-        agent: action.payload.response,
+        response: action.payload.response,
       };
     case 'GET_AGENT_BY_PHONE_NUMBER_FAILURE':
       return {

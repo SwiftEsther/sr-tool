@@ -20,8 +20,8 @@ const Agents = ({match, location}) => {
     const [wards, setWards] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [agents, setAgents] = useState([]);
-    // const [totalPages, ]
+    const [currentAgents, setCurrentAgents] = useState([]);
+   console.log(agentState)
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -61,6 +61,20 @@ const Agents = ({match, location}) => {
                 // setSubmitting(false);
             });
     }
+    
+    const getAllAgents = () => {
+        dispatch({type: 'GET_AGENTS'});
+         apiRequest(allAgents, 'get')
+            .then((res) => {
+                dispatch({type: 'GET_AGENTS_SUCCESS', payload: {response: res}});
+                setCurrentAgents(res.partyAgents.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+            })
+            .catch((err) => {
+                dispatch({type: 'GET_AGENTS_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
+            });
+    }
 
     const onPageChanged = data => {
         // const { allCountries } = this.state;
@@ -73,16 +87,7 @@ const Agents = ({match, location}) => {
     }
 
     useEffect(() => {
-        dispatch({type: 'GET_AGENTS'});
-         apiRequest(allAgents, 'get')
-            .then((res) => {
-                dispatch({type: 'GET_AGENTS_SUCCESS', payload: {response: res}});
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
-            })
-            .catch((err) => {
-                dispatch({type: 'GET_AGENTS_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
-            });
+        getAllAgents();
     }, []);
 
     return (
@@ -137,14 +142,14 @@ const Agents = ({match, location}) => {
                         </button>
                     </div>
                 </div>
-                <AgentList agents={agentState.agents} loading={agentState.loading}/>
+                <AgentList agents={currentAgents} loading={agentState.loading}/>
                 {!agentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="GET_AGENTS_SUCCESS"/>
-                        {agentState.agents.length > 0 && <Downloader dispatch={dispatch} action="GET_AGENTS_SUCCESS" />}
+                        <Uploader dispatch={dispatch} action="UPLOAD_AGENTS_SUCCESS"/>
+                        {agentState.agents.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_AGENTS_SUCCESS" />}
                     </div>
-                    {agentState.agents.length > 0 && <div>
-                        <Pagination totalRecords={200} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                    {agentState.response?.partyAgents.length > 0 && <div>
+                        <Pagination totalRecords={agentState.response?.partyAgents?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
                 </div>}
             </div>
