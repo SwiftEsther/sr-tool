@@ -19,7 +19,7 @@ const PollingUnits = ({match, location}) => {
     const [districts, setDistricts] = useState([]);
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
-    const [currentPoullingUnits, setCurrentPollingUnits] = useState([]);
+    const [currentPollingUnits, setCurrentPollingUnits] = useState([]);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -68,7 +68,7 @@ const PollingUnits = ({match, location}) => {
         console.log('Page changed',data)
     }
 
-    const getAllPollingUnitss = () => {
+    const getAllPollingUnits = () => {
         dispatch({type: 'GET_POLLING_UNITS'});
          apiRequest(allPollingUnits, 'get')
             .then((res) => {
@@ -83,7 +83,7 @@ const PollingUnits = ({match, location}) => {
     }
 
     useEffect(() => {
-        getAllPollingUnitss();
+        getAllPollingUnits();
     }, []);
 
     return (
@@ -131,7 +131,7 @@ const PollingUnits = ({match, location}) => {
                 </div>
                 <div className="w-full flex mt-16 items-center px-1">
                     <div className="w-1/2">
-                        <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search polling units by code"/>
+                        <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search polling units by name"/>
                     </div>
                     <div className="w-1/2">
                         <button disabled={search.length < 1} className="bg-primary button-padding py-3.5 text-white font-bold rounded-lg focus:outline-none" onClick={handleSearch}>
@@ -139,7 +139,7 @@ const PollingUnits = ({match, location}) => {
                         </button>
                     </div>
                 </div>
-                <WardList pollingUnits={puState.pollingUnits} loading={puState.loading} getPollingUnitss={getAllPollingUnitss}/>
+                <WardList pollingUnits={currentPollingUnits} loading={puState.loading} getPollingUnits={getAllPollingUnits}/>
                 <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_POLLING_UNITS_SUCCESS"/>

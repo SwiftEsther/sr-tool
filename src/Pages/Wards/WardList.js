@@ -6,7 +6,6 @@ import Ellipsis from '../../shared/components/Ellipsis';
 import {deleteWard} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
-import { LgaContext } from '../../contexts/LgaContext';
 import { WardContext } from '../../contexts/WardContext';
 import Loader from '../../shared/components/Loader';
 

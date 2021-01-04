@@ -7,13 +7,12 @@ import {deletePollingUnit} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { PUContext } from '../../contexts/PollingUnitContext';
+import Loader from '../../shared/components/Loader';
 
-const PollingUnitList = ({pollingUnits}) => {
-    const some = pollingUnits || [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const PollingUnitList = ({pollingUnits, loading, getPollingUnits}) => {
     const [puState, dispatch] = useContext(PUContext);
     const [showModal, setShowModal] = useState(false);
     const [currentPollingUnit, setCurrentPollingUnit] = useState('');
-    console.log('some', some)
     const customStyles = {
         overlay: {
             backgroundColor: 'transparent'
@@ -66,7 +65,7 @@ const PollingUnitList = ({pollingUnits}) => {
           contentLabel="Delete Modal"
         >
             <div className="flex justify-between items-center mb-12">
-                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentPollingUnit}?</p>
+                <p className="text-darkerGray font-bold text-lg">Are you sure you want to delete {currentPollingUnit?.name}?</p>
                 <button onClick={closeModal} className="focus:outline-none">close</button>
             </div>
           
@@ -89,27 +88,31 @@ const PollingUnitList = ({pollingUnits}) => {
                     </div>
                     
                 </div>
-                <div className="table-body">
+                {loading ?
+                <div className="flex justify-center my-6">
+                        <Loader />
+                    </div>:
+                     <div className="table-body">
                     {pollingUnits.length > 0 ? 
-                        some.map((s) => (<div key={s} className="custom-table-row w-full flex">
-                            <div className="table-row-data w-2/10">{s.pollingUnit || 'Polling Unit'}</div>
-                            <div className="table-row-data w-1/10">{s.ward || 'WARD'}</div>
-                            <div className="table-row-data w-1/10">{s.lga || 'LGA'}</div>
-                            <div className="table-row-data w-2/10">{s.senatorialDistrict || 'KAno North'}</div>
-                            <div className="table-row-data w-2/10">{s.state || 'Gwale'}</div>
-                            <div className="table-row-data w-2/10">{s.number || 1200}</div>
+                        pollingUnits.map((pu) => (<div key={pu.id} className="custom-table-row w-full flex">
+                            <div className="table-row-data w-2/10">{pu.name || ''}</div>
+                            <div className="table-row-data w-1/10">{pu.ward.name || ''}</div>
+                            <div className="table-row-data w-1/10">{pu.lga.name || ''}</div>
+                            <div className="table-row-data w-2/10">{pu.senatorialDistrict.name || ''}</div>
+                            <div className="table-row-data w-2/10">{pu.state.name || ''}</div>
+                            <div className="table-row-data w-2/10">{pu.code || ''}</div>
                             <div className="table-row-data w-2/10"> 
-                                <span data-tip data-for={`ellipsis-pu-${s.number}`} data-event='click'>
+                                <span data-tip data-for={`ellipsis-pu-${pu.id}`} data-event='click'>
                                     <Ellipsis />
                                 </span>
-                                <ReactTooltip id={`ellipsis-pu-${s.number}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                    <Link to={{pathname: `/territories/polling-units/${s.number}`, state: {pollingUnit: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
-                                    <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
+                                <ReactTooltip id={`ellipsis-pu-${pu.id}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                    <Link to={{pathname: `/territories/polling-units/${pu.id}`, state: {pollingUnit: pu}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                    <button onClick={()=>triggerDelete(pu)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                                 </ReactTooltip>
                             </div>
                         </div>))
                     : <div className="table-row-data w-full text-center my-4">There are no polling units to display</div>}
-                </div>
+                </div>}
             </div>
         </div>
     );
