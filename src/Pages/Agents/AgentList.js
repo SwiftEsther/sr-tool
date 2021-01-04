@@ -32,16 +32,17 @@ const AgentList = ({agents, loading, getAgents}) => {
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_AGENT'});
-         apiRequest(deleteAgent, 'delete')
+         apiRequest(`${deleteAgent}/${currentAgent.id}`, 'delete')
             .then((res) => {
                 dispatch({type: 'DELETE_AGENT_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                // setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                getAgents();
             })
             .catch((err) => {
                 dispatch({type: 'DELETE_AGENT_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
                 setShowModal(false);
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong while deleting agent. Please try again later."}`);
             });
     }
 

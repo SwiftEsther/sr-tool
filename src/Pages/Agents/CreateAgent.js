@@ -15,7 +15,7 @@ const CreateAgent = ({match, location, history}) => {
             firstname:values.first_name,
             lastname: values.last_name,
             phone: values.phoneNumber,
-            email: values.email || "dmimn@gmail.com",
+            email: values.email || "admim@gmail.com",
             address: values.address || "Lagos, Nigeria",
             lgaId: values.lga,
             wardId: values.ward,
