@@ -71,7 +71,7 @@ const StateForm = ({formFields, handleFormSubmit}) => {
                                     setFieldValue("map", event.currentTarget.files[0]);
                                 }}
                                 accept=".svg"
-                                required
+                                required={!values.svgUrl}
                                 className="custom-file-input w-full focus:outline-none placeholder-darkerGray font-medium text-sm"
                                 placeholder="Upload SVG"
                             />
