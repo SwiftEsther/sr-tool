@@ -12,13 +12,12 @@ const CreatePollingUnit = ({match, history, location}) => {
     const handleCreate = (values, {setSubmitting}) => {
         dispatch({type: 'CREATE_POLLING_UNIT'});
         const requestBody = {
-            code: values.name,
+            code: values.number,
             name: values.name,
             stateId: values.state,
             senatorialDistrictId: values.senatorialDistrict,
             lgaId: values.lga,
-            wardId: values.ward,
-            number: values.number
+            wardId: values.ward
         };
          setSubmitting(true);
          apiRequest(createPollingUnit, 'post', {...requestBody})

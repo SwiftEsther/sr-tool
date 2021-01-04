@@ -31,16 +31,17 @@ const PollingUnitList = ({pollingUnits, loading, getPollingUnits}) => {
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_POLLING_UNIT'});
-         apiRequest(deletePollingUnit, 'delete')
+         apiRequest(`${deletePollingUnit}/${currentPollingUnit.id}`, 'delete')
             .then((res) => {
                 dispatch({type: 'DELETE_POLLING_UNIT_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                // setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                getPollingUnits();
             })
             .catch((err) => {
                 dispatch({type: 'DELETE_POLLING_UNIT_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
                 setShowModal(false);
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong while deleting polling unit. Please try again later."}`);
             });
     }
 
