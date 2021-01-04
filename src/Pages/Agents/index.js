@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allAgents, searchAgentByName} from '../../lib/url.js';
+import {allAgents, filterAgentByName} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -48,17 +48,16 @@ const Agents = ({match, location}) => {
     }
 
     const handleSearch = () => {
-        dispatch({type: 'SEARCH_AGENT_BY_NAME'});
-        //  setSubmitting(true);
-         apiRequest(searchAgentByName, 'get', {params: {code: search}})
+       dispatch({type: 'SEARCH_AGENT_BY_NAME'});
+         apiRequest(filterAgentByName, 'get', {params: {firstname: search}})
             .then((res) => {
                 dispatch({type: 'SEARCH_AGENT_BY_NAME_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                setCurrentAgents(res.partyAgents.slice(0, 11));
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_AGENT_BY_NAME_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
             });
     }
     
