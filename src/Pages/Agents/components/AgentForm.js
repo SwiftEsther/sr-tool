@@ -17,6 +17,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
         last_name: '',
         phoneNumber: ''
     }
+    const [init, setInit] = useState(initialValues);
 
     const validate = (values) => {
         console.log(values);
@@ -53,7 +54,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
                 setWards(res.wards);
             })
             .catch(err => {
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch wards. Please try again later."}`)
+                showToast('error', `${err.response?.data.statusCode? err.response?.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch wards. Please try again later."}`)
             })}
     }
 
@@ -63,7 +64,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
                 setPollingUnits(res.pollingUnits)
             })
             .catch((err) => {
-                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Couldn't fetch senatorial districts. Please try again later."}`)
+                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Couldn't fetch wards. Please try again later."}`)
             });}
     }
 
@@ -82,10 +83,17 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
     }
 
     useEffect(() => {
+        setInit(formFields);
         getLgas();
         getWards();
         getPollingUnits();
     }, []);
+
+    useEffect(() => {
+        getLgas(init?.state);
+        getWards(init?.lga);
+        getPollingUnits(init?.ward);
+    }, [init])
 
     return (
         <div className="w-3/10">

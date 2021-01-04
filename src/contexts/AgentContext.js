@@ -132,19 +132,19 @@ const agentReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
-      case 'UPLOAD_AGENT':
+      case 'UPLOAD_AGENTS':
       return {
         ...state,
         loading: true,
       };
-    case 'UPLOAD_AGENT_SUCCESS':
+    case 'UPLOAD_AGENTS_SUCCESS':
       return {
         ...state,
         loading: false,
         success: true,
         message: action.payload.message,
       };
-    case 'UPLOAD_AGENT_FAILURE':
+    case 'UPLOAD_AGENTS_FAILURE':
       return {
         ...state,
         loading: false,

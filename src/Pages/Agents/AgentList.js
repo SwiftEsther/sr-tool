@@ -101,7 +101,7 @@ const AgentList = ({agents, loading, getAgents}) => {
                                 <div className="table-row-data w-3/12">{agent.lga.name || ''}</div>
                                 <div className="table-row-data w-1/12">{agent.ward.name || ''}</div>
                                 <div className="table-row-data w-2/12">{agent.pollingUnit.name || ''}</div>
-                                <div className="table-row-data w-2/12 flex">{agent.phone || ''}<img src={Phone} className="ml-1"/></div>
+                                <div className="table-row-data w-2/12 flex">{agent.phone || ''}<img src={Phone} className="ml-1 inline"/></div>
                                 <div className="table-row-data w-2/12"> 
                                     <span data-tip data-for={`ellipsis-agent-${agent.id}`} data-event='click'>
                                         <Ellipsis />

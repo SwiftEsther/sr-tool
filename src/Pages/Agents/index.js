@@ -146,10 +146,10 @@ const Agents = ({match, location}) => {
                 {!agentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_AGENTS_SUCCESS"/>
-                        {agentState.agents.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_AGENTS_SUCCESS" />}
+                        {agentState.response?.partyAgents?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_AGENTS_SUCCESS" />}
                     </div>
-                    {agentState.response?.partyAgents.length > 0 && <div>
-                        <Pagination totalRecords={agentState.response?.partyAgents?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                    {agentState.agents.length > 0 && <div>
+                        <Pagination totalRecords={agentState.agents?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
                 </div>}
             </div>
