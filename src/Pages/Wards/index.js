@@ -143,7 +143,7 @@ const Wards = ({match, location}) => {
                 <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_WARDS_SUCCESS"/>
-                        {wardState.response?.wards.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_WARDS_SUCCESS" />}
+                        {wardState.response?.wards?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_WARDS_SUCCESS" />}
                     </div>
                     {wardState.response?.wards?.length > 0 && <div>
                         <Pagination totalRecords={wardState.response?.wards?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
