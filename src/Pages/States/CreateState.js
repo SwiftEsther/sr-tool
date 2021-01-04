@@ -31,11 +31,11 @@ const CreateState = ({match, history, location}) => {
                 dispatch({type: 'CREATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/states");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'State created successfully'}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_STATE_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong while creating state. Please try again later."}`);
+                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while creating state. Please try again later."}`);
                 setSubmitting(false);
             });
     }

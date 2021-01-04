@@ -6,24 +6,40 @@ import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
 import StateForm from './components/Stateform';
+import axios from 'axios';
 
-const UpdateState = ({match, location}) => {
+const UpdateState = ({match, location, history}) => {
     console.log(location)
     const [state, dispatch] = useContext(StateContext);
-    const [currentState, setCurrentState] = useState(location.state.state);
+    const [currentState, setCurrentState] = useState(location.state?.state);
 
-    const handleUpdate = (values, {setSubmitting}) => {
+    const handleUpdate = async(e, values, setSubmitting) => {
+        e.preventDefault();
+        console.log('vs;',values)
+        let formData = new FormData();
+        formData.append('name', values.name);
+        formData.append('code', values.name);
+        formData.append('file', values.map)
+        console.log('Req', formData)
         dispatch({type: 'UPDATE_STATE'});
          setSubmitting(true);
-         apiRequest(updateState, 'put', {...values})
+         await axios({
+             method: 'put',
+             url: `${updateState}/${currentState.id}`,
+             data: formData,
+             headers: {
+                'Content-Type': 'multipart/form-data'
+             }
+         })
             .then((res) => {
                 dispatch({type: 'UPDATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                history.push("/territories/states");
+                showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'State updated successfully'}`);
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_STATE_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while updating state. Please try again later."}`);
                 setSubmitting(false);
             });
     }
