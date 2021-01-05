@@ -82,3 +82,6 @@ export const deleteIncident = `${baseUrl}/api/v${version}/result/delete`;
 
 //----SENATORIAL DISTRICT URLS----//
 export const getSenatorialDistrictsByStateId = `${baseUrl}/api/v${version}/senatorial-district/state`;
+
+//---- VOTING LEVELS URL----//
+export const allVotingLevels = `${baseUrl}/api/v${version}/voting-level/all`;

@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { showToast } from "../../../helpers/showToast";
 import { apiRequest } from "../../../lib/api";
-import { allLgas, allPollingUnits, allWards } from "../../../lib/url";
+import { getLgasByStateId, getPollingUnitsByWardId, getWardsByLgaId, getSenatorialDistrictsByStateId, allVotingLevels, allAgents } from "../../../lib/url";
 
 const ResultForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
@@ -56,40 +56,85 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
         return errors;
     }
 
-    const getLgas = () =>{
-        apiRequest(allLgas, 'get')
-            .then((res) => {
-                setLgas(res.lgas)
+    const getVotingLevels = () => {
+        apiRequest(`${allVotingLevels}`, 'get')
+            .then(res => {
+                setVotingLevels(res.votingLevels);
             })
-            .catch((err) => {
-                showToast('error', 'Couldn\'t fetch Local Government Areas. Kindly reload the page')
-            });
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch voting levels. Please try again later."}`)
+            })
     }
 
-    const getWards = () =>{
-        apiRequest(allWards, 'get')
-            .then((res) => {
-                setWards(res.wards)
+    const getAgents = () => {
+        apiRequest(`${allAgents}`, 'get')
+            .then(res => {
+                setAgents(res.partyAgents);
             })
-            .catch((err) => {
-                showToast('error', 'Couldn\'t fetch Wards. Kindly reload the page')
-            });
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch voting levels. Please try again later."}`)
+            })
     }
 
-    const getPollingUnits = () =>{
-        apiRequest(allPollingUnits, 'get')
+    const getLgas = (stateId=6) => {
+        if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
+            .then(res => {
+                setLgas(res.lgas);
+            })
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch lgas. Please try again later."}`)
+            })}
+    }
+
+    const getWards = (lgaId) => {
+        if(lgaId) {apiRequest(`${getWardsByLgaId}/${lgaId}`, 'get')
+            .then(res => {
+                setWards(res.wards);
+            })
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch wards. Please try again later."}`)
+            })}
+    }
+
+    const getSenatorialDistricts = (stateId=6) => {
+        if(stateId) {apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
+            .then(res => {
+                setSenatorialDistricts(res.senatorialDistricts);
+            })
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch senatorial districts. Please try again later."}`)
+            })}
+    }
+
+    const getPollingUnits = (wardId) =>{
+        if(wardId){apiRequest(`${getPollingUnitsByWardId}/${wardId}`, 'get')
             .then((res) => {
                 setPollingUnits(res.pollingUnits)
             })
             .catch((err) => {
-                showToast('error', 'Couldn\'t fetch Polling Units. Kindly reload the page');
-            });
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch wards. Please try again later."}`)
+            });}
+    }
+
+    const handleLgaChange = (event, setFieldValue) => {
+        const lga =  event.currentTarget.value;
+        console.log(lga)
+        setFieldValue("lga", lga);
+        getWards(lga);
+    }
+
+    const handleWardChange = (event, setFieldValue) => {
+        const ward =  event.currentTarget.value;
+        console.log(ward)
+        setFieldValue("ward", ward);
+        getPollingUnits(ward);
     }
 
     useEffect(() => {
+        getVotingLevels();
+        getAgents();
         getLgas();
-        getWards();
-        getPollingUnits();
+        getSenatorialDistricts();
     }, []);
 
     return (
@@ -109,6 +154,7 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
+                    setFieldValue
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className="mt-4 mb-12">
@@ -120,7 +166,7 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Voting Level</option>
-                                {votingLevels.map(votingLevel => (<option key={votingLevel.id} value={votingLevel.code}>{votingLevel.name}</option>))}
+                                {votingLevels.map(votingLevel => (<option key={votingLevel.id} value={votingLevel.id}>{votingLevel.name}</option>))}
                             </select>
                             {errors.votingLevel && touched.votingLevel && <span className="text-xs text-red-600">{errors.votingLevel}</span>}
                         </div>
@@ -133,7 +179,7 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Party Agent</option>
-                                {agents.map(agent => (<option key={agent.id} value={agent.code}>{agent.name}</option>))}
+                                {agents.map(agent => (<option key={agent.id} value={agent.id}>{`${agent.firstname} ${agent.lastname}`}</option>))}
                             </select>
                             {errors.partyAgent && touched.partyAgent && <span className="text-xs text-red-600">{errors.partyAgent}</span>}
                         </div>
@@ -146,33 +192,33 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Senatorial District</option>
-                                {senatorialDistricts.map(district => (<option key={district.id} value={district.code}>{district.name}</option>))}
+                                {senatorialDistricts.map(district => (<option key={district.id} value={district.id}>{district.name}</option>))}
                             </select>
                             {errors.senatorialDistrict && touched.senatorialDistrict && <span className="text-xs text-red-600">{errors.senatorialDistrict}</span>}
                         </div>
                         <div className="mt-4 mb-12">
                             <select 
                                 name="lga" 
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                               onChange={(e)=>handleLgaChange(e, setFieldValue)}
+                                onBlur={(e)=>handleLgaChange(e, setFieldValue)}
                                 value={values.lga}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Local Government Area</option>
-                                {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
+                                {lgas.map(lga => (<option key={lga.id} value={lga.id}>{lga.name}</option>))}
                             </select>
                             {errors.lga && touched.lga && <span className="text-xs text-red-600">{errors.lga}</span>}
                         </div>
                         <div className="mt-4 mb-12">
                             <select 
                                 name="ward" 
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                onChange={(e)=>handleWardChange(e, setFieldValue)}
+                                onBlur={(e)=>handleWardChange(e, setFieldValue)}
                                 value={values.ward}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Ward</option>
-                                {wards.map(ward => (<option key={ward.id} value={ward.code}>{ward.name}</option>))}
+                                {wards.map(ward => (<option key={ward.id} value={ward.id}>{ward.name}</option>))}
                             </select>
                             {errors.ward && touched.ward && <span className="text-xs text-red-600">{errors.ward}</span>}
                         </div>
@@ -185,7 +231,7 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Polling Unit</option>
-                                {pollingUnits.map(unit => (<option key={unit.id} value={unit.code}>{unit.name}</option>))}
+                                {pollingUnits.map(unit => (<option key={unit.id} value={unit.id}>{unit.name}</option>))}
                             </select>
                             {errors.pollingUnit && touched.pollingUnit && <span className="text-xs text-red-600">{errors.pollingUnit}</span>}
                         </div>
@@ -261,11 +307,11 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
                             />
                             {errors.others && touched.others && <span className="text-xs text-red-600">{errors.others}</span>}
                         </div>
-                        <div className="flex justify-between items-center">
-                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 px-16 text-white font-bold rounded-sm focus:outline-none">
+                        <div className="flex justify-between items-center w-full">
+                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 text-white font-bold rounded-sm focus:outline-none w-4.5/10">
                                 {formFields ? 'Update' : 'Add'} Result
                             </button>
-                            <button className="border border-primary py-4 px-16 text-primary font-bold rounded-sm focus:outline-none" onClick={handleReset} >
+                            <button className="border border-primary py-4 text-primary font-bold rounded-sm focus:outline-none w-4.5/10" onClick={handleReset} >
                                 Cancel
                             </button>
                         </div>

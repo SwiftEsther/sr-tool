@@ -139,11 +139,11 @@ const Results = ({match, location}) => {
                 <ResultList results={resultState.results} loading={resultState.loading}/>
                 {!resultState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="GET_RESULTS_SUCCESS"/>
-                        {resultState.results.length > 0 && <Downloader dispatch={dispatch} action="GET_RESULTS_SUCCESS" />}
+                        <Uploader dispatch={dispatch} action="UPLOAD_RESULTS_SUCCESS"/>
+                        {resultState.response?.results?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_RESULTS_SUCCESS" />}
                     </div>
                     {resultState.results.length > 0 && <div>
-                        <Pagination totalRecords={200} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                        <Pagination totalRecords={resultState.results.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
                 </div>}
             </div>
