@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Breadcrumbs } from 'react-breadcrumbs';
 import Layout from '../../shared/Layout';
 import {updateResult} from '../../lib/url.js';
@@ -7,20 +7,48 @@ import { showToast } from '../../helpers/showToast';
 import ResultForm from './components/ResultForm';
 import { ResultContext } from '../../contexts/ResultContext';
 
-const UpdateResult = ({match, location}) => {
-    console.log(location)
+const UpdateResult = ({match, location, history}) => {
+    const {result} = location.state;
+    let data = {
+        pollingUnit: result.pollingUnit.id,
+        lga: result.lga.id,
+        ward: result.ward.id,
+        votingLevel: result.votingLevel.id,
+        senatorialDistrict: result.senatorialDistrict.id,
+        partyAgent: result.partyAgent.id,
+        registeredVoters: result.registeredVotersCount,
+        accreditedVoters: result.accreditedVotersCount,
+        pdp: result.pdp || '',
+        apc: result.apc || '',
+        anpp: result.anpp || '',
+        others: result.others || ''
+    }
     const [resultState, dispatch] = useContext(ResultContext);
+    const [currentResult, setCurrentResult] = useState(data);
     const handleUpdate = (values, {setSubmitting}) => {
         dispatch({type: 'UPDATE_RESULT'});
+        const requestBody = {
+            electionId:1,
+            votingLevelId: values.votingLevel,
+            partyAgentId: values.partyAgent,
+            lgaId: values.lga,
+            wardId: values.ward,
+            pollingUnitId: values.pollingUnit,
+            accreditedVotersCount: values.accreditedVoters,
+            registeredVotersCount: values.registeredVoters,
+            senatorialDistrictId: values.senatorialDistrict
+        }
          setSubmitting(true);
-         apiRequest(updateResult, 'put', {...values})
+         apiRequest(`${updateResult}/${match.params.id}`, 'put', {...requestBody})
             .then((res) => {
                 dispatch({type: 'UPDATE_RESULT_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                history.push("/results");
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_RESULT_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong while updating results. Please try again later."}`);
                 setSubmitting(false);
             });
     }
@@ -30,7 +58,7 @@ const UpdateResult = ({match, location}) => {
                 pathname: "/results"}, {id: 2,title: 'Update Result',
                 pathname: match.path}]}/>
             <div className="py-9 px-3.5">
-                <ResultForm formFields={location.state.result} handleFormSubmit={handleUpdate}/>
+                <ResultForm formFields={currentResult} handleFormSubmit={handleUpdate}/>
             </div>
         </Layout>
     );

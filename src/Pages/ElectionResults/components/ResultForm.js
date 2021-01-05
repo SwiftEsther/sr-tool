@@ -26,6 +26,7 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
         anpp: '',
         others: ''
     }
+    const [init, setInit] = useState(initialValues);
 
     const validate = (values) => {
         console.log(values);
@@ -131,11 +132,21 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
     }
 
     useEffect(() => {
+        setInit(formFields);
         getVotingLevels();
         getAgents();
         getLgas();
         getSenatorialDistricts();
     }, []);
+
+    useEffect(() => {
+        getVotingLevels();
+        getAgents();
+        getLgas();
+        getWards(init?.lga);
+        getPollingUnits(init?.ward);
+        getSenatorialDistricts();
+    }, [init]);
 
     return (
         <div className="w-3/10">

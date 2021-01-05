@@ -12,7 +12,7 @@ const CreateResult = ({match, location, history}) => {
     const handleCreate = (values, {setSubmitting}) => {
         console.log(values)
         const requestBody = {
-            electionId:1,
+            electionId:2,
             votingLevelId: values.votingLevel,
             partyAgentId: values.partyAgent,
             lgaId: values.lga,
