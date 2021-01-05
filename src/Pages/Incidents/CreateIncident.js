@@ -7,32 +7,34 @@ import { showToast } from '../../helpers/showToast';
 import { IncidentContext } from '../../contexts/IncidentContext';
 import IncidentForm from './components/IncidentForm';
 
-const CreateIncident = ({match, location}) => {
+const CreateIncident = ({match, location, history}) => {
     const [incidentState, dispatch] = useContext(IncidentContext);
     const handleCreate = (values, {setSubmitting}) => {
         console.log(values)
         const requestBody = {
-            firstname:values.first_name,
-            lastname: values.last_name,
-            phone: values.phoneNumber,
-            // email: values.email,
-            // address: values.address,
-            lgaId: values.lga.id,
-            wardId: values.ward.id,
-            pollingUnitId: values.pollingUnit.id,
-            // politicalPartyId: values.party.id
+            electionId:1,
+            incidentLevel: values.incidentLevel,
+            incidentType: values.incidentType,
+            incidentStatus: values.incidentStatus,
+            lgaId: values.lga,
+            wardId: values.ward,
+            pollingUnitId: values.pollingUnit,
+            reportedLocation: values.location,
+            phoneNumberToContact: values.phoneNumber,
+            senatorialDistrictId: values.senatorialDistrict
         }
         dispatch({type: 'CREATE_INCIDENT'});
          setSubmitting(true);
          apiRequest(createResult, 'post', {...requestBody})
             .then((res) => {
                 dispatch({type: 'CREATE_INCIDENT_SUCCESS', payload: {response: res}});
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 setSubmitting(false);
+                history.push("/incidents");
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_INCIDENT_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong while creating agent. Please try again later."}`);
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong while creating agent. Please try again later."}`);
                 setSubmitting(false);
             });
     }

@@ -9,12 +9,10 @@ import { deleteIncident } from '../../lib/url';
 import Loader from '../../shared/components/Loader';
 import { IncidentContext } from '../../contexts/IncidentContext';
 
-const IncidentList = ({incidents, loading}) => {
-    const some = incidents || [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const IncidentList = ({incidents, loading, getIncidents}) => {
     const [incidentState, dispatch] = useContext(IncidentContext);
     const [showModal, setShowModal] = useState(false);
     const [currentIncident, setCurrentIncident] = useState('');
-    console.log('some', some)
     const customStyles = {
         overlay: {
             backgroundColor: 'transparent'
@@ -97,21 +95,21 @@ const IncidentList = ({incidents, loading}) => {
                     </div> :
                     <div className="table-body">
                         {incidents.length > 0 ? 
-                            some.map((s) => (<div key={s} className="custom-table-row w-full flex">
-                                <div className="table-row-data w-2/12">{s.incidentType || 'LGA'}</div>
-                                <div className="table-row-data w-2/12">{s.incidentStatus || 'Kano North'}</div>
-                                <div className="table-row-data w-2/12">{s.lga || 'Gwale'}</div>
-                                <div className="table-row-data w-1/12">{s.ward || 'KAno North'}</div>
-                                <div className="table-row-data w-2/12">{s.pollingUnit || 'Gwale'}</div>
-                                <div className="table-row-data w-1/12">{s.location || '1200'}</div>
-                                <div className="table-row-data w-1/12">{s.description || '1200'}</div>
+                            incidents.map((incident) => (<div key={incident} className="custom-table-row w-full flex">
+                                <div className="table-row-data w-2/12">{incident.incidentType.name || ''}</div>
+                                <div className="table-row-data w-2/12">{incident.incidentStatus.name || ''}</div>
+                                <div className="table-row-data w-2/12">{incident.lga.name || ''}</div>
+                                <div className="table-row-data w-1/12">{incident.ward.name || ''}</div>
+                                <div className="table-row-data w-2/12">{incident.pollingUnit.name || ''}</div>
+                                <div className="table-row-data w-1/12">{incident.location || ''}</div>
+                                <div className="table-row-data w-1/12">{incident.description || ''}</div>
                                 <div className="table-row-data w-1/12"> 
-                                    <span data-tip data-for={`ellipsis-incident-${s.id}`} data-event='click'>
+                                    <span data-tip data-for={`ellipsis-incident-${incident.id}`} data-event='click'>
                                         <Ellipsis />
                                     </span>
-                                    <ReactTooltip id={`ellipsis-incident-${s.id}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
-                                        <Link to={{pathname: `/incidents/${s.number}`, state: {incident: s}}} className="text-sm text-darkerGray block text-left">Edit</Link>
-                                        <button onClick={()=>triggerDelete(s)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
+                                    <ReactTooltip id={`ellipsis-incident-${incident.id}`} place="bottom" type="light" effect="solid" border borderColor="#979797" clickable={true}>
+                                        <Link to={{pathname: `/incidents/${incident.id}`, state: {incident: incident}}} className="text-sm text-darkerGray block text-left">Edit</Link>
+                                        <button onClick={()=>triggerDelete(incident)} className="text-sm text-textRed block text-left focus:outline-none">Delete</button>
                                     </ReactTooltip>
                                 </div>
                             </div>))

@@ -2,16 +2,16 @@ import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { showToast } from "../../../helpers/showToast";
 import { apiRequest } from "../../../lib/api";
-import { allLgas, allPollingUnits, allWards } from "../../../lib/url";
+import { getPollingUnitsByWardId, getWardsByLgaId, getLgasByStateId, allIncidentLevels, allIncidentTypes, allIncidentStatuses } from "../../../lib/url";
 
 const IncidentForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
     const [wards, setWards] = useState([]);
     const [lgas, setLgas] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
-    const [incidentLevels, setVotingLevels] = useState([]);
-    const [incidentTypes, setIncidenrTypes] = useState([]);
-    const [incidentStatuses, setIncidentStatuses] = useState([]);
+    const [incidentLevels, setIncidentLevels] = useState([]);
+    const [incidentTypes, setIncidentTypes] = useState([]);
+    const incidentStatuses = ['Resolved', 'Unresolved'];
     let initialValues = {
         pollingUnit: '',
         lga: '',
@@ -23,6 +23,8 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
         phoneNumber: '',
         description: ''
     }
+
+    const [init, setInit] = useState(initialValues);
 
     const validate = (values) => {
         console.log(values);
@@ -51,41 +53,82 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
         return errors;
     }
 
-    const getLgas = () =>{
-        apiRequest(allLgas, 'get')
-            .then((res) => {
-                setLgas(res.lgas)
+    const getIncidentLevels = () => {
+        apiRequest(`${allIncidentLevels}`, 'get')
+            .then(res => {
+                setIncidentLevels(res.incidentLevels);
             })
-            .catch((err) => {
-                showToast('error', 'Couldn\'t fetch Local Government Areas. Kindly reload the page')
-            });
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch incident levels. Please try again later."}`)
+            })
     }
 
-    const getWards = () =>{
-        apiRequest(allWards, 'get')
-            .then((res) => {
-                setWards(res.wards)
+    const getIncidentTypes = () => {
+        apiRequest(`${allIncidentTypes}`, 'get')
+            .then(res => {
+                setIncidentTypes(res.incidentTypes);
             })
-            .catch((err) => {
-                showToast('error', 'Couldn\'t fetch Wards. Kindly reload the page')
-            });
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch incident types. Please try again later."}`)
+            })
     }
 
-    const getPollingUnits = () =>{
-        apiRequest(allPollingUnits, 'get')
+    const getLgas = (stateId=6) => {
+        if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
+            .then(res => {
+                setLgas(res.lgas);
+            })
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch lgas. Please try again later."}`)
+            })}
+    }
+
+    const getWards = (lgaId) => {
+        if(lgaId) {apiRequest(`${getWardsByLgaId}/${lgaId}`, 'get')
+            .then(res => {
+                setWards(res.wards);
+            })
+            .catch(err => {
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch wards. Please try again later."}`)
+            })}
+    }
+
+    const getPollingUnits = (wardId) =>{
+        if(wardId){apiRequest(`${getPollingUnitsByWardId}/${wardId}`, 'get')
             .then((res) => {
                 setPollingUnits(res.pollingUnits)
             })
             .catch((err) => {
-                showToast('error', 'Couldn\'t fetch Polling Units. Kindly reload the page');
-            });
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch wards. Please try again later."}`)
+            });}
+    }
+
+    const handleLgaChange = (event, setFieldValue) => {
+        const lga =  event.currentTarget.value;
+        console.log(lga)
+        setFieldValue("lga", lga);
+        getWards(lga);
+    }
+
+    const handleWardChange = (event, setFieldValue) => {
+        const ward =  event.currentTarget.value;
+        console.log(ward)
+        setFieldValue("ward", ward);
+        getPollingUnits(ward);
     }
 
     useEffect(() => {
-        getLgas();
-        getWards();
-        getPollingUnits();
+        getIncidentLevels();
+        getIncidentTypes();
     }, []);
+
+    useEffect(() => {
+        getIncidentLevels();
+        getIncidentTypes();
+        getLgas();
+        getWards(init?.lga);
+        getPollingUnits(init?.ward);
+    }, [init]);
 
     return (
         <div className="w-3/10">
@@ -104,6 +147,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
+                    setFieldValue
                 }) => (
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className="mt-4 mb-12">
@@ -115,7 +159,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Incident Level</option>
-                                {incidentLevels.map(incidentLevel => (<option key={incidentLevel.id} value={incidentLevel.code}>{incidentLevel.name}</option>))}
+                                {incidentLevels.map(incidentLevel => (<option key={incidentLevel.id} value={incidentLevel.id}>{incidentLevel.name}</option>))}
                             </select>
                             {errors.incidentLevel && touched.incidentLevel && <span className="text-xs text-red-600">{errors.incidentLevel}</span>}
                         </div>
@@ -128,7 +172,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Incident Type</option>
-                                {incidentTypes.map(type => (<option key={type.id} value={type.code}>{type.name}</option>))}
+                                {incidentTypes.map(type => (<option key={type.id} value={type.id}>{type.name}</option>))}
                             </select>
                             {errors.incidentType && touched.incidentType && <span className="text-xs text-red-600">{errors.incidentType}</span>}
                         </div>
@@ -141,33 +185,33 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Incident Status</option>
-                                {incidentStatuses.map(status => (<option key={status.id} value={status.code}>{status.name}</option>))}
+                                {incidentStatuses.map((status, index) => (<option key={index} value={status}>{status}</option>))}
                             </select>
                             {errors.incidentStatus && touched.incidentStatus && <span className="text-xs text-red-600">{errors.incidentStatus}</span>}
                         </div>
                         <div className="mt-4 mb-12">
                             <select 
                                 name="lga" 
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                               onChange={(e)=>handleLgaChange(e, setFieldValue)}
+                                onBlur={(e)=>handleLgaChange(e, setFieldValue)}
                                 value={values.lga}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Local Government Area</option>
-                                {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
+                                {lgas.map(lga => (<option key={lga.id} value={lga.id}>{lga.name}</option>))}
                             </select>
                             {errors.lga && touched.lga && <span className="text-xs text-red-600">{errors.lga}</span>}
                         </div>
                         <div className="mt-4 mb-12">
                             <select 
                                 name="ward" 
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                onChange={(e)=>handleWardChange(e, setFieldValue)}
+                                onBlur={(e)=>handleWardChange(e, setFieldValue)}
                                 value={values.ward}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Ward</option>
-                                {wards.map(ward => (<option key={ward.id} value={ward.code}>{ward.name}</option>))}
+                                {wards.map(ward => (<option key={ward.id} value={ward.id}>{ward.name}</option>))}
                             </select>
                             {errors.ward && touched.ward && <span className="text-xs text-red-600">{errors.ward}</span>}
                         </div>
@@ -180,7 +224,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Polling Unit</option>
-                                {pollingUnits.map(unit => (<option key={unit.id} value={unit.code}>{unit.name}</option>))}
+                                {pollingUnits.map(unit => (<option key={unit.id} value={unit.id}>{unit.name}</option>))}
                             </select>
                             {errors.pollingUnit && touched.pollingUnit && <span className="text-xs text-red-600">{errors.pollingUnit}</span>}
                         </div>
@@ -219,11 +263,11 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                             />
                             {errors.description && touched.description && <span className="text-xs text-red-600">{errors.description}</span>}
                         </div>
-                        <div className="flex justify-between items-center">
-                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 px-16 text-white font-bold rounded-sm focus:outline-none">
+                        <div className="flex justify-between items-center w-full">
+                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 text-white font-bold rounded-sm focus:outline-none w-4.5/10">
                                 {formFields ? 'Update' : 'Add'} Incident
                             </button>
-                            <button className="border border-primary py-4 px-16 text-primary font-bold rounded-sm focus:outline-none" onClick={handleReset} >
+                            <button className="border border-primary py-4 text-primary font-bold rounded-sm focus:outline-none w-4.5/10" onClick={handleReset} >
                                 Cancel
                             </button>
                         </div>

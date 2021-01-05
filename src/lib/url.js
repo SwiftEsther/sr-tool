@@ -74,14 +74,20 @@ export const updateResult = `${baseUrl}/api/v${version}/result`;
 export const deleteResult = `${baseUrl}/api/v${version}/result/delete`;
 
 //----INCIDENT URLS----//
-export const allIncidents = `${baseUrl}/api/v${version}/Incident/all`;
-export const createIncident = `${baseUrl}/api/v${version}/Incident`;
-export const getIncidentById = `${baseUrl}/api/v${version}/Incident`;
-export const updateIncident = `${baseUrl}/api/v${version}/Incident`;
-export const deleteIncident = `${baseUrl}/api/v${version}/result/delete`;
+export const allIncidents = `${baseUrl}/api/v${version}/incident/all`;
+export const createIncident = `${baseUrl}/api/v${version}/incident`;
+export const getIncidentById = `${baseUrl}/api/v${version}/incident`;
+export const updateIncident = `${baseUrl}/api/v${version}/incident`;
+export const deleteIncident = `${baseUrl}/api/v${version}/incident/delete`;
 
 //----SENATORIAL DISTRICT URLS----//
 export const getSenatorialDistrictsByStateId = `${baseUrl}/api/v${version}/senatorial-district/state`;
 
 //---- VOTING LEVELS URL----//
 export const allVotingLevels = `${baseUrl}/api/v${version}/voting-level/all`;
+
+//---- INCIDENT LEVELS URL----//
+export const allIncidentLevels = `${baseUrl}/api/v${version}/incident-level/all`;
+
+//---- INCIDENT TYPES URL----//
+export const allIncidentTypes = `${baseUrl}/api/v${version}/incident-type/all`;

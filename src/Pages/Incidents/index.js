@@ -20,7 +20,7 @@ const Incidents = ({match, location}) => {
     const [wards, setWards] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [incidents, setIncidents] = useState([]);
+    const [currentIncidents, setCurrentIncidents] = useState([]);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -71,17 +71,22 @@ const Incidents = ({match, location}) => {
         console.log('Page changed',data)
     }
 
-    useEffect(() => {
+    const getAllIncidents = () => {
         dispatch({type: 'GET_INCIDENTS'});
          apiRequest(allIncidents, 'get')
             .then((res) => {
                 dispatch({type: 'GET_INCIDENTS_SUCCESS', payload: {response: res}});
+                setCurrentIncidents(res.incidents);
                 showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_INCIDENTS_FAILURE', payload: {error: err}});
                 showToast('error', `${err.response?.data.statusCode? err.response?.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response?.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
+    }
+
+    useEffect(() => {
+        getAllIncidents();
     }, []);
 
     return (
@@ -136,14 +141,14 @@ const Incidents = ({match, location}) => {
                         </button>
                     </div>
                 </div>
-                <IncidentList incidents={incidentState.incidents} loading={incidentState.loading}/>
+                <IncidentList incidents={incidentState.incidents} loading={incidentState.loading} getIncidents={getAllIncidents}/>
                 {!incidentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="GET_INCIDENTS_SUCCESS"/>
-                        {incidentState.incidents.length > 0 && <Downloader dispatch={dispatch} action="GET_INCIDENTS_SUCCESS" />}
+                        {incidentState.incidents?.length > 0 && <Downloader dispatch={dispatch} action="GET_INCIDENTS_SUCCESS" />}
                     </div>
-                    {incidentState.incidents.length > 0 && <div>
-                        <Pagination totalRecords={200} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                    {incidentState.incidents?.length > 0 && <div>
+                        <Pagination totalRecords={incidentState.incidents.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
                 </div>}
             </div>
