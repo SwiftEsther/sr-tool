@@ -20,7 +20,7 @@ const Results = ({match, location}) => {
     const [wards, setWards] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [results, setResults] = useState([]);
+    const [currentResults, setCurrentResults] = useState([]);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -70,18 +70,23 @@ const Results = ({match, location}) => {
         // this.setState({ currentPage, currentCountries, totalPages });
         console.log('Page changed',data)
     }
-
-    useEffect(() => {
+    
+    const getAllResults = () => {
         dispatch({type: 'GET_RESULTS'});
          apiRequest(allResults, 'get')
             .then((res) => {
                 dispatch({type: 'GET_RESULTS_SUCCESS', payload: {response: res}});
+                setCurrentResults(res.results.slice(0, 11));
                 showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_RESULTS_FAILURE', payload: {error: err}});
                 showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
             });
+    }
+
+    useEffect(() => {
+        getAllResults();
     }, []);
 
     return (
@@ -136,7 +141,7 @@ const Results = ({match, location}) => {
                         </button>
                     </div>
                 </div>
-                <ResultList results={resultState.results} loading={resultState.loading}/>
+                <ResultList results={currentResults} loading={resultState.loading} getResults={getAllResults}/>
                 {!resultState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_RESULTS_SUCCESS"/>
