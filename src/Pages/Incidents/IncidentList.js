@@ -31,16 +31,17 @@ const IncidentList = ({incidents, loading, getIncidents}) => {
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_INCIDENT'});
-         apiRequest(deleteIncident, 'delete')
+         apiRequest(`${deleteIncident}/${currentIncident.id}`, 'delete')
             .then((res) => {
                 dispatch({type: 'DELETE_INCIDENT_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                // setSubmitting(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                getIncidents();
             })
             .catch((err) => {
                 dispatch({type: 'DELETE_INCIDENT_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
                 setShowModal(false);
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong while deleting incident. Please try again later."}`);
             });
     }
 

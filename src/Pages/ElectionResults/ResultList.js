@@ -41,7 +41,7 @@ const ResultList = ({results, loading, getResults}) => {
             .catch((err) => {
                 dispatch({type: 'DELETE_RESULT_FAILURE', payload: {error: err}});
                 setShowModal(false);
-                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong while deleting agent. Please try again later."}`);
+                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong while deleting result. Please try again later."}`);
             });
     }
 
