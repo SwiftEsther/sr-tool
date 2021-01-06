@@ -131,6 +131,25 @@ const stateReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
+    case 'SET_DEFAULT_STATE':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'SET_DEFAULT_STATE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        response: action.payload.response,
+      };
+    case 'SET_DEFAULT_STATE_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
     default:
       return {
         ...initialState,
