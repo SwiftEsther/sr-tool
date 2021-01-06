@@ -84,11 +84,16 @@ export const deleteIncident = `${baseUrl}/api/v${version}/incident/delete`;
 //----SENATORIAL DISTRICT URLS----//
 export const getSenatorialDistrictsByStateId = `${baseUrl}/api/v${version}/senatorial-district/state`;
 
-//---- VOTING LEVELS URL----//
+//---- VOTING LEVELS URLS----//
 export const allVotingLevels = `${baseUrl}/api/v${version}/voting-level/all`;
 
-//---- INCIDENT LEVELS URL----//
+//---- INCIDENT LEVELS URLS----//
 export const allIncidentLevels = `${baseUrl}/api/v${version}/incident-level/all`;
 
-//---- INCIDENT TYPES URL----//
+//---- INCIDENT TYPES URLS----//
 export const allIncidentTypes = `${baseUrl}/api/v${version}/incident-type/all`;
+
+//---- DASHBOARD URLS----//
+export const getDashboard = `${baseUrl}/api/v${version}/dashboard`;
+export const getDashboardByState = `${baseUrl}/api/v${version}/dashboard`;
+export const getDashboardBySenatorialDistrict = `${baseUrl}/api/v${version}/dashboard/senatorial-district`;
