@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Modal from 'react-modal';
 import Ellipsis from '../../shared/components/Ellipsis';
-import {deleteState} from '../../lib/url.js';
+import {deleteState, defaultState} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
@@ -14,6 +14,7 @@ import Map from '../../shared/assets/map.svg';
 const StateList = ({states, loading, getStates}) => {
     const [state, dispatch] = useContext(StateContext);
     const [showModal, setShowModal] = useState(false);
+    const [showDefault, setShowDefault] = useState(false);
     const [currentState, setCurrentState] = useState(null);
     const [defaultState, setDefaultState] = useState(null);
     const baseUrl = env().baseUrl;
@@ -33,6 +34,24 @@ const StateList = ({states, loading, getStates}) => {
             transform : 'translate(-50%, -50%)'
         }
     };
+
+    const handleDefaultState = (state) => {
+        console.log(state);
+        setDefaultState(state)
+        dispatch({type: 'SET_DEFAULT_STATE'});
+         apiRequest(`${defaultState}/${defaultState.id}`, 'delete')
+            .then((res) => {
+                dispatch({type: 'SET_DEFAULT_STATE_SUCCESS', payload: {response: res}});
+                setShowDefault(false);
+                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                getStates();
+            })
+            .catch((err) => {
+                dispatch({type: 'SET_DEFAULT_STATE_FAILURE', payload: {error: err}});
+                setShowDefault(false);
+                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong while setting default state. Please try again later."}`);
+            });
+    }
 
     const handleDelete = () => {
         dispatch({type: 'DELETE_STATE'});
@@ -62,6 +81,19 @@ const StateList = ({states, loading, getStates}) => {
     const closeModal = () => {
         setShowModal(false);
     }
+
+    const triggerSetDefault = (state) => {
+        setDefaultState(state);
+        openDefault();
+    }
+
+    const openDefault = () => {
+        setShowDefault(true);
+    }
+
+    const closeDefault = () => {
+        setShowDefault(false);
+    }
     return (
         <div className="py-4 px-1 overflow-auto">
         <Modal
@@ -79,6 +111,21 @@ const StateList = ({states, loading, getStates}) => {
             <div className="flex justify-between items-center">
                 <button className="bg-textRed py-4 px-16 text-white font-bold rounded-sm focus:outline-none" onClick={handleDelete}>Delete</button>
                 <button className="border border-primary py-4 px-16 text-primary font-bold rounded-sm focus:outline-none" onClick={closeModal}>Cancel</button>
+            </div>
+        </Modal>
+        <Modal
+          isOpen={showDefault}
+          style={customStyles}
+          onRequestClose={closeDefault}
+          contentLabel="Set Default Modal"
+        >
+            <div className="flex justify-between items-center mb-12">
+                <p className="text-darkerGray font-bold text-lg">Are you sure you want to make {defaultState?.name} the default state?</p>
+                <button onClick={closeDefault} className="focus:outline-none">close</button>
+            </div>
+            <div className="flex justify-between items-center">
+                <button className="bg-primary py-4 px-16 text-white font-bold rounded-sm focus:outline-none" onClick={handleDefaultState}>Confirm</button>
+                <button className="border border-primary py-4 px-16 text-primary font-bold rounded-sm focus:outline-none" onClick={closeDefault}>Cancel</button>
             </div>
         </Modal>
             <div className="table">
@@ -105,7 +152,7 @@ const StateList = ({states, loading, getStates}) => {
                         </div>
                         <div className="table-row-data w-2/10">
                             <input type="radio" id="stateRadio"
-                                name="defaultState" value={state.defaultState} onChange={() => setDefaultState(state)} />
+                                name="defaultState" value={state.defaultState} onChange={() => triggerSetDefault(state)} />
                         </div>
                         <div className="table-row-data w-2/10"> 
                             <span data-tip data-for={`ellipsis-state-${state.id}`} data-event='click'>
