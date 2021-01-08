@@ -1,7 +1,7 @@
 import {dev} from './environment/dev.config';
 import {production} from './environment/prod.config';
 
-let environment = 'dev';
+let environment = process.env.NODE_ENV;
 
 const generateEnvVariables = () => {
   if (environment === 'prod') {
