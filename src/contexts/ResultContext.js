@@ -8,7 +8,8 @@ const initialState = {
   results: [],
   result: null,
   message: '',
-  response: null
+  response: null,
+  dashboard: null
 };
 
 const initialContext = [{...initialState}, () => {}];
@@ -151,6 +152,82 @@ const resultReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
+        case 'GET_DASHBOARD':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_DASHBOARD_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                dashboard: action.payload.response
+            };
+        case 'GET_DASHBOARD_FAILURE':
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                error: action.payload.error
+            };
+        case 'GET_DASHBOARD_BY_STATE':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_DASHBOARD_BY_STATE_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                dashboard: action.payload.response
+            };
+        case 'GET_DASHBOARD_BY_STATE_FAILURE':
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                error: action.payload.error
+            };
+        case 'GET_DASHBOARD_BY_SENATORIAL_DISTRICT':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_DASHBOARD_BY_SENATORIAL_DISTRICT_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                response: action.payload.response
+            };
+        case 'GET_DASHBOARD_BY_SENATORIAL_DISTRICT_FAILURE':
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                error: action.payload.error
+            };
+        case 'GET_DASHBOARD_BY_LGA':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_DASHBOARD_BY_LGA_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                response: action.payload.response
+            };
+        case 'GET_DASHBOARD_BY_LGA_FAILURE':
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                error: action.payload.error
+            };
     default:
       return {
         ...initialState,

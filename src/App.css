@@ -17,6 +17,10 @@ body {
   box-shadow: 0 1px 4px 0 rgba(139, 139, 139, 0.5);
 }
 
+.shadow-sm-container {
+  box-shadow: 0 2px 4px 0 #e7e7e7;
+}
+
 /* Button styles override */
 button.bg-primary:disabled {
   opacity: 0.8;
@@ -180,4 +184,23 @@ input[type='radio']:checked:after {
   width: 100px;
   height: 100px;
   animation: spin 2s linear infinite;
+}
+
+/* Chart styles */
+.bar {
+    fill: #5f89ad;
+}
+
+.axis {
+    font-size: 13px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    display: none;
+}
+
+.w-118 {
+  width: 118px;
 }

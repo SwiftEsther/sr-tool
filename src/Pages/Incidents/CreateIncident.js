@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Breadcrumbs } from 'react-breadcrumbs';
 import Layout from '../../shared/Layout';
-import {createResult} from '../../lib/url.js';
+import {createIncident} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { IncidentContext } from '../../contexts/IncidentContext';
@@ -12,20 +12,19 @@ const CreateIncident = ({match, location, history}) => {
     const handleCreate = (values, {setSubmitting}) => {
         console.log(values)
         const requestBody = {
-            electionId:1,
-            incidentLevel: values.incidentLevel,
-            incidentType: values.incidentType,
-            incidentStatus: values.incidentStatus,
+            incidentLevelId: values.incidentLevel,
+            incidentTypeId: values.incidentType,
+            incidentStatusId: values.incidentStatus,
             lgaId: values.lga,
             wardId: values.ward,
             pollingUnitId: values.pollingUnit,
             reportedLocation: values.location,
             phoneNumberToContact: values.phoneNumber,
-            senatorialDistrictId: values.senatorialDistrict
+            description: values.description
         }
         dispatch({type: 'CREATE_INCIDENT'});
          setSubmitting(true);
-         apiRequest(createResult, 'post', {...requestBody})
+         apiRequest(createIncident, 'post', {...requestBody})
             .then((res) => {
                 dispatch({type: 'CREATE_INCIDENT_SUCCESS', payload: {response: res}});
                 setSubmitting(false);

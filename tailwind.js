@@ -30,6 +30,7 @@ module.exports = {
 
       primary: '#31326f',
       opaqueBlue: '#f5faf8',
+      oceanBlue: '#f7f9ff',
       lightGray: '#c0c0c0',
       lighterGray: '#d8d8d8',
       defaultGray: '#979797',
@@ -119,6 +120,7 @@ module.exports = {
     borderOpacity: (theme) => theme('opacity'),
     borderRadius: {
       none: '0px',
+      xsm: '0.0625rem',
       sm: '0.125rem',
       DEFAULT: '0.25rem',
       md: '0.375rem',

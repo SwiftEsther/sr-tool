@@ -44,6 +44,7 @@ import Incidents from './Pages/Incidents';
 import CreateIncident from './Pages/Incidents/CreateIncident';
 import UpdateIncident from './Pages/Incidents/UpdateIncident';
 import { IncidentController } from './contexts/IncidentContext';
+import ResultDashboard from './Pages/ResultDashboard';
 
 Modal.setAppElement("#root");
 
@@ -89,6 +90,8 @@ function App() {
         <Route path="/incidents/create"  render ={routerProps => <IncidentController><CreateIncident {...routerProps}/></IncidentController>} />
         <Route path="/incidents/:id" render ={routerProps => <IncidentController><UpdateIncident {...routerProps}/></IncidentController>} />
         <Route path="/incidents"  render ={routerProps => <IncidentController><Incidents {...routerProps}/></IncidentController>} />
+
+        <Route path="/dashboard/results"  render ={routerProps => <ResultController><ResultDashboard {...routerProps}/></ResultController>} />
       </Switch>
     </>
   );

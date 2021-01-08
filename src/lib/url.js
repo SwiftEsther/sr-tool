@@ -17,7 +17,7 @@ export const getStateByCode = `${baseUrl}/api/v${version}/state`;
 export const updateState = `${baseUrl}/api/v${version}/state`;
 export const deleteState = `${baseUrl}/api/v${version}/state/delete`;
 export const filterStateByName = `${baseUrl}/api/v${version}/state/filter`;
-export const defaultState = `${baseUrl}/api/v${version}/state/default`;
+export const toggleDefaultState = `${baseUrl}/api/v${version}/state/default`;
 
 //----LGA URLS----//
 export const allLgas = `${baseUrl}/api/v${version}/lgas`;
@@ -97,3 +97,4 @@ export const allIncidentTypes = `${baseUrl}/api/v${version}/incident-type/all`;
 export const getDashboard = `${baseUrl}/api/v${version}/dashboard`;
 export const getDashboardByState = `${baseUrl}/api/v${version}/dashboard`;
 export const getDashboardBySenatorialDistrict = `${baseUrl}/api/v${version}/dashboard/senatorial-district`;
+export const getDashboardByLga = `${baseUrl}/api/v${version}/dashboard/lga`;

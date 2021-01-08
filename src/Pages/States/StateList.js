@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Modal from 'react-modal';
 import Ellipsis from '../../shared/components/Ellipsis';
-import {deleteState, defaultState} from '../../lib/url.js';
+import {deleteState, toggleDefaultState} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { StateContext } from '../../contexts/StateContext';
@@ -39,7 +39,7 @@ const StateList = ({states, loading, getStates}) => {
         console.log(state);
         setDefaultState(state)
         dispatch({type: 'SET_DEFAULT_STATE'});
-         apiRequest(`${defaultState}/${defaultState.id}`, 'delete')
+         apiRequest(`${toggleDefaultState}/${defaultState.id}`, 'get', {params: {stateId: defaultState.id}})
             .then((res) => {
                 dispatch({type: 'SET_DEFAULT_STATE_SUCCESS', payload: {response: res}});
                 setShowDefault(false);
