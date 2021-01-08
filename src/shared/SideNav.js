@@ -140,7 +140,7 @@ const SideNav = ({location}) => {
                     <ul className="list-reset flex flex-row md:flex-col text-center md:text-left">
                         {top.map((item, index) => (
                             <li key={index} className="w-full border-t border-primary border-opacity-10">
-                                <Link to={item.path} className="flex w-full items-center py-3.5 px-5">
+                                <Link to={item.subMenus.length > 0 ? item.subMenus[0].path : item.path} className="flex w-full items-center py-3.5 px-5">
                                     <span className="w-2.5/10">{item.icon(item.active)}</span>
                                     <span className="6/10 mr-2 ml-4">{item.name}</span>
                                     {item.subMenus.length > 0 && 
@@ -192,7 +192,7 @@ const SideNav = ({location}) => {
                     <ul className="list-reset flex flex-row md:flex-col text-center md:text-left">
                         {bottom.map((item, index) => (
                             <li key={index} className="w-full border-t border-primary border-opacity-10">
-                                <Link to={item.path} className="flex w-full items-center py-3.5 px-5">
+                                <Link to={item.subMenus.length > 0 ? item.subMenus[0].path : item.path} className="flex w-full items-center py-3.5 px-5">
                                     <span className="w-2.5/10">{item.icon(item.active)}</span>
                                     <span className="6/10 mr-2 ml-4">{item.name}</span>
                                     {item.subMenus.length > 0 && 
