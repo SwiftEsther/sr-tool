@@ -4,7 +4,7 @@ body {
 
 /* Sidenav styles */
 .side-nav {
-  width: 12%;
+  width: 0;
 }
 
 .side-nav top ul.list-reset:first-child,
@@ -28,7 +28,7 @@ button.bg-primary:disabled {
 }
 
 .button-padding {
-  padding: 1rem 4.75rem;
+  padding: 0.25rem 1rem;
 }
 
 /* Table styles */
@@ -203,4 +203,36 @@ input[type='radio']:checked:after {
 
 .w-118 {
   width: 118px;
+}
+
+/* Responsive designs */
+@media (min-width: 768px) { 
+  .button-padding {
+    padding: 1rem 4.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+    .table .table-header .custom-table-row .table-header-data,
+    .table .table-body .custom-table-row .table-row-data {
+      padding-left: 1rem;
+    }
+
+    .table .table-header .custom-table-row,
+    .table .table-body .custom-table-row {
+      padding: 1.25rem 0.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+  .side-nav {
+    width: 13rem;
+  }
+}
+
+/* Galaxy Fold */
+@media (max-width: 280px) { 
+  .add-btn {
+    padding: 0.875rem 2rem !important;
+  }
 }
