@@ -17,7 +17,7 @@ const NavTrigger = () => {
         setOpen(true);
     }
     return (
-        <div className="flex justify-end m-3.5" id="bars"><img onClick={open ? closeNav : openNav} src={open ? Cancel : Bars} /></div>
+        <div className="flex justify-end mx-3.5 py-3.5" id="bars"><img onClick={open ? closeNav : openNav} src={open ? Cancel : Bars} /></div>
     )
 }
 
