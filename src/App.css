@@ -5,6 +5,11 @@ body {
 /* Sidenav styles */
 .side-nav {
   width: 0;
+  display: none;
+}
+
+.mobile-nav {
+  display: block;
 }
 
 .side-nav top ul.list-reset:first-child,
@@ -227,6 +232,11 @@ input[type='radio']:checked:after {
 @media (min-width: 1024px) {
   .side-nav {
     width: 13rem;
+    display: block;
+  }
+
+  .mobile-nav {
+    display: none;
   }
 }
 

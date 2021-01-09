@@ -131,13 +131,14 @@ const SideNav = ({location}) => {
     }, [location, activeMenu])
 
     return (
-        <div className="side-nav h-screen bg-white fixed text-sm text-primary">
+        <>
+        <div className="side-nav h-screen bg-white fixed text-sm text-primary" id="sidenav">
             <div className="flex flex-col h-full">
                 <div className="top pt-2.5 border-r border-b border-primary">
                     <div className="mt-24">
                         
                     </div>
-                    <ul className="list-reset flex flex-row md:flex-col text-center md:text-left">
+                    <ul className="list-reset text-center md:text-left">
                         {top.map((item, index) => (
                             <li key={index} className="w-full border-t border-primary border-opacity-10">
                                 <Link to={item.subMenus.length > 0 ? item.subMenus[0].path : item.path} className="flex w-full items-center py-3.5 px-5">
@@ -162,7 +163,7 @@ const SideNav = ({location}) => {
                     {activeMenu.subMenus.length > 0 && 
                         <div className="w-full flex mb-1">
                             <div className="w-4/10"></div>
-                            <ul className="list-reset flex flex-column md:flex-col text-center md:text-left w-6/10 text-xs">
+                            <ul className="list-reset text-center md:text-left w-6/10 text-xs">
                                 {activeMenu.subMenus.map((subMenu, idx) => (
                                     <li key={idx} className="">
                                         <Link to={subMenu.path} className="flex w-full items-center py-1.5">
@@ -175,7 +176,7 @@ const SideNav = ({location}) => {
                     }
                 </div>}
                 <div className="bottom border-r border-t border-primary flex-grow">
-                    <ul className="list-reset flex flex-row md:flex-col text-center md:text-left">
+                    <ul className="list-reset text-center md:text-left">
                         {bottom.map((item, index) => (
                             <li key={index} className="w-full border-t border-primary border-opacity-10">
                                 <Link to={item.subMenus.length > 0 ? item.subMenus[0].path : item.path} className="flex w-full items-center py-3.5 px-5">
@@ -191,6 +192,67 @@ const SideNav = ({location}) => {
                 </div>
             </div>
          </div>
+         <div className="side-nav h-screen bg-white fixed text-sm text-primary" id="mobilesidenav">
+            <div className="flex flex-col h-full">
+                <div className="top pt-2.5 border-r border-b border-primary">
+                    <div className="mt-24">
+                        
+                    </div>
+                    <ul className="list-reset text-center md:text-left">
+                        {top.map((item, index) => (
+                            <li key={index} className="w-full border-t border-primary border-opacity-10">
+                                <Link to={item.subMenus.length > 0 ? item.subMenus[0].path : item.path} className="flex w-full items-center py-3.5 px-5">
+                                    <span className="w-2.5/10">{item.icon(item.active)}</span>
+                                    <span className="6/10 mr-2 ml-4">{item.name}</span>
+                                    {item.subMenus.length > 0 && 
+                                        <span className="1/10">&uarr;</span>
+                                    }
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                {activeMenu && <div>
+                    <Link to={activeMenu.path} className="flex w-full items-center py-3.5 px-5">
+                        <span className="w-3/10">{activeMenu.icon(activeMenu.active)}</span>
+                        <span className="6/10 mr-2 ml-4">{activeMenu.name}</span>
+                        {activeMenu.subMenus.length > 0 && 
+                            <span className="1/10">&darr;</span>
+                        }
+                    </Link>
+                    {activeMenu.subMenus.length > 0 && 
+                        <div className="w-full flex mb-1">
+                            <div className="w-4/10"></div>
+                            <ul className="list-reset text-center md:text-left w-6/10 text-xs">
+                                {activeMenu.subMenus.map((subMenu, idx) => (
+                                    <li key={idx} className="">
+                                        <Link to={subMenu.path} className="flex w-full items-center py-1.5">
+                                            <span className={`${(subMenu.active || (subMenu.path === location.pathname || location.pathname.indexOf(subMenu.path) === 0)) ? "font-bold" : ""} mr-2 ml-4`}>{subMenu.name}</span>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    }
+                </div>}
+                <div className="bottom border-r border-t border-primary flex-grow">
+                    <ul className="list-reset text-center md:text-left">
+                        {bottom.map((item, index) => (
+                            <li key={index} className="w-full border-t border-primary border-opacity-10">
+                                <Link to={item.subMenus.length > 0 ? item.subMenus[0].path : item.path} className="flex w-full items-center py-3.5 px-5">
+                                    <span className="w-2.5/10">{item.icon(item.active)}</span>
+                                    <span className="6/10 mr-2 ml-4">{item.name}</span>
+                                    {item.subMenus.length > 0 && 
+                                        <span className="1/10">&uarr;</span>
+                                    }
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+         </div>
+         </>
     );
 }
 
