@@ -5,8 +5,8 @@ require('dotenv').config()
 let environment = process.env.NODE_ENV;
 
 const generateEnvVariables = () => {
-  console.log('env', environment)
-  if (environment === 'prod') {
+  console.log('env', environment === 'production')
+  if (environment === 'production') {
     return production;
   } else {
     return dev;
