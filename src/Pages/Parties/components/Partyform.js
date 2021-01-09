@@ -10,10 +10,13 @@ const PartyForm = ({formFields, handleFormSubmit}) => {
 
     const validate = (values) => {
         const errors = {};
+        const match = /^[0-9]{2}$/i;
         if (!values.name) {
             errors.name = 'Party Name is required';
         }   else if (!values.code) {
-            errors.code = 'PArty Code is required';
+            errors.code = 'Party Code is required';
+        }   else if(!match.test(values.code)) {
+            errors.code = 'Party Code should contain 2 digit code';
         }   else {
             setFormValid(true);
         }
