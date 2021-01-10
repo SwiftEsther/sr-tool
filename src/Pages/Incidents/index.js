@@ -91,7 +91,7 @@ const Incidents = ({match, location}) => {
 
     return (
         <Layout location={location}>
-            <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Incidents',
+            <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Incidents',
             pathname: match.path}]}/>
             <div className="my-6 shadow-container pl-2.5 pr-7 py-6">
                 <div className="flex justify-between items-center px-1">

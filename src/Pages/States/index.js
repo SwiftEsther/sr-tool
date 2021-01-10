@@ -81,7 +81,7 @@ const States = ({match, location}) => {
     return (
         <StateController>
             <Layout location={location}>
-                <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
+                <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
                 pathname: "/territories"}, {id: 2,title: 'States',
                 pathname: match.path}]}/>
                 <div className="my-6 shadow-container pl-2.5 pr-7 py-6">

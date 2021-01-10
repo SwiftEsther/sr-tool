@@ -24,7 +24,7 @@ const PartyForm = ({formFields, handleFormSubmit}) => {
     }
 
     return (
-        <div className="xl:w-3/10 w-full">
+        <div className="lg:w-3/10 w-full">
             <Formik
                 initialValues={formFields || initialValues}
                 validate={values => validate(values)}

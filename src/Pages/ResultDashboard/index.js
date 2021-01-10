@@ -34,7 +34,7 @@ const ResultDashboard = ({match, location}) => {
     }, [])
     return(
         <Layout location={location}>
-            <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Dashboard',
+            <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Dashboard',
                 pathname: "/dashboard"}, {id: 2,title: 'Results',
                 pathname: match.path}]}/>
             <div className="w-full flex">

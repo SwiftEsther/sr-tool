@@ -29,7 +29,7 @@ const UpdateParty = ({match, location, history}) => {
     }
     return (
         <Layout location={location}>
-            <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Parties',
+            <Breadcrumbs className="w-full lg:px-3.5 px-1 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Parties',
                 pathname: "/parties"}, {id: 2,title: 'Update Party',
                 pathname: match.path}]}/>
             <div className="py-9 px-3.5">

@@ -24,15 +24,15 @@ const ResultCards = ({data}) => {
 
             <div className="flex justify-between items-center py-6 shadow-container px-2.5 my-2">
                 <div className="bg-oceanBlue py-4 text-center rounded-xsm .shadow-sm-container w-118">
-                    <div className="text-4xl font-bold my-2">32</div>
+                    <div className="text-4xl font-bold my-4">32</div>
                     <div className="text-xs">LGAs won by  APC</div>
                 </div>
                 <div className="bg-oceanBlue py-4 text-center rounded-xsm .shadow-sm-container w-118">
-                    <div className="text-4xl font-bold">20</div>
+                    <div className="text-4xl font-bold my-4">20</div>
                     <div className="text-xs">LGAs won by  PDP</div>
                 </div>
                 <div className="bg-oceanBlue py-4 text-center rounded-xsm .shadow-sm-container w-118">
-                    <div className="text-4xl font-bold">4</div>
+                    <div className="text-4xl font-bold my-4">4</div>
                     <div className="text-xs">LGAs won by  ANPP</div>
                 </div>
             </div>

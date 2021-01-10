@@ -50,7 +50,7 @@ const Users = ({match, location}) => {
     return (
         <UserController>
             <Layout location={location}>
-                <Breadcrumbs className="shadow-container w-full px-3.5 pt-7 pb-5 rounded-sm text-2xl font-bold"/>
+                <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold"/>
                 <Breadcrumb data={{
                     title: 'Users',
                     pathname: match.path

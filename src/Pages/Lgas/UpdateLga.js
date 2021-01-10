@@ -45,7 +45,7 @@ const UpdateLga = ({match, location, history}) => {
     
     return (
         <Layout location={location}>
-            <Breadcrumbs className="w-full px-3.5 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
+            <Breadcrumbs className="w-full lg:px-3.5 px-1 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
                 pathname: "/territories"}, {id: 2,title: 'LGAs',
                 pathname: "/territories/lgas"}, {id: 3,title: 'Update LGA',
                 pathname: match.path}]}/>
