@@ -79,7 +79,7 @@ const Parties = ({match, location}) => {
                                 </button>
                             </div>
                         </div>
-                        <div className="xl:w-2/10 lg:w-3/10 flex items-center justify-end px-1 w-full lg:mt-0 mt-4">
+                        <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
                             <Link className="bg-primary py-3.5 px-16 add-btn text-white font-bold rounded-sm" to="/parties/create">
                                 Add Party
                             </Link>
