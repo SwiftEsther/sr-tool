@@ -1,7 +1,9 @@
+import axios from 'axios';
 import React from 'react';
 import * as XLSX from 'xlsx';
+import { showToast } from '../../helpers/showToast';
 
-const Uploader = ({dispatch, action, action_success, action_error}) => {
+const Uploader = ({dispatch, action, action_success, action_error, url, refresh}) => {
    // process CSV data
   const processData = dataString => {
     const dataStringLines = dataString.split(/\r\n|\n/);
@@ -50,31 +52,57 @@ const Uploader = ({dispatch, action, action_success, action_error}) => {
   }
  
   // handle file upload
-  const handleFileUpload = e => {
+  const handleFileUpload = async e => {
     const file = e.target.files[0];
-    if(file){
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-        /* Parse data */
-        const bstr = evt.target.result;
-        const wb = XLSX.read(bstr, { type: 'binary' });
-        /* Get first worksheet */
-        const wsname = wb.SheetNames[0];
-        const ws = wb.Sheets[wsname];
-        /* Convert array of arrays */
-        const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-          processData(data);
-        // console.log(data)
-        };
-        reader.readAsBinaryString(file);
+    if(file) {
+      e.preventDefault();
+        let formData = new FormData();
+        formData.append('file', file)
+        dispatch({type: action});
+         await axios({
+             method: 'post',
+             url: url,
+             data: formData,
+             headers: {
+                'Content-Type': 'multipart/form-data'
+             }
+         })
+            .then((res) => {
+                dispatch({type: action_success, payload: {response: res}});
+                showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'Data imported successfully'}`);
+                refresh();
+            })
+            .catch((err) => {
+                dispatch({type: action_error, payload: {error: err}});
+                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while importing data. Please try again later."}`);
+            });
+    } else {
+      showToast('error', 'Kindly pick a file to upload');
     }
+    
+    // if(file){
+        // const reader = new FileReader();
+        // reader.onload = (evt) => {
+        // /* Parse data */
+        // const bstr = evt.target.result;
+        // const wb = XLSX.read(bstr, { type: 'binary' });
+        // /* Get first worksheet */
+        // const wsname = wb.SheetNames[0];
+        // const ws = wb.Sheets[wsname];
+        // /* Convert array of arrays */
+        // const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+        //   processData(data);
+        // // console.log(data)
+        // };
+        // reader.readAsBinaryString(file);
+    // }
   }
   return (
     <input
         type="file"
         name="map"
         onChange={handleFileUpload}
-        onBlur={handleFileUpload}
+        // onBlur={handleFileUpload}
         accept=".xlsx, .xls, .csv"
         className="bulk-upload-btn focus:outline-none w-36 text-white font-bold rounded-lg mr-3"
         placeholder="Bulk Upload"
