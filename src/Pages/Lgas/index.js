@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allLgas, filterLgaByName} from '../../lib/url.js';
+import {allLgas, filterLgaByName, uploadLga} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import LgaList from "./LgaList";
@@ -134,7 +134,7 @@ const Lgas = ({match, location}) => {
                     <LgaList lgas={currentLgas} loading={lgaState.loading} getLgas={getAllLgas}/>
                     <div className="flex justify-between items-center mt-4">
                         <div className="flex">
-                            <Uploader dispatch={dispatch} action="UPLOAD_LGAS_SUCCESS"/>
+                            <Uploader dispatch={dispatch} action="UPLOAD_LGAS" action_success="UPLOAD_LGAS_SUCCESS" action_error="UPLOAD_LGAS_FAILURE" url={uploadLga} refresh={getAllLgas}/>
                             {lgaState.response?.lgas?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_LGAS_SUCCESS" />}
                         </div>
                         {lgaState.response?.lgas?.length > 0 && <div>
