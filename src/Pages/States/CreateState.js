@@ -45,7 +45,7 @@ const CreateState = ({match, history, location}) => {
                 pathname: "/territories"}, {id: 2,title: 'States',
                 pathname: "/territories/states"}, {id: 3,title: 'New State',
                 pathname: match.path}]}/>
-            <div className="py-9 px-3.5">
+            <div className="py-9 xl:px-3.5 px-1">
                 <StateForm handleFormSubmit={handleCreate}/>
             </div>
         </Layout>

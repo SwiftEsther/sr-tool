@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Breadcrumbs } from 'react-breadcrumbs';
-import { UserContext, UserController } from '../../contexts/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 import Layout from '../../shared/Layout';
 import {createParty} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';

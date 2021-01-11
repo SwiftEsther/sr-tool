@@ -22,6 +22,8 @@ const StateForm = ({formFields, handleFormSubmit}) => {
         const errors = {};
         if (!values.name) {
             errors.name = 'Name is required';
+        }   else if (!values.svgUrl && !values.map) {
+            errors.map = 'You are required to upload a map';
         }   else {
             setFormValid(true);
         }
@@ -29,7 +31,7 @@ const StateForm = ({formFields, handleFormSubmit}) => {
     }
 
     return (
-        <div className="w-3/10">
+        <div className="lg:w-3/10 w-full">
             <Formik
                 initialValues={formFields || initialValues}
                 validate={values => validate(values)}
@@ -71,19 +73,19 @@ const StateForm = ({formFields, handleFormSubmit}) => {
                                     setFieldValue("map", event.currentTarget.files[0]);
                                 }}
                                 accept=".svg"
-                                required={!values.svgUrl}
+                                required={!formFields}
                                 className="custom-file-input w-full focus:outline-none placeholder-darkerGray font-medium text-sm"
                                 placeholder="Upload SVG"
                             />
                             {values.svgUrl && <img src={`${baseUrl}/api/v${version}${values.svgUrl}`} />}
                             {values.map && <ImageThumb image={values.map} />}
-                            {errors.map && touched.map && <span className="text-xs text-red-600">{errors.map}</span>}
+                            {errors.map && <span className="text-xs text-red-600">{errors.map}</span>}
                         </div>
                         <div className="flex justify-between items-center">
-                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 px-16 text-white font-bold rounded-sm focus:outline-none">
+                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 text-white font-bold rounded-sm focus:outline-none w-4/10">
                                 {formFields ? 'Update' : 'Add'} State
                             </button>
-                            <button className="border border-primary py-4 px-16 text-primary font-bold rounded-sm focus:outline-none" onClick={handleReset} >
+                            <button className="border border-primary py-4 text-primary font-bold rounded-sm focus:outline-none w-4/10" onClick={handleReset} >
                                 Cancel
                             </button>
                         </div>
