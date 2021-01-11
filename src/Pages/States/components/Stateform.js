@@ -2,12 +2,9 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import ImageThumb from "../../../shared/components/ImageThumb";
 import env from '../../../config/env.config';
-import Map from '../../../shared/assets/map.svg';
 
 const StateForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
-    const [file, setFile] = useState("");
-    const [name, setName] = useState("");
     const baseUrl = env().baseUrl;
     const version = env().version;
     let initialValues = {
