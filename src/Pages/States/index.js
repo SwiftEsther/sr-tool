@@ -84,9 +84,9 @@ const States = ({match, location}) => {
                 <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
                 pathname: "/territories"}, {id: 2,title: 'States',
                 pathname: match.path}]}/>
-                <div className="my-6 shadow-container pl-2.5 pr-7 py-6">
-                    <div className="flex justify-between px-1 mt-16">
-                        <div className="w-8/10 flex items-center px-1">
+                <div className="my-6 shadow-container pl-2.5 lg:pr-7 pr-2.5 py-6">
+                    <div className="lg:flex justify-between px-1 mt-16">
+                        <div className="xl:w-8/10 lg:w-6/10 flex items-center px-1 w-full">
                             <div className="w-7/10">
                                 <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search states by name"/>
                             </div>
@@ -96,9 +96,11 @@ const States = ({match, location}) => {
                                 </button>
                             </div>
                         </div>
-                        <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/territories/states/create">
-                            Add State
-                        </Link>
+                        <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
+                            <Link className="bg-primary py-3.5 px-16 add-btn text-white font-bold rounded-sm" to="/territories/states/create">
+                                Add State
+                            </Link>
+                        </div>
                     </div>
                     <StateList states={currentStates} loading={state.loading} getStates={getAllStates}/>
                     {!state.loading && <div className="flex justify-end items-center mt-4">

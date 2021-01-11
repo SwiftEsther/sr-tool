@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs, Breadcrumb } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allParties, filterPartyByName, deleteParty} from '../../lib/url.js';
+import {allParties, filterPartyByName} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import { PartyContext } from "../../contexts/PartyContext";
