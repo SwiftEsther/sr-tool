@@ -193,7 +193,7 @@ const SideNav = ({location}) => {
             </div>
          </div>
          <div className="side-nav z-10 h-screen bg-white fixed text-sm text-primary" id="mobilesidenav">
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full overflow-auto">
                 <div className="top pt-2.5 border-r border-b border-primary">
                     <div className="mt-24">
                         
