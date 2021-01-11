@@ -37,7 +37,7 @@ const CreateLga = ({match, history,location}) => {
                 pathname: "/territories"}, {id: 2,title: 'LGAs',
                 pathname: "/territories/lgas"}, {id: 3,title: 'Add LGA',
                 pathname: match.path}]}/>
-            <div className="py-9 px-3.5">
+            <div className="py-9 xl:px-3.5 px-1">
                 <LgaForm handleFormSubmit={handleCreate}/>
             </div>
         </Layout>
