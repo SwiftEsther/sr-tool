@@ -77,6 +77,7 @@ export const createResult = `${baseUrl}/api/v${version}/result`;
 export const getResultById = `${baseUrl}/api/v${version}/result`;
 export const updateResult = `${baseUrl}/api/v${version}/result`;
 export const deleteResult = `${baseUrl}/api/v${version}/result/delete`;
+export const uploadResult = `${baseUrl}/api/v${version}/result/upload`;
 
 //----INCIDENT URLS----//
 export const allIncidents = `${baseUrl}/api/v${version}/incident/all`;
@@ -84,6 +85,7 @@ export const createIncident = `${baseUrl}/api/v${version}/incident`;
 export const getIncidentById = `${baseUrl}/api/v${version}/incident`;
 export const updateIncident = `${baseUrl}/api/v${version}/incident`;
 export const deleteIncident = `${baseUrl}/api/v${version}/incident/delete`;
+export const uploadIncident = `${baseUrl}/api/v${version}/incident/upload`;
 
 //----SENATORIAL DISTRICT URLS----//
 export const getSenatorialDistrictsByStateId = `${baseUrl}/api/v${version}/senatorial-district/state`;
