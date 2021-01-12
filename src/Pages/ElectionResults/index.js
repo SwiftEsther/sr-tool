@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allResults} from '../../lib/url.js';
+import {allResults, uploadResult} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -93,9 +93,9 @@ const Results = ({match, location}) => {
         <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Results',
             pathname: match.path}]}/>
-            <div className="my-6 shadow-container pl-2.5 pr-7 py-6">
-                <div className="flex justify-between items-center px-1">
-                    <div className="flex items-center md:w-4/10">
+            <div className="my-6 shadow-container pl-2.5 lg:pr-7 pr-2.5 py-6">
+                <div className="lg:flex justify-between items-center px-1">
+                    <div className="xl:w-3/10 lg:w-6/10 flex items-center px-1 w-full">
                         <select 
                             name="lga" 
                             onChange={filterData}
@@ -127,9 +127,11 @@ const Results = ({match, location}) => {
                             {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.code}>{pollingUnit.name}</option>))}
                         </select>
                     </div>
+                    <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
                     <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/results/create">
                         Add Result
                     </Link>
+                    </div>
                 </div>
                 <div className="w-full flex mt-16 items-center px-1">
                     <div className="w-1/2">
@@ -144,8 +146,8 @@ const Results = ({match, location}) => {
                 <ResultList results={currentResults} loading={resultState.loading} getResults={getAllResults}/>
                 {!resultState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="UPLOAD_RESULTS_SUCCESS"/>
-                        {resultState.response?.results?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_RESULTS_SUCCESS" />}
+                        <Uploader dispatch={dispatch} action="UPLOAD_RESULT" action_success="UPLOAD_RESULT_SUCCESS" action_error="UPLOAD_RESULT_FAILURE" url={uploadResult} refresh={getAllResults}/>
+                        {resultState.response?.results?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_RESULT_SUCCESS" />}
                     </div>
                     {resultState.results.length > 0 && <div>
                         <Pagination totalRecords={resultState.results.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
