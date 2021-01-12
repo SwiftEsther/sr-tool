@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allIncidents} from '../../lib/url.js';
+import {allIncidents, uploadIncident} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -93,9 +93,9 @@ const Incidents = ({match, location}) => {
         <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Incidents',
             pathname: match.path}]}/>
-            <div className="my-6 shadow-container pl-2.5 pr-7 py-6">
-                <div className="flex justify-between items-center px-1">
-                    <div className="flex items-center md:w-4/10">
+            <div className="my-6 shadow-container pl-2.5 lg:pr-7 pr-2.5 py-6">
+                <div className="lg:flex justify-between items-center px-1">
+                    <div className="xl:w-3/10 lg:w-6/10 flex items-center px-1 w-full">
                         <select 
                             name="lga" 
                             onChange={filterData}
@@ -127,9 +127,11 @@ const Incidents = ({match, location}) => {
                             {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.code}>{pollingUnit.name}</option>))}
                         </select>
                     </div>
+                    <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
                     <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/incidents/create">
                         Add Incident
                     </Link>
+                    </div>
                 </div>
                 <div className="w-full flex mt-16 items-center px-1">
                     <div className="w-1/2">
@@ -144,7 +146,7 @@ const Incidents = ({match, location}) => {
                 <IncidentList incidents={incidentState.incidents} loading={incidentState.loading} getIncidents={getAllIncidents}/>
                 {!incidentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="GET_INCIDENTS_SUCCESS"/>
+                        <Uploader dispatch={dispatch} action="UPLOAD_INCIDENT" action_success="UPLOAD_INCIDENT_SUCCESS" action_error="UPLOAD_INCIDENT_FAILURE" url={uploadIncident} refresh={getAllIncidents}/>
                         {incidentState.incidents?.length > 0 && <Downloader dispatch={dispatch} action="GET_INCIDENTS_SUCCESS" />}
                     </div>
                     {incidentState.incidents?.length > 0 && <div>
