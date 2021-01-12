@@ -48,7 +48,7 @@ const UpdateWard = ({match, location, history}) => {
                 pathname: "/territories"}, {id: 2,title: 'Wards',
                 pathname: "/territories/wards"}, {id: 3,title: 'Update Ward',
                 pathname: match.path}]}/>
-            <div className="py-9 px-3.5">
+            <div className="py-9 xl:px-3.5 px-1">
                 <WardForm formFields={currentWard} handleFormSubmit={handleUpdate}/>
             </div>
         </Layout>
