@@ -39,6 +39,7 @@ export const updateWard = `${baseUrl}/api/v${version}/ward`;
 export const deleteWard = `${baseUrl}/api/v${version}/ward/delete`;
 export const filterWardByName = `${baseUrl}/api/v${version}/ward/filter`;
 export const getWardsByLgaId = `${baseUrl}/api/v${version}/ward/lga`;
+export const uploadWard = `${baseUrl}/api/v${version}/ward/upload`;
 
 //----POLLING UNIT URLS----//
 export const allPollingUnits = `${baseUrl}/api/v${version}/polling-unit/all`;
@@ -49,6 +50,7 @@ export const updatePollingUnit = `${baseUrl}/api/v${version}/polling-unit`;
 export const deletePollingUnit = `${baseUrl}/api/v${version}/polling-unit/delete`;
 export const filterPollingUnitByName = `${baseUrl}/api/v${version}/polling-unit/filter`;
 export const getPollingUnitsByWardId = `${baseUrl}/api/v${version}/polling-unit/ward`;
+export const uploadPollingUnit = `${baseUrl}/api/v${version}/polling-unit/upload`;
 
 //----POLITICAL PARTY URLS----//
 export const allParties = `${baseUrl}/api/v${version}/political-party/all`;
