@@ -116,7 +116,7 @@ const Lgas = ({match, location}) => {
                             </select>
                         </div>
                         <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
-                        <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/territories/lgas/create">
+                        <Link className="bg-primary py-3.5 px-16 add-btn text-white font-bold rounded-sm" to="/territories/lgas/create">
                             Add Lga
                         </Link>
                         </div>
@@ -134,8 +134,8 @@ const Lgas = ({match, location}) => {
                     <LgaList lgas={currentLgas} loading={lgaState.loading} getLgas={getAllLgas}/>
                     <div className="flex justify-between items-center mt-4">
                         <div className="flex">
-                            <Uploader dispatch={dispatch} action="UPLOAD_LGAS" action_success="UPLOAD_LGAS_SUCCESS" action_error="UPLOAD_LGAS_FAILURE" url={uploadLga} refresh={getAllLgas}/>
-                            {lgaState.response?.lgas?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_LGAS_SUCCESS" />}
+                            <Uploader dispatch={dispatch} action="UPLOAD_LGA" action_success="UPLOAD_LGA_SUCCESS" action_error="UPLOAD_LGA_FAILURE" url={uploadLga} refresh={getAllLgas}/>
+                            {lgaState.response?.lgas?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_LGA_SUCCESS" />}
                         </div>
                         {lgaState.response?.lgas?.length > 0 && <div>
                         <Pagination totalRecords={lgaState.response?.lgas?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />

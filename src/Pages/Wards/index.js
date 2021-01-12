@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allWards, filterWardByName, getWardByCode} from '../../lib/url.js';
+import {allWards, filterWardByName, uploadWard} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -91,9 +91,9 @@ const Wards = ({match, location}) => {
             <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Election Territories',
             pathname: "/territories"}, {id: 2,title: 'Wards',
             pathname: match.path}]}/>
-            <div className="my-6 shadow-container pl-2.5 pr-7 py-6">
-                <div className="flex justify-between items-center px-1">
-                    <div className="flex items-center md:w-4/10">
+            <div className="my-6 shadow-container pl-2.5 lg:pr-7 pr-2.5 py-6">
+                <div className="lg:flex justify-between items-center px-1">
+                    <div className="xl:w-4/10 lg:w-6/10 flex items-center px-1 w-full">
                         <select 
                             name="state" 
                             onChange={filterData}
@@ -125,9 +125,11 @@ const Wards = ({match, location}) => {
                             {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
                         </select>
                     </div>
-                    <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/territories/wards/create">
+                    <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
+                    <Link className="bg-primary py-3.5 px-16 add-btn text-white font-bold rounded-sm" to="/territories/wards/create">
                         Add Ward
                     </Link>
+                    </div>
                 </div>
                 <div className="w-full flex mt-16 items-center px-1">
                     <div className="w-1/2">
@@ -142,8 +144,8 @@ const Wards = ({match, location}) => {
                 <WardList wards={currentWards} loading={wardState.loading} getWards={getAllWards}/>
                 <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="UPLOAD_WARDS_SUCCESS"/>
-                        {wardState.response?.wards?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_WARDS_SUCCESS" />}
+                        <Uploader dispatch={dispatch} action="UPLOAD_WARD" action_success="UPLOAD_WARD_SUCCESS" action_error="UPLOAD_WARD_FAILURE" url={uploadWard} refresh={getAllWards}/>
+                        {wardState.response?.wards?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_WARD_SUCCESS" />}
                     </div>
                     {wardState.response?.wards?.length > 0 && <div>
                         <Pagination totalRecords={wardState.response?.wards?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
