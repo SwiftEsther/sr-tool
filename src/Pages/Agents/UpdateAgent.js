@@ -51,7 +51,7 @@ const UpdateAgent = ({match, location, history}) => {
             <Breadcrumbs className="w-full lg:px-3.5 px-1 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Agents',
                 pathname: "/agents"}, {id: 2,title: 'Update Agent',
                 pathname: match.path}]}/>
-            <div className="py-9 px-3.5">
+            <div className="py-9 xl:px-3.5 px-1">
                 <AgentForm formFields={currentAgent} handleFormSubmit={handleUpdate}/>
             </div>
         </Layout>
