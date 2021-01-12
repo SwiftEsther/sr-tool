@@ -57,7 +57,7 @@ const UpdateResult = ({match, location, history}) => {
             <Breadcrumbs className="w-full lg:px-3.5 px-1 pt-7 pb-5 text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Results',
                 pathname: "/results"}, {id: 2,title: 'Update Result',
                 pathname: match.path}]}/>
-            <div className="py-9 px-3.5">
+            <div className="py-9 xl:px-3.5 px-1">
                 <ResultForm formFields={currentResult} handleFormSubmit={handleUpdate}/>
             </div>
         </Layout>

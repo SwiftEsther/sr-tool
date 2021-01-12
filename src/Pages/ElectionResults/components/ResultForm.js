@@ -149,7 +149,7 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
     }, [init]);
 
     return (
-        <div className="w-3/10">
+        <div className="lg:w-3/10 w-full">
             <Formik
                 initialValues={formFields || initialValues}
                 validate={values => validate(values)}
