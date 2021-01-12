@@ -69,6 +69,7 @@ export const filterAgentByName = `${baseUrl}/api/v${version}/party-agent/search`
 export const getAgent = `${baseUrl}/api/v${version}/party-agent`;
 export const updateAgent = `${baseUrl}/api/v${version}/party-agent`;
 export const deleteAgent = `${baseUrl}/api/v${version}/party-agent/delete`;
+export const uploadAgent = `${baseUrl}/api/v${version}/agent/upload`;
 
 //----RESULT URLS----//
 export const allResults = `${baseUrl}/api/v${version}/result/all`;
