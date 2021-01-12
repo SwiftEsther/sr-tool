@@ -39,7 +39,7 @@ const CreatePollingUnit = ({match, history, location}) => {
                 pathname: "/territories"}, {id: 2,title: 'Polling Units',
                 pathname: "/territories/polling-units"}, {id: 3,title: 'Add Polling Unit',
                 pathname: match.path}]}/>
-            <div className="py-9 px-3.5">
+            <div className="py-9 xl:px-3.5 px-1">
                 <PollingUnitForm handleFormSubmit={handleCreate}/>
             </div>
         </Layout>

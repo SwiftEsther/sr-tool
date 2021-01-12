@@ -110,7 +110,7 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
     }, [init])
 
     return (
-        <div className="w-3/10">
+        <div className="lg:w-3/10 w-full">
             <Formik
                 initialValues={formFields || initialValues}
                 validate={values => validate(values)}
@@ -206,10 +206,10 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
                             {errors.number && touched.number && <span className="text-xs text-red-600">{errors.number}</span>}
                         </div>
                         <div className="flex justify-between items-center">
-                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 px-8 text-white font-bold rounded-sm focus:outline-none">
+                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 text-white font-bold rounded-sm focus:outline-none w-4/10">
                                 {formFields ? 'Update' : 'Add'} Polling Unit
                             </button>
-                            <button className="border border-primary py-4 px-16 text-primary font-bold rounded-sm focus:outline-none" onClick={handleReset} >
+                            <button className="border border-primary py-4 text-primary font-bold rounded-sm focus:outline-none w-4/10" onClick={handleReset} >
                                 Cancel
                             </button>
                         </div>

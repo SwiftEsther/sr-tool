@@ -49,7 +49,7 @@ const UpdatePollingUnit = ({match, location, history}) => {
                 pathname: "/territories"}, {id: 2,title: 'Polling Units',
                 pathname: "/territories/polling-units"}, {id: 3,title: 'Update Polling Unit',
                 pathname: match.path}]}/>
-            <div className="py-9 px-3.5">
+            <div className="py-9 xl:px-3.5 px-1">
                 <PollingUnitForm formFields={currentPollingUnit} handleFormSubmit={handleUpdate}/>
             </div>
         </Layout>
