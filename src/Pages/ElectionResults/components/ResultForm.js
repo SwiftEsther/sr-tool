@@ -5,11 +5,25 @@ import { apiRequest } from "../../../lib/api";
 import { getLgasByStateId, getPollingUnitsByWardId, getWardsByLgaId, getSenatorialDistrictsByStateId, allVotingLevels, allAgents } from "../../../lib/url";
 
 const ResultForm = ({formFields, handleFormSubmit}) => {
+    const levels = [
+        {
+            id: 1,
+            name: 'LGA'
+        },
+        {
+            id: 2,
+            name: 'Ward'
+        },
+        {
+            id: 1,
+            name: 'Polling Unit'
+        }
+    ];
     const [formValid, setFormValid] = useState(false);
     const [wards, setWards] = useState([]);
     const [lgas, setLgas] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
-    const [votingLevels, setVotingLevels] = useState([]);
+    const [votingLevels, setVotingLevels] = useState(levels);
     const [agents, setAgents] = useState([]);
     const [senatorialDistricts, setSenatorialDistricts] = useState([]);
     let initialValues = {
@@ -57,15 +71,15 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
         return errors;
     }
 
-    const getVotingLevels = () => {
-        apiRequest(`${allVotingLevels}`, 'get')
-            .then(res => {
-                setVotingLevels(res.votingLevels);
-            })
-            .catch(err => {
-                showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch voting levels. Please try again later."}`)
-            })
-    }
+    // const getVotingLevels = () => {
+    //     apiRequest(`${allVotingLevels}`, 'get')
+    //         .then(res => {
+    //             setVotingLevels(res.votingLevels);
+    //         })
+    //         .catch(err => {
+    //             showToast('error', `${err.response?.data.statusCode || "Error"}: ${err.response?.data.statusMessage || "Couldn't fetch voting levels. Please try again later."}`)
+    //         })
+    // }
 
     const getAgents = () => {
         apiRequest(`${allAgents}`, 'get')
@@ -133,14 +147,14 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
 
     useEffect(() => {
         setInit(formFields);
-        getVotingLevels();
+        // getVotingLevels();
         getAgents();
         getLgas();
         getSenatorialDistricts();
     }, []);
 
     useEffect(() => {
-        getVotingLevels();
+        // getVotingLevels();
         getAgents();
         getLgas();
         getWards(init?.lga);
