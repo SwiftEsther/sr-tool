@@ -8,7 +8,8 @@ const initialState = {
   incidents: [],
   incident: null,
   message: '',
-  response: null
+  response: null,
+  dashboard: null
 };
 
 const initialContext = [{...initialState}, () => {}];
@@ -151,6 +152,25 @@ const incidentReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
+    case 'GET_INCIDENT_DASHBOARD':
+        return {
+            ...state,
+            loading: true
+        };
+    case 'GET_INCIDENT_DASHBOARD_SUCCESS':
+        return {
+            ...state,
+            loading: false,
+            success: true,
+            dashboard: action.payload.response
+        };
+    case 'GET_INCIDENT_DASHBOARD_FAILURE':
+        return {
+            ...state,
+            loading: false,
+            success: false,
+            error: action.payload.error
+        };
     default:
       return {
         ...initialState,
