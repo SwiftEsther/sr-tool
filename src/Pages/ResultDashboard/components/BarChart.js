@@ -38,6 +38,15 @@ const BarChart = () => {
         .rangeRound([height, 0])
         .paddingInner(0.375)
 
+    const percentege = (num) => {
+        let sum = 0;
+        for(let i = 0; i < data.length; ++i) {
+            sum += data[i].value;
+        }
+        let result = (num/sum) * 100;
+        return result.toFixed(2);
+    }
+
     const parties = {
         'PDP': '#ff0000',
         'APC': '#00b0f0',
@@ -139,7 +148,7 @@ const BarChart = () => {
                             {/* </g> */}
                             
                             <rect className="bar" width={x(d.value)} height={y.bandwidth()} y={y(d.name)} x={60} fill={parties[d.name]}/>
-                            <text y={y(d.name) + y.bandwidth() / 2 + 4} x={x(d.value) + 70} >{d.value}</text>
+                            <text y={y(d.name) + y.bandwidth() / 2 + 4} x={x(d.value) + 70} >{d.value} {`(${percentege(d.value)}%)`}</text>
                         </>
                     )
                 }
