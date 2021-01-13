@@ -192,9 +192,9 @@ input[type='radio']:checked:after {
 }
 
 /* Chart styles */
-.bar {
+/* .bar {
     fill: #5f89ad;
-}
+} */
 
 .axis {
     font-size: 13px;
@@ -208,6 +208,11 @@ input[type='radio']:checked:after {
 
 .w-118 {
   width: 118px;
+}
+
+#chart {
+    background-color: #F5F2EB;
+    border: 1px solid #CCC;
 }
 
 /* Responsive designs */
