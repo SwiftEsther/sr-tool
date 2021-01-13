@@ -81,7 +81,7 @@ const Results = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'GET_RESULTS_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+                showToast('error', `${err.response?.data?.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
             });
     }
 
