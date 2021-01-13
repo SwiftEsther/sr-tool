@@ -29,3 +29,13 @@ code {
     local('Gelion-Medium'),
     url(./shared/fonts/Gelion/Gelion-Bold.ttf) format('truetype');
 }
+
+@font-face {
+  font-family: 'Gelion';
+  font-style: normal;
+  font-weight: lighter;
+  src:
+    local('Gelion Light'),
+    local('Gelion-Light'),
+    url(./shared/fonts/Gelion/Gelion-Light.ttf) format('truetype');
+}
