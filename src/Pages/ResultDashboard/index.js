@@ -54,7 +54,7 @@ const ResultDashboard = ({match, location}) => {
     }
 
     useEffect(() => {
-        // getDashboardData();
+        getDashboardData();
     }, [])
     return(
         <Layout location={location}>
@@ -88,8 +88,7 @@ const ResultDashboard = ({match, location}) => {
                             {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
                         </select>
                     </div>
-                    <div className="my-4">
-                        <div>Bar duplicates to be fixed</div>
+                    <div className="mt-8 mb-5 shadow-container pt-4">
                         <BarChart />
                     </div>
                     <ResultCards data={dashboardState.dashboard}/>

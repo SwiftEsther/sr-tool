@@ -127,7 +127,7 @@ const Results = () => {
     }
 
     useEffect(() => {
-        // getDashboardData();
+        getDashboardData();
         getDashboardLgaData();
     }, []);
 

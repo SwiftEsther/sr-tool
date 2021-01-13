@@ -39,7 +39,7 @@ const StateList = ({states, loading, getStates}) => {
         console.log(state);
         setDefaultState(state)
         dispatch({type: 'SET_DEFAULT_STATE'});
-         apiRequest(`${toggleDefaultState}/${defaultState.id}`, 'get', {params: {stateId: defaultState.id}})
+         apiRequest(`${toggleDefaultState}`, 'get', {code: defaultState.code, name: defaultState.name})
             .then((res) => {
                 dispatch({type: 'SET_DEFAULT_STATE_SUCCESS', payload: {response: res}});
                 setShowDefault(false);
