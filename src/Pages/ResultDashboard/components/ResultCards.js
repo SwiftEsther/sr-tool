@@ -3,7 +3,7 @@ import React from 'react';
 const ResultCards = ({data}) => {
     return (
         <div>
-            <div className="flex justify-between items-center py-1 shadow-container px-3">
+            <div className="flex justify-between items-center py-1 shadow-container px-3 mt-0.5">
                 <span className="text-lg">Results Received</span>
                 <span className="text-4xl font-bold">67%</span>
             </div>

@@ -1,16 +1,20 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Breadcrumbs } from 'react-breadcrumbs';
 import { ResultContext } from '../../contexts/ResultContext';
 import { showToast } from '../../helpers/showToast';
 import { apiRequest } from '../../lib/api';
 import Layout from '../../shared/Layout';
 import BarChart from './components/BarChart';
-import { getDashboardByState, getDashboardByLga , getDashboard} from '../../lib/url.js';
+import { getDashboardByState, getDashboardByLga , getDashboard, allResults, getSenatorialDistrictsByStateId} from '../../lib/url.js';
 import ResultCards from './components/ResultCards';
 import Results from './components/Results';
+import pickBy from 'lodash/pickBy';
 
 const ResultDashboard = ({match, location}) => {
     const [dashboardState, dispatch] = useContext (ResultContext);
+    const [senatorialDistricts, setSenatorialDistrict] = useState([]);
+    const [lgas, setLgas] = useState([]);
+    const [filter, setFilter] = useState({lga: '', senatorialDistrict: ''});
 // 2 dropdowns
 // barchat
 // Results card
@@ -29,8 +33,28 @@ const ResultDashboard = ({match, location}) => {
             });
     }
 
+    const filterData = (e) => {
+        const name = e.currentTarget.name;
+        const value = e.currentTarget.value;
+        setFilter({...filter, [name]: value})
+        let query = pickBy(filter);
+        if(Object.keys(query).length) { dispatch({type: 'GET_RESULTS'});
+        //  setSubmitting(true);
+         apiRequest(allResults, 'get', {params: query})
+            .then((res) => {
+                dispatch({type: 'GET_RESULTS_SUCCESS', payload: {response: res}});
+                // setSubmitting(false);
+            })
+            .catch((err) => {
+                dispatch({type: 'GET_RESULTS_FAILURE', payload: {error: err}});
+                showToast('error', 'Something went wrong. Please try again later')
+                // setSubmitting(false);
+            });
+        }
+    }
+
     useEffect(() => {
-        getDashboardData();
+        // getDashboardData();
     }, [])
     return(
         <Layout location={location}>
@@ -42,8 +66,32 @@ const ResultDashboard = ({match, location}) => {
                     <Results />
                 </div>
                 <div className="w-3/10">
-                    <div>dropdowns</div>
-                    <div>Bar chat</div>
+                    <div>
+                        <select 
+                            name="senatorialDistrict" 
+                            onChange={filterData}
+                            onBlur={filterData}
+                            value={filter.senatorialDistrict}
+                            className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-2xl mt-2"
+                        >
+                            <option value='' disabled>All Senatorial Districts</option>
+                            {senatorialDistricts.map(district => (<option key={district.id} value={district.code}>{district.name}</option>))}
+                        </select>
+                        <select 
+                            name="lga" 
+                            onChange={filterData}
+                            onBlur={filterData}
+                            value={filter.lga}
+                            className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-2xl mt-6"
+                        >
+                            <option value='' disabled>All Lgas</option>
+                            {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
+                        </select>
+                    </div>
+                    <div className="my-4">
+                        <div>Bar duplicates to be fixed</div>
+                        <BarChart />
+                    </div>
                     <ResultCards data={dashboardState.dashboard}/>
                 </div>
             </div>
