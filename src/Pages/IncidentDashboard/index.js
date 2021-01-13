@@ -8,6 +8,7 @@ import { getDashboardByState, getDashboardByLga , getDashboard, allIncidents, ge
 import pickBy from 'lodash/pickBy';
 import { IncidentContext } from '../../contexts/IncidentContext';
 import IncidentsData from './components/IncidentsData';
+import StackedBarChart from './components/StackedChart';
 
 const IncidentDashboard = ({match, location}) => {
     const [incidentState, dispatch] = useContext (IncidentContext);
@@ -105,7 +106,8 @@ const IncidentDashboard = ({match, location}) => {
                         </select>
                 </div>
                 <div className="mt-8 mb-5">
-                    <BarChart />
+                    {/* <BarChart /> */}
+                    <StackedBarChart keys={["form",  "ballot", "unrest", "robbery"]}/>
                 </div>
             </div>
             
