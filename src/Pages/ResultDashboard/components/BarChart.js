@@ -2,6 +2,12 @@ import React from 'react';
 import * as d3 from 'd3';
 
 const BarChart = () => {
+    const parties = {
+        'PDP': '#ff0000',
+        'APC': '#00b0f0',
+        'ANPP': '#eb5e00'
+    }
+
     var data = [{
                 "name": "PDP",
                 "value": 20,
@@ -21,21 +27,22 @@ const BarChart = () => {
     })
 
     //set up svg using margin conventions - we'll need plenty of room on the left for labels
+    var rectHeight = 31;
     var margin = {
-        top: 15,
+        top: 8,
         right: 25,
-        bottom: 15,
+        bottom: 8,
         left: 60
     };
 
-    var width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+    var width = 414 - margin.left - margin.right,
+        height = (rectHeight + margin.top + margin.bottom) * data.length ;
 
     var svg = d3.select("#graphic").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr('transform', `translate(${margin.left},${margin.top})`);
 
     var x = d3.scaleLinear()
         .range([0, width])
@@ -45,10 +52,10 @@ const BarChart = () => {
 
     var y = d3.scaleBand()
         .rangeRound([height, 0])
-        .padding(0.1);
-        // .domain(data.map(function (d) {
-        //     return d.name;
-        // }));
+        .padding(0.1)
+        .domain(data.map(function (d) {
+            return d.name;
+        }));
 
     //make y axis to show bar names
     var yAxis = d3.axisLeft(y)
@@ -73,6 +80,9 @@ const BarChart = () => {
         .attr("x", 0)
         .attr("width", function (d) {
             return x(d.value);
+        })
+        .attr("fill", function (d) {
+            return parties[d.name];
         });
 
     //add a value label to the right of each bar
