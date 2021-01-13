@@ -3,19 +3,28 @@ import { Breadcrumbs } from 'react-breadcrumbs';
 import { UserContext, UserController } from '../../contexts/UserContext';
 import Layout from '../../shared/Layout';
 import UserForm from './components/Userform';
-import {users} from '../../lib/url.js';
+import {register} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 
-const CreateUser = ({match, location}) => {
+const CreateUser = ({match, location, history}) => {
     const [userState, dispatch] = useContext(UserContext);
     const handleCreate = (values, {setSubmitting}) => {
+        const requestBody = {
+            phone: values.phone || '08067413041',
+            firstName: values.first_name,
+            lastName: values.last_name,
+            email: values.email,
+            password: values.password,
+            group: values.group
+        };
         dispatch({type: 'CREATE_USER'});
          setSubmitting(true);
-         apiRequest(users, 'post', {...values})
+         apiRequest(register, 'post', {...requestBody})
             .then((res) => {
-                dispatch({type: 'CREATE_USER_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                dispatch({type: 'CREATE_USER_SUCCESS', payload: {response: res}});
+                history.push("/users");
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_USER_FAILURE', payload: {error: err}});

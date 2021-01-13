@@ -8,6 +8,7 @@ export const login = `${baseUrl}/api/v${version}/login`;
 
 //----USER URLS----//
 export const users = `${baseUrl}/api/v${version}/users`;
+export const register = `${baseUrl}/api/v${version}/register`;
 
 //----STATE URLS----//
 export const allStates = `${baseUrl}/api/v${version}/states`;

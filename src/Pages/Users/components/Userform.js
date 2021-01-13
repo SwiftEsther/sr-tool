@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const UserForm = ({formFields, handleFormSubmit}) => {
     const [formValid, setFormValid] = useState(false);
-    const groups = ['LGA', 'LAG'];
+    const groups = [{id: 1, label: 'Administrator'}, {id: 2, label: 'User'}];
     let initialValues = {
         first_name: '',
         last_name: '',
@@ -94,7 +94,7 @@ const UserForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                             >
                                 <option value='' disabled></option>
-                                {groups.map(group => (<option key={group} value={group}>{group}</option>))}
+                                {groups.map(group => (<option key={group.id} value={group.id}>{group.label}</option>))}
                             </select>
                             {errors.group && touched.group && <span className="text-xs text-red-600">{errors.group}</span>}
                         </div>
