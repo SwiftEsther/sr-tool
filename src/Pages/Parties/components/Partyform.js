@@ -2,7 +2,6 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 
 const PartyForm = ({formFields, handleFormSubmit}) => {
-    const [formValid, setFormValid] = useState(false);
     let initialValues = {
         name: '',
         code: ''
@@ -10,15 +9,13 @@ const PartyForm = ({formFields, handleFormSubmit}) => {
 
     const validate = (values) => {
         const errors = {};
-        const match = /^[0-9]{2}$/i;
+        const match = /[A-Z]+/g;
         if (!values.name) {
             errors.name = 'Party Name is required';
         }   else if (!values.code) {
             errors.code = 'Party Code is required';
         }   else if(!match.test(values.code)) {
-            errors.code = 'Party Code should contain 2 digit code';
-        }   else {
-            setFormValid(true);
+            errors.code = 'Party Code should be uppercase';
         }
         return errors;
     }
@@ -67,7 +64,7 @@ const PartyForm = ({formFields, handleFormSubmit}) => {
                             {errors.code && touched.code && <span className="text-xs text-red-600">{errors.code}</span>}
                         </div>
                         <div className="flex justify-between items-center w-full">
-                            <button type="submit" disabled={isSubmitting || !formValid} className="bg-primary py-4 text-white font-bold rounded-sm focus:outline-none w-4/10">
+                            <button type="submit" disabled={isSubmitting || errors.code || errors.name} className="bg-primary py-4 text-white font-bold rounded-sm focus:outline-none w-4/10">
                                 {formFields ? 'Update' : 'Add'} Party
                             </button>
                             <button className="border border-primary py-4 text-primary font-bold rounded-sm focus:outline-none w-4/10" onClick={handleReset} >
