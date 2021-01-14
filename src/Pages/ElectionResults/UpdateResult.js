@@ -49,7 +49,7 @@ const UpdateResult = ({match, location, history}) => {
             .catch((err) => {
                 dispatch({type: 'UPDATE_RESULT_FAILURE', payload: {error: err}});
                 setSubmitting(false);
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             });
     }
     return (

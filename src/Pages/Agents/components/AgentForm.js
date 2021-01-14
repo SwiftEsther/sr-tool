@@ -44,7 +44,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
                 setLgas(res.lgas)
             })
             .catch((err) => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             });
     }
 
@@ -54,7 +54,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
                 setWards(res.wards);
             })
             .catch(err => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             })}
     }
 
@@ -64,7 +64,7 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
                 setPollingUnits(res.pollingUnits)
             })
             .catch((err) => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             });}
     }
 

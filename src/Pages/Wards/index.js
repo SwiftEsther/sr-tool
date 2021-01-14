@@ -39,7 +39,7 @@ const Wards = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'GET_WARDS_FAILURE', payload: {error: err}});
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
                 // setSubmitting(false);
             });
         }
@@ -55,7 +55,7 @@ const Wards = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_WARD_BY_NAME_FAILURE', payload: {error: err}});
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             });
     }
 
@@ -78,7 +78,7 @@ const Wards = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'GET_WARDS_FAILURE', payload: {error: err}});
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             });
     }
 

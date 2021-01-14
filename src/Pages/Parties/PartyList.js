@@ -41,7 +41,7 @@ const PartyList = ({parties, loading, getParties}) => {
             .catch((err) => {
                 dispatch({type: 'DELETE_PARTY_FAILURE', payload: {error: err}});
                 setShowModal(false);
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             });
     }
 

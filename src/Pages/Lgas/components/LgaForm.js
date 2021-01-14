@@ -39,7 +39,7 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                 setStates(res.states);
             })
             .catch(err => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             })
     }
 
@@ -50,7 +50,7 @@ const LgaForm = ({formFields, handleFormSubmit}) => {
                 setSenatorialDistricts(res.senatorialDistricts);
             })
             .catch(err => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             })}
     }
 

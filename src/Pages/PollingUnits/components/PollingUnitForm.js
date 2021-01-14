@@ -49,7 +49,7 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
                 setStates(res.states);
             })
             .catch(err => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             })
     }
 
@@ -59,7 +59,7 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
                 setSenatorialDistricts(res.senatorialDistricts);
             })
             .catch(err => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             })}
     }
 
@@ -69,7 +69,7 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
                 setLgas(res.lgas);
             })
             .catch(err => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             })}
     }
 
@@ -79,7 +79,7 @@ const PollingUnitForm = ({formFields, handleFormSubmit}) => {
                 setWards(res.wards);
             })
             .catch(err => {
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
             })}
     }
 
