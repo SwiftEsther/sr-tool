@@ -85,19 +85,13 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
     const validate = (values) => {
         console.log(values);
         const errors = {};
-        if (!values.ward) {
-            errors.ward = 'Ward is required';
-        }   else if (!values.incidentLevel) {
+        if (!values.incidentLevel) {
             errors.incidentLevel = 'Incident Level is required';
         }   else if (!values.incidentType) {
             errors.incidentType = 'Incident Type is required';
         }   else if (!values.incidentStatus) {
             errors.incidentStatus = 'Incident Status is required';
-        }   else if (!values.lga) {
-            errors.lga = 'Local Government Area is required is required';
-        }   else if(!values.pollingUnit) {
-            errors.pollingUnit = 'Polling unit is required';
-        }   
+        }
         // else if(!values.location) {
         //     errors.location = 'Location is required';
         // }   
