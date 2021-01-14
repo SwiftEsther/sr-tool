@@ -6,15 +6,16 @@ import { getDashboardByState, getDashboardByLga } from '../../../lib/url.js';
 import { showToast } from '../../../helpers/showToast.js';
 import { ResultContext } from '../../../contexts/ResultContext.js';
 
-const Results = () => {
+const Results = ({data, politicalParties}) => {
     const [dashboardState, dispatch] = useContext(ResultContext);
+    console.log(politicalParties,data)
     const parties = {
         'PDP': '#ff0000',
         'APC': '#00b0f0',
         'ANPP': '#eb5e00'
     }
 
-    const data = {
+    const someData = {
         "statusCode": "00",
         "statusMessage": "Dashboard loaded.",
         "totalStates": 3,
@@ -127,40 +128,43 @@ const Results = () => {
     }
 
     useEffect(() => {
-        getDashboardData();
-        getDashboardLgaData();
+        // getDashboardData();
+        // getDashboardLgaData();
     }, []);
 
     const colorMap = () => {
         const svg = document.getElementById('kano');
-        for(let i = 0; i < data.lgas.length; ++i) {
-            const color = parties[data.lgas[i].partyResult[0].politicalParty.code];
-            d3.select(svg).select(`#${data.lgas[i].slice}`)
-            .attr('fill', color)
-        }
+         if(data?.length > 0)   {
+                for(let i = 0; i < data.length; ++i) {
+                    const color = parties[data[i].partyResults[data[i].partyResults.length - 1]?.politicalParty?.code];
+                    console.log(color)
+                    d3.select(svg).select(`#kano-${data[i].lga.code}`)
+                    .attr('fill', color)
+                }
+            }
     }
 
     useEffect(() => {
         colorMap();
-    }, [])
+    }, [data, politicalParties])
 
     return (
         <div id="map" className="relative shadow-container rounded-sm my-4 ">
             <KanoMap />
-            <div className="label absolute bottom-28 left-10">
+            {data?.length > 0 &&<div className="label absolute bottom-28 left-10">
                 <div className="flex items-center">
-                    <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[data.partyResult[0].politicalParty.code]}}></span>
-                    <div className="ml-3">{data.partyResult[0].politicalParty.code}</div>
+                    <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[politicalParties? politicalParties[0].politicalParty.code : '']}}></span>
+                    <div className="ml-3">{politicalParties? politicalParties[0].politicalParty.code : ''}</div>
                 </div>
                 <div className="flex items-center">
-                    <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[data.partyResult[1].politicalParty.code]}}></span>
-                    <div className="ml-3">{data.partyResult[1].politicalParty.code}</div>
+                    <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[politicalParties? politicalParties[1].politicalParty.code : '']}}></span>
+                    <div className="ml-3">{politicalParties? politicalParties[1].politicalParty.code : ''}</div>
                 </div>
                 <div className="flex items-center">
-                    <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[data.partyResult[2].politicalParty.code]}}></span>
-                    <div className="ml-3">{data.partyResult[2].politicalParty.code}</div>
+                    <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[politicalParties? politicalParties[2].politicalParty.code : '']}}></span>
+                    <div className="ml-3">{politicalParties? politicalParties[2].politicalParty.code : ''}</div>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }
