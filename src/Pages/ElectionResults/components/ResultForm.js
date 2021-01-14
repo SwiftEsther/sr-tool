@@ -15,7 +15,7 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
             name: 'Ward'
         },
         {
-            id: 1,
+            id: 3,
             name: 'Polling Unit'
         }
     ];
