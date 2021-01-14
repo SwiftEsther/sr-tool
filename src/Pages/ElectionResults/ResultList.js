@@ -103,8 +103,8 @@ const ResultList = ({results, loading, getResults}) => {
                                 <div className="table-row-data w-2/12">{result.lga.name || ''}</div>
                                 <div className="table-row-data w-1/12">{result.ward.name || ''}</div>
                                 <div className="table-row-data w-2/12">{result.pollingUnit.name || ''}</div>
-                                <div className="table-row-data w-1/12">{result.apc || ''}</div>
-                                <div className="table-row-data w-1/12">{result.pdp || ''}</div>
+                                {result.resultPerParties.map((party) => <div className="table-row-data w-1/12">{party.voteCount}</div>) }
+                                {/* <div className="table-row-data w-1/12">{result.pdp || ''}</div> */}
                                 <div className="table-row-data w-2/12">{result.others || ''}</div>
                                 <div className="table-row-data w-1/12"> 
                                     <span data-tip data-for={`ellipsis-result-${result.id}`} data-event='click'>
