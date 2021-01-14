@@ -257,7 +257,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
                             >
                                 <option value='' disabled>Incident Status</option>
-                                {incidentStatuses.map((status) => (<option key={status.id} value={status.id}>{status.label}</option>))}
+                                {incidentStatuses.map((status) => (<option key={status.id} value={status.id}>{status.name}</option>))}
                             </select>
                             {errors.incidentStatus && touched.incidentStatus && <span className="text-xs text-red-600">{errors.incidentStatus}</span>}
                         </div>
