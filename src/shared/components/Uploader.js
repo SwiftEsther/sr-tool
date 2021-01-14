@@ -74,7 +74,7 @@ const Uploader = ({dispatch, action, action_success, action_error, url, refresh}
             })
             .catch((err) => {
                 dispatch({type: action_error, payload: {error: err}});
-                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while importing data. Please try again later."}`);
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong while importing data. Please try again later."}`);
             });
     } else {
       showToast('error', 'Kindly pick a file to upload');

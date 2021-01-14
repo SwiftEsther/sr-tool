@@ -41,7 +41,7 @@ const LgaList = ({lgas, loading, getLgas}) => {
             .catch((err) => {
                 dispatch({type: 'DELETE_LGA_FAILURE', payload: {error: err}});
                 setShowModal(false);
-                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while deleting state. Please try again later."}`);
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             });
     }
 

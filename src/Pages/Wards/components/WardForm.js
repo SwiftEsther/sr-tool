@@ -43,7 +43,7 @@ const WardForm = ({formFields, handleFormSubmit}) => {
                 setStates(res.states);
             })
             .catch(err => {
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch states. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             })
     }
 
@@ -53,7 +53,7 @@ const WardForm = ({formFields, handleFormSubmit}) => {
                 setSenatorialDistricts(res.senatorialDistricts);
             })
             .catch(err => {
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch senatorial districts. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             })}
     }
 
@@ -63,7 +63,7 @@ const WardForm = ({formFields, handleFormSubmit}) => {
                 setLgas(res.lgas);
             })
             .catch(err => {
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch lgas. Please try again later."}`)
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             })}
     }
 

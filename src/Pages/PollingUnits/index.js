@@ -39,7 +39,7 @@ const PollingUnits = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'GET_POLLING_UNITS_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
                 // setSubmitting(false);
             });
         }
@@ -55,7 +55,7 @@ const PollingUnits = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_POLLING_UNIT_BY_NAME_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             });
     }
 
@@ -78,7 +78,7 @@ const PollingUnits = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'GET_POLLING_UNITS_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             });
     }
 

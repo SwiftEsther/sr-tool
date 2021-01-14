@@ -33,8 +33,8 @@ const CreateAgent = ({match, location, history}) => {
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_AGENT_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response?.data.statusCode || ""}: ${err.response?.data.statusMessage || "Something went wrong while creating agent. Please try again later."}`);
                 setSubmitting(false);
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             });
     }
     return (

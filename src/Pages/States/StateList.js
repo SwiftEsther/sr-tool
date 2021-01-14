@@ -49,7 +49,7 @@ const StateList = ({states, loading, getStates}) => {
             .catch((err) => {
                 dispatch({type: 'SET_DEFAULT_STATE_FAILURE', payload: {error: err}});
                 setShowDefault(false);
-                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong while setting default state. Please try again later."}`);
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             });
     }
 
@@ -65,7 +65,7 @@ const StateList = ({states, loading, getStates}) => {
             .catch((err) => {
                 dispatch({type: 'DELETE_STATE_FAILURE', payload: {error: err}});
                 setShowModal(false);
-                showToast('error', `${err.response?.data.statusCode? err.response.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong while deleting state. Please try again later."}`);
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Couldn't fetch states. Please try again later."}`)
             });
     }
 
