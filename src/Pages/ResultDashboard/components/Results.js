@@ -156,14 +156,6 @@ const Results = ({data, politicalParties}) => {
                     <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[party.politicalParty.code || ''] || '#000'}}></span>
                     <div className="ml-3">{party.politicalParty.code || ''}</div>
                 </div>)}
-                {/* <div className="flex items-center">
-                    <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[politicalParties? politicalParties[1].politicalParty.code : '']}}></span>
-                    <div className="ml-3">{politicalParties? politicalParties[1].politicalParty.code : ''}</div>
-                </div>
-                <div className="flex items-center">
-                    <span className="w-5 h-5 rounded-full" style={{backgroundColor: parties[politicalParties? politicalParties[2].politicalParty.code : '']}}></span>
-                    <div className="ml-3">{politicalParties? politicalParties[2].politicalParty.code : ''}</div>
-                </div> */}
             </div>}
         </div>
     )
