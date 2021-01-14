@@ -105,3 +105,4 @@ export const getDashboard = `${baseUrl}/api/v${version}/dashboard`;
 export const getDashboardByState = `${baseUrl}/api/v${version}/dashboard`;
 export const getDashboardBySenatorialDistrict = `${baseUrl}/api/v${version}/dashboard/senatorial-district`;
 export const getDashboardByLga = `${baseUrl}/api/v${version}/dashboard/lga`;
+export const getIncidentDashboard = `${baseUrl}/api/v${version}/dashboard/incidents`;

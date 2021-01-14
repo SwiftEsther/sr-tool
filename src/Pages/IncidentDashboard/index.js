@@ -4,7 +4,7 @@ import { showToast } from '../../helpers/showToast';
 import { apiRequest } from '../../lib/api';
 import Layout from '../../shared/Layout';
 import BarChart from './components/BarChart';
-import { getDashboardByState, getDashboardByLga , getDashboard, allIncidents, getSenatorialDistrictsByStateId} from '../../lib/url.js';
+import { getIncidentDashboard, getDashboardByLga , getDashboard, allIncidents, getSenatorialDistrictsByStateId} from '../../lib/url.js';
 import pickBy from 'lodash/pickBy';
 import { IncidentContext } from '../../contexts/IncidentContext';
 import IncidentsData from './components/IncidentsData';
@@ -14,18 +14,20 @@ const IncidentDashboard = ({match, location}) => {
     const [incidentState, dispatch] = useContext (IncidentContext);
     const [senatorialDistricts, setSenatorialDistrict] = useState([]);
     const [lgas, setLgas] = useState([]);
+    const [dashboard, setDashboard] = useState();
     const [filter, setFilter] = useState({lga: '', senatorialDistrict: ''});
 
-     const getDashboardData = () => {
+     const getDashboardData = (stateid = 6) => {
         dispatch({type: 'GET_INCIDENT_DASHBOARD'});
-         apiRequest(`${getDashboardByState}/6`, 'get')
+         apiRequest(`${getIncidentDashboard}/${stateid}`, 'get')
             .then((res) => {
                 dispatch({type: 'GET_INCIDENT_DASHBOARD_SUCCESS', payload: {response: res}});
                 showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                setDashboard(res);
             })
             .catch((err) => {
                 dispatch({type: 'GET_INCIDENT_DASHBOARD_FAILURE', payload: {error: err}});
-                showToast('error', `${err.response?.data.statusCode? err.response?.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+                showToast('error', `${err.response?.data?.statusCode || "Error"}: ${err.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
             });
     }
 

@@ -23,7 +23,7 @@ const StackedBarChart = ({ data, keys }) => {
     };
     const someData = [
         {
-            "lga": "GWAME",
+            "lga": "GWAMEiuytretyui",
             "form": 10,
             "ballot": 20,
             "unrest": 1,
@@ -44,14 +44,14 @@ const StackedBarChart = ({ data, keys }) => {
             "robbery": 2,
         },
         {
-            "lga": "GWAM",
+            "lga": "GWAMdfghjkl;lkjhgf",
             "form": 10,
             "ballot": 20,
             "unrest": 1,
             "robbery": 2,
         },
         {
-            "lga": "WAME",
+            "lga": "WAMEytr",
             "form": 10,
             "ballot": 20,
             "unrest": 1,
@@ -414,8 +414,8 @@ const StackedBarChart = ({ data, keys }) => {
     // scales
     const xScale = scaleBand()
       .domain(someData.map(d => d.lga))
-      .range([0, (rectWidth + 3)*someData.length])
-      .padding(0.25);
+      .range([rectWidth, (2*rectWidth*someData.length)+rectWidth])
+      .padding(0.1)
 
     const yScale = scaleLinear()
       .domain(extent)
@@ -431,28 +431,26 @@ const StackedBarChart = ({ data, keys }) => {
       .selectAll("rect")
       .data(layer => layer)
       .join("rect")
-      .attr("x", sequence => xScale(sequence.data.lga))
+      .attr("x", sequence => xScale(sequence.data.lga) + rectWidth)
       .attr("width", 31)
       .attr("y", sequence => yScale(sequence[1]))
       .attr("height", sequence => yScale(sequence[0]) - yScale(sequence[1]));
 
     // axes
-    const xAxis = axisBottom(xScale);
+    const xAxis = axisBottom(xScale).tickSize(0);
     svg
       .select(".x-axis")
-      .attr("transform", `translate(0, ${594})`)
+      .attr("transform", `translate(0, 500)`)
+      .attr("stroke", "#979797")
+      .attr("strone-width", 0.5)
       .call(xAxis);
-
-    const yAxis = axisLeft(yScale);
-    svg.select(".y-axis").call(yAxis);
   }, [data, keys]);
 
   return (
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
-        <svg ref={svgRef} height={594}>
+        <svg ref={svgRef} height={594} width={(40 + rectWidth) * someData.length}>
           <g className="x-axis" />
-          <g className="y-axis" />
         </svg>
       </div>
     </React.Fragment>
