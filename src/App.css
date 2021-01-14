@@ -107,7 +107,7 @@ select {
     -moz-appearance:none; /* Firefox */
     -webkit-appearance:none; /* Safari and Chrome */
     appearance:none;
-    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3e%3cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%239fa6b2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e") no-repeat right 0.3rem center/14px 4px;
+    background: url("./shared/assets/angle-arrow-down.svg") no-repeat right 1rem center/20px 16px;
 }
 
 .custom-file-input::-webkit-file-upload-button {
