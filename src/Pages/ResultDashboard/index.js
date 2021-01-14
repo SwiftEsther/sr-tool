@@ -26,10 +26,10 @@ const ResultDashboard = ({match, location}) => {
         dispatch({type: 'GET_DASHBOARD_BY_STATE'});
          apiRequest(`${getDashboardByState}/6`, 'get')
             .then((res) => {
+                console.log('res',res)
                 dispatch({type: 'GET_DASHBOARD_BY_STATE_SUCCESS', payload: {response: res}});
-                console.log('hgf', res);
                 setDashboard(res);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'GET_DASHBOARD_BY_STATE_FAILURE', payload: {error: err}});
@@ -80,7 +80,9 @@ const ResultDashboard = ({match, location}) => {
                 pathname: match.path}]}/>
             <div className="w-full flex">
                 <div className="w-7/10 mr-4">
-                    <Results />
+                    {/* {!dashboardState.loading &&  */}
+                        <Results data={dashboard?.lgaResults || []} politicalParties={dashboard?.partyResult}/>
+                    {/* } */}
                 </div>
                 <div className="w-3/10">
                     <div>
@@ -89,7 +91,7 @@ const ResultDashboard = ({match, location}) => {
                             onChange={filterData}
                             onBlur={filterData}
                             value={filter.senatorialDistrict}
-                            className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-2xl mt-2"
+                            className="w-full border border-primary rounded-sm py-4 px-4 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-2xl mt-2"
                         >
                             <option value='' disabled>All Senatorial Districts</option>
                             {senatorialDistricts.map(district => (<option key={district.id} value={district.code}>{district.name}</option>))}
@@ -99,7 +101,7 @@ const ResultDashboard = ({match, location}) => {
                             onChange={filterData}
                             onBlur={filterData}
                             value={filter.lga}
-                            className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-2xl mt-6"
+                            className="w-full border border-primary rounded-sm py-4 px-4 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-2xl mt-6"
                         >
                             <option value='' disabled>All Lgas</option>
                             {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}

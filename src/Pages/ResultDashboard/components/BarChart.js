@@ -173,7 +173,7 @@ const BarChart = ({data}) => {
                             {/* </g> */}
                             
                             <rect className="bar" width={x(d.totalVoteCount)} height={y.bandwidth()} y={y(d?.politicalParty?.code)} x={60} fill={parties[d?.politicalParty?.code]}/>
-                            <text y={y(d?.politicalParty?.code) + y.bandwidth() / 2 + 4} x={x(d.totalVoteCount) + 70} >{d.totalVoteCount} {`(${d.percent?.toFixed(2)}%)`}</text>
+                            <text y={y(d?.politicalParty?.code) + y.bandwidth() / 2 + 4} x={x(d.totalVoteCount) + 70} >{d.totalVoteCount} {`(${d?.percent ? d.percent.toFixed(2) : 0}%)`}</text>
                         </Fragment>
                     )
                 }
