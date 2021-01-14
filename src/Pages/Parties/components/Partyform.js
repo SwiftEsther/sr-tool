@@ -14,9 +14,10 @@ const PartyForm = ({formFields, handleFormSubmit}) => {
             errors.name = 'Party Name is required';
         }   else if (!values.code) {
             errors.code = 'Party Code is required';
-        }   else if(!match.test(values.code)) {
-            errors.code = 'Party Code should be uppercase';
-        }
+        }   
+        // else if(!match.test(values.code)) {
+        //     errors.code = 'Party Code should be uppercase';
+        // }
         return errors;
     }
 
