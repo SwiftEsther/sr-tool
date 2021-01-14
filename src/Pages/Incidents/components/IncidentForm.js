@@ -7,58 +7,71 @@ import { getPollingUnitsByWardId, getWardsByLgaId, getLgasByStateId, allIncident
 const IncidentForm = ({formFields, handleFormSubmit}) => {
     const incidents = [
         {
-            id: 1,
-            name: 'Ballot Box Snatching'
+            "code": "1",
+            "name": "Ballot Box Snatching",
+            "id": 2
         },
         {
-            id: 2,
-            name: 'Delay of Electoral Material'
+            "code": "2",
+            "name": "Delay of Electoral Material",
+            "id": 3
         },
         {
-            id: 3,
-            name: 'Absence of form EC8A'
+            "code": "3",
+            "name": "Absence of form EC8A",
+            "id": 4
         },
         {
-            id: 4,
-            name: 'Inedequate security'
+            "code": "4",
+            "name": "Inadequaate Security",
+            "id": 5
         },
         {
-            id: 5,
-            name: 'Agent not picking'
+            "code": "5",
+            "name": "Agent not picking",
+            "id": 6
         },
         {
-            id: 6,
-            name: 'Violence/Intimidation'
+            "code": "6",
+            "name": "Violence/Intimidation",
+            "id": 7
         },
         {
-            id: 7,
-            name: 'Card reader not working'
+            "code": "7",
+            "name": "Card reader not working",
+            "id": 8
         },
         {
-            id: 8,
-            name: 'Inec officials not present'
+            "code": "8",
+            "name": "Inec officials not present",
+            "id": 9
         },
         {
-            id: 9,
-            name: 'Agent phone number unreachable'
+            "code": "9",
+            "name": "Agent phone number unreachable",
+            "id": 10
         },
         {
-            id: 10,
-            name: 'Others'
-        },
+            "code": "10",
+            "name": "Others",
+            "id": 11
+        }
     ];
     const levels = [
         {
-            id: 1,
-            name: 'LGA'
+            "code": "LGA",
+            "name": "LGA",
+            "id": 2
         },
         {
-            id: 2,
-            name: 'Ward'
+            "code": "Ward",
+            "name": "Ward",
+            "id": 3
         },
         {
-            id: 3,
-            name: 'Polling Unit'
+            "code": "PU",
+            "name": "Polling Unit",
+            "id": 4
         }
     ];
     const [formValid, setFormValid] = useState(false);
@@ -67,7 +80,16 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
     const [pollingUnits, setPollingUnits] = useState([]);
     const [incidentLevels, setIncidentLevels] = useState(levels);
     const [incidentTypes, setIncidentTypes] = useState(incidents);
-    const incidentStatuses = [{id: 1, label: 'Resolved'}, {id: 2, label: 'Unresolved'}];
+    const incidentStatuses = [{
+            "code": "1",
+            "name": "Resolved",
+            "id": 2
+        },
+        {
+            "code": "2",
+            "name": "Unresolved",
+            "id": 3
+        }];
     let initialValues = {
         pollingUnit: '',
         lga: '',

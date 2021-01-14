@@ -7,16 +7,19 @@ import { getLgasByStateId, getPollingUnitsByWardId, getWardsByLgaId, getSenatori
 const ResultForm = ({formFields, handleFormSubmit}) => {
     const levels = [
         {
-            id: 1,
-            name: 'LGA'
+            "code": "LGA",
+            "name": "LGA",
+            "id": 2
         },
         {
-            id: 2,
-            name: 'Ward'
+            "code": "Ward",
+            "name": "Ward",
+            "id": 3
         },
         {
-            id: 3,
-            name: 'Polling Unit'
+            "code": "PU",
+            "name": "Polling Unit",
+            "id": 4
         }
     ];
     const [formValid, setFormValid] = useState(false);
@@ -59,7 +62,11 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
             errors.anpp = 'ANPP Votes is required';
         }   else if(!values.others) {
             errors.others = 'Other Votes is required';
-        }   else {
+        }   
+        // else if (!values.partyAgent) {
+        //     errors.partyAgent = 'Party Agent is required';
+        // }   
+        else {
             setFormValid(true);
         }
         return errors;
