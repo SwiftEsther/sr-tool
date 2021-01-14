@@ -15,7 +15,7 @@ const UpdateResult = ({match, location, history}) => {
         ward: result.ward.id,
         votingLevel: result.votingLevel.id,
         senatorialDistrict: result.senatorialDistrict.id,
-        partyAgent: result.partyAgent.id,
+        partyAgent: result.partyAgent?.id,
         registeredVoters: result.registeredVotersCount,
         accreditedVoters: result.accreditedVotersCount,
         pdp: result.pdp || '',

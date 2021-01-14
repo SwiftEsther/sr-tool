@@ -96,7 +96,7 @@ const IncidentList = ({incidents, loading, getIncidents}) => {
                     </div> :
                     <div className="table-body">
                         {incidents.length > 0 ? 
-                            incidents.map((incident) => (<div key={incident} className="custom-table-row w-full flex">
+                            incidents.map((incident) => (<div key={incident.id} className="custom-table-row w-full flex">
                                 <div className="table-row-data w-2/12">{incident.incidentType.name || ''}</div>
                                 <div className="table-row-data w-2/12">{incident.incidentStatus.name || ''}</div>
                                 <div className="table-row-data w-2/12">{incident.lga.name || ''}</div>

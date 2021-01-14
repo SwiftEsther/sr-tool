@@ -103,7 +103,7 @@ const ResultList = ({results, loading, getResults}) => {
                                 <div className="table-row-data w-2/12">{result.lga.name || ''}</div>
                                 <div className="table-row-data w-1/12">{result.ward.name || ''}</div>
                                 <div className="table-row-data w-2/12">{result.pollingUnit.name || ''}</div>
-                                {result.resultPerParties.map((party) => <div className="table-row-data w-1/12">{party.voteCount}</div>) }
+                                {result.resultPerParties.map((party) => <div className="table-row-data w-1/12" key={party.id}>{party.voteCount}</div>) }
                                 {/* <div className="table-row-data w-1/12">{result.pdp || ''}</div> */}
                                 <div className="table-row-data w-2/12">{result.others || ''}</div>
                                 <div className="table-row-data w-1/12"> 
