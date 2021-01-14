@@ -12,7 +12,7 @@ const SideNav = ({location}) => {
     let defaultMenuList = [
         {
             name: 'Dashboard',
-            icon: () => <DashboardIcon />,
+            icon: (active) => <DashboardIcon active={active} />,
             active: true,
             subMenus: [
                 {
@@ -30,28 +30,28 @@ const SideNav = ({location}) => {
         },
         {
             name: 'Results',
-            icon: () => <ResultIcon />,
+            icon: (active) => <ResultIcon active={active} />,
             active: false,
             subMenus: [],
             path: '/results'
         },
         {
             name: 'Incident',
-            icon: () => <IncidentIcon />,
+            icon: (active) => <IncidentIcon active={active} />,
             active: false,
             subMenus: [],
             path: '/incidents'
         },
         {
             name: 'Agents',
-            icon: () => <AgentIcon />,
+            icon: (active) => <AgentIcon active={active} />,
             active: false,
             subMenus: [],
             path: '/agents'
         },
         {
             name: 'Territories',
-            icon: () => <TerritoryIcon />,
+            icon: (active) => <TerritoryIcon active={active} />,
             active: false,
             subMenus: [
                 {
@@ -79,7 +79,7 @@ const SideNav = ({location}) => {
         },
         {
             name: 'Users',
-            icon: () => <UserIcon />,
+            icon: (active) => <UserIcon active={active}/>,
             active: false,
             subMenus: [],
             path: '/users'
@@ -154,8 +154,8 @@ const SideNav = ({location}) => {
                 </div>
                 {activeMenu && <div>
                     <Link to={activeMenu.path} className="flex w-full items-center py-3.5 px-5">
-                        <span className="w-3/10">{activeMenu.icon(activeMenu.active)}</span>
-                        <span className="6/10 mr-2 ml-4">{activeMenu.name}</span>
+                        <span className="w-2.5/10">{activeMenu.icon(activeMenu.active)}</span>
+                        <span className={`font-bold 6/10 mr-2 ml-4`}>{activeMenu.name}</span>
                         {activeMenu.subMenus.length > 0 && 
                             <span className="1/10">&darr;</span>
                         }
@@ -192,7 +192,7 @@ const SideNav = ({location}) => {
                 </div>
             </div>
          </div>
-         <div className="side-nav z-10 h-screen bg-white fixed text-sm text-primary" id="mobilesidenav">
+         <div className="lg:hidden side-nav z-10 h-screen bg-white fixed text-sm text-primary" id="mobilesidenav">
             <div className="flex flex-col h-full overflow-auto">
                 <div className="top pt-2.5 border-r border-b border-primary">
                     <div className="mt-24">
@@ -214,8 +214,8 @@ const SideNav = ({location}) => {
                 </div>
                 {activeMenu && <div>
                     <Link to={activeMenu.path} className="flex w-full items-center py-3.5 px-5">
-                        <span className="w-3/10">{activeMenu.icon(activeMenu.active)}</span>
-                        <span className="6/10 mr-2 ml-4">{activeMenu.name}</span>
+                        <span className="w-2.5/10">{activeMenu.icon(activeMenu.active)}</span>
+                        <span className="font-bold 6/10 mr-2 ml-4">{activeMenu.name}</span>
                         {activeMenu.subMenus.length > 0 && 
                             <span className="1/10">&darr;</span>
                         }
