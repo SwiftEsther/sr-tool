@@ -14,7 +14,7 @@ const CreateResult = ({match, location, history}) => {
         const requestBody = {
             electionId:1,
             votingLevelId: values.votingLevel,
-            partyAgentId: values.partyAgent,
+            partyAgentId: values.partyAgent || 3,
             lgaId: values.lga,
             wardId: values.ward,
             pollingUnitId: values.pollingUnit,
