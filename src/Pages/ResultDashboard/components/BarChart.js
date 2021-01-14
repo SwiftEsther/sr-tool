@@ -167,14 +167,14 @@ const BarChart = ({data}) => {
                 </g> */}
                 {
                     data.map(d => 
-                        <Fragment key={d.id}>
+                        <g key={d.id }>
                             {/* <g fill="#000" fontSize="1rem" fontFamily="GelionBold" textAnchor="end"> */}
-                                <text y={y(d?.politicalParty?.code) + y.bandwidth() / 2 + 4} x={16} >{d?.politicalParty?.code}</text>
+                                {d.totalVoteCount > 0 && <text y={y(d?.politicalParty?.code) + y.bandwidth() / 2 + 4} x={16} >{d?.politicalParty?.code}</text>}
                             {/* </g> */}
                             
-                            <rect className="bar" width={x(d.totalVoteCount)} height={y.bandwidth()} y={y(d?.politicalParty?.code)} x={60} fill={parties[d?.politicalParty?.code]}/>
-                            <text y={y(d?.politicalParty?.code) + y.bandwidth() / 2 + 4} x={x(d.totalVoteCount) + 70} >{d.totalVoteCount} {`(${d?.percent ? d.percent.toFixed(2) : 0}%)`}</text>
-                        </Fragment>
+                            {d.totalVoteCount > 0 && <rect className="bar" width={x(d.totalVoteCount)} height={y.bandwidth()} y={y(d?.politicalParty?.code)} x={60} fill={parties[d?.politicalParty?.code]}/>}
+                            {d.totalVoteCount > 0 && <text y={y(d?.politicalParty?.code) + y.bandwidth() / 2 + 4} x={x(d.totalVoteCount) + 70} >{d.totalVoteCount} {`(${d?.percent ? d.percent.toFixed(2) : 0}%)`}</text>}
+                        </g>
                     )
                 }
             </svg>

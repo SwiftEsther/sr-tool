@@ -5,7 +5,7 @@ import { showToast } from '../../helpers/showToast';
 import { apiRequest } from '../../lib/api';
 import Layout from '../../shared/Layout';
 import BarChart from './components/BarChart';
-import { getDashboardByState, getDashboardByLga , getDashboard, allResults, getSenatorialDistrictsByStateId} from '../../lib/url.js';
+import { getDashboardByState, getDashboardByLga , getDashboard, getLgasByStateId, allResults, getSenatorialDistrictsByStateId} from '../../lib/url.js';
 import ResultCards from './components/ResultCards';
 import Results from './components/Results';
 import pickBy from 'lodash/pickBy';
@@ -13,7 +13,7 @@ import Loader from '../../shared/components/Loader';
 
 const ResultDashboard = ({match, location}) => {
     const [dashboardState, dispatch] = useContext (ResultContext);
-    const [senatorialDistricts, setSenatorialDistrict] = useState([]);
+    const [senatorialDistricts, setSenatorialDistricts] = useState([]);
     const [lgas, setLgas] = useState([]);
     const [filter, setFilter] = useState({lga: '', senatorialDistrict: ''});
     const [dashboard, setDashboard] = useState(null);
@@ -37,17 +37,54 @@ const ResultDashboard = ({match, location}) => {
             });
     }
 
-    const getDashboardLgaData = () => {
+    const getDashboardLgaData = (lgaid) => {
+        setFilter({...filter, lga: lgaid})
         dispatch({type: 'GET_DASHBOARD_BY_LGA'});
-         apiRequest(`${getDashboardByLga}/4`, 'get')
+         apiRequest(`${getDashboardByLga}/${lgaid}`, 'get')
             .then((res) => {
                 dispatch({type: 'GET_DASHBOARD_BY_LGA_SUCCESS', payload: {response: res}});
+                setDashboard(res);
                 // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'GET_DASHBOARD_BY_LGA_FAILURE', payload: {error: err}});
                 showToast('error', `${err.response?.data?.statusCode || "Error"}: ${err.response?.data?.statusMessage || "Something went wrong. Please try again later."}`);
             });
+    }
+
+    const getDashboardSenDistrictData = (districtId) => {
+        setFilter({...filter, senatorialDistrict: districtId})
+        dispatch({type: 'GET_DASHBOARD_BY_SENATORIAL_DISTRICT'});
+         apiRequest(`${getDashboardSenDistrictData}/${districtId}`, 'get')
+            .then((res) => {
+                dispatch({type: 'GET_DASHBOARD_BY_SENATORIAL_DISTRICT_SUCCESS', payload: {response: res}});
+                setDashboard(res);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+            })
+            .catch((err) => {
+                dispatch({type: 'GET_DASHBOARD_BY_SENATORIAL_DISTRICT_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response?.data?.statusCode || "Error"}: ${err.response?.data?.statusMessage || "Something went wrong. Please try again later."}`);
+            });
+    }
+
+    const getLgas = (stateId = 6) => {
+        if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
+            .then(res => {
+                setLgas(res.lgas);
+            })
+            .catch(err => {
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch lgas. Please try again later."}`)
+            })}
+    }
+
+    const getSenatorialDistricts = (stateId = 6) => {
+        if(stateId) {apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
+            .then(res => {
+                setSenatorialDistricts(res.senatorialDistricts);
+            })
+            .catch(err => {
+                showToast('error', `${err.response.data.statusCode? err.response.data.statusCode : ""}: ${err.response.data.statusMessage?err.response.data.statusMessage : "Couldn't fetch senatorial districts. Please try again later."}`)
+            })}
     }
 
     const filterData = (e) => {
@@ -73,6 +110,15 @@ const ResultDashboard = ({match, location}) => {
     useEffect(() => {
         getDashboardData();
     }, [])
+
+    useEffect(() => {
+        getSenatorialDistricts();
+    }, [filter.senatorialDistrict])
+
+    useEffect(() => {
+        getLgas();
+    }, [filter.lga])
+
     return(
         <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Dashboard',
@@ -88,8 +134,8 @@ const ResultDashboard = ({match, location}) => {
                     <div>
                         <select 
                             name="senatorialDistrict" 
-                            onChange={filterData}
-                            onBlur={filterData}
+                            onChange={(e) => getDashboardSenDistrictData(e.target.value)}
+                            onBlur={(e) => getDashboardSenDistrictData(e.target.value)}
                             value={filter.senatorialDistrict}
                             className="w-full border border-primary rounded-sm py-4 px-4 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-2xl mt-2"
                         >
@@ -98,8 +144,8 @@ const ResultDashboard = ({match, location}) => {
                         </select>
                         <select 
                             name="lga" 
-                            onChange={filterData}
-                            onBlur={filterData}
+                            onChange={(e) => getDashboardLgaData(e.target.value)}
+                            onBlur={(e) => getDashboardLgaData(e.target.value)}
                             value={filter.lga}
                             className="w-full border border-primary rounded-sm py-4 px-4 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-2xl mt-6"
                         >
