@@ -5,12 +5,54 @@ import { apiRequest } from "../../../lib/api";
 import { getPollingUnitsByWardId, getWardsByLgaId, getLgasByStateId, allIncidentLevels, allIncidentTypes, allIncidentStatuses } from "../../../lib/url";
 
 const IncidentForm = ({formFields, handleFormSubmit}) => {
+    const incidents = [
+        {
+            id: 1,
+            name: 'Ballot Box Snatching'
+        },
+        {
+            id: 2,
+            name: 'Delay of Electoral Material'
+        },
+        {
+            id: 3,
+            name: 'Absence of form EC8A'
+        },
+        {
+            id: 4,
+            name: 'Inedequate security'
+        },
+        {
+            id: 5,
+            name: 'Agent not picking'
+        },
+        {
+            id: 6,
+            name: 'Violence/Intimidation'
+        },
+        {
+            id: 7,
+            name: 'Card reader not working'
+        },
+        {
+            id: 8,
+            name: 'Inec officials not present'
+        },
+        {
+            id: 9,
+            name: 'Agent phone number unreachable'
+        },
+        {
+            id: 10,
+            name: 'Others'
+        },
+    ]
     const [formValid, setFormValid] = useState(false);
     const [wards, setWards] = useState([]);
     const [lgas, setLgas] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
     const [incidentLevels, setIncidentLevels] = useState([]);
-    const [incidentTypes, setIncidentTypes] = useState([]);
+    const [incidentTypes, setIncidentTypes] = useState(incidents);
     const incidentStatuses = [{id: 1, label: 'Resolved'}, {id: 2, label: 'Unresolved'}];
     let initialValues = {
         pollingUnit: '',
@@ -119,12 +161,12 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
 
     useEffect(() => {
         getIncidentLevels();
-        getIncidentTypes();
+        // getIncidentTypes();
     }, []);
 
     useEffect(() => {
         getIncidentLevels();
-        getIncidentTypes();
+        // getIncidentTypes();
         getLgas();
         getWards(init?.lga);
         getPollingUnits(init?.ward);
