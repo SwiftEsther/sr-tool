@@ -9,12 +9,14 @@ import { getDashboardByState, getDashboardByLga , getDashboard, allResults, getS
 import ResultCards from './components/ResultCards';
 import Results from './components/Results';
 import pickBy from 'lodash/pickBy';
+import Loader from '../../shared/components/Loader';
 
 const ResultDashboard = ({match, location}) => {
     const [dashboardState, dispatch] = useContext (ResultContext);
     const [senatorialDistricts, setSenatorialDistrict] = useState([]);
     const [lgas, setLgas] = useState([]);
     const [filter, setFilter] = useState({lga: '', senatorialDistrict: ''});
+    const [dashboard, setDashboard] = useState(null);
 // 2 dropdowns
 // barchat
 // Results card
@@ -25,11 +27,26 @@ const ResultDashboard = ({match, location}) => {
          apiRequest(`${getDashboardByState}/6`, 'get')
             .then((res) => {
                 dispatch({type: 'GET_DASHBOARD_BY_STATE_SUCCESS', payload: {response: res}});
+                console.log('hgf', res);
+                setDashboard(res);
                 showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'GET_DASHBOARD_BY_STATE_FAILURE', payload: {error: err}});
                 showToast('error', `${err.response?.data.statusCode? err.response?.data.statusCode : ""}: ${err.response?.data.statusMessage?err.response.data.statusMessage : "Something went wrong. Please try again later."}`);
+            });
+    }
+
+    const getDashboardLgaData = () => {
+        dispatch({type: 'GET_DASHBOARD_BY_LGA'});
+         apiRequest(`${getDashboardByLga}/4`, 'get')
+            .then((res) => {
+                dispatch({type: 'GET_DASHBOARD_BY_LGA_SUCCESS', payload: {response: res}});
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+            })
+            .catch((err) => {
+                dispatch({type: 'GET_DASHBOARD_BY_LGA_FAILURE', payload: {error: err}});
+                showToast('error', `${err.response?.data?.statusCode || "Error"}: ${err.response?.data?.statusMessage || "Something went wrong. Please try again later."}`);
             });
     }
 
@@ -89,7 +106,12 @@ const ResultDashboard = ({match, location}) => {
                         </select>
                     </div>
                     <div className="mt-8 mb-5 shadow-container pt-4">
-                        <BarChart />
+                        {dashboardState.loading ? 
+                            <div className="flex justify-center my-6">
+                                <Loader />
+                            </div> :
+                            <BarChart data={dashboard?.partyResult || []}/>
+                        }
                     </div>
                     <ResultCards data={dashboardState.dashboard}/>
                 </div>
