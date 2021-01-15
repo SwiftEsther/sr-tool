@@ -99,9 +99,9 @@ const AgentList = ({agents, loading, getAgents}) => {
                             agents.map((agent) => (<div key={agent.id} className="custom-table-row w-full flex">
                                 <div className="table-row-data w-2/12">{agent.firstname || ''}</div>
                                 <div className="table-row-data w-2/12">{agent.lastname || ''}</div>
-                                <div className="table-row-data w-3/12">{agent.lga.name || ''}</div>
-                                <div className="table-row-data w-1/12">{agent.ward.name || ''}</div>
-                                <div className="table-row-data w-2/12">{agent.pollingUnit.name || ''}</div>
+                                <div className="table-row-data w-3/12">{agent.lga?.name || ''}</div>
+                                <div className="table-row-data w-1/12">{agent.ward?.name || ''}</div>
+                                <div className="table-row-data w-2/12">{agent.pollingUnit?.name || ''}</div>
                                 <a className="table-row-data w-2/12 flex" href='https://sr-tool-voice-7685-dev.twil.io/index.html?phonenumber=08067413041' target="blank">{agent.phone || ''}<img src={Phone} className="ml-1 inline"/></a>
                                 <div className="table-row-data w-2/12"> 
                                     <span data-tip data-for={`ellipsis-agent-${agent.id}`} data-event='click'>
