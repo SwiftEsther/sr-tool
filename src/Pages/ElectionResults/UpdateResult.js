@@ -35,7 +35,11 @@ const UpdateResult = ({match, location, history}) => {
             pollingUnitId: values.pollingUnit,
             accreditedVotersCount: values.accreditedVoters,
             registeredVotersCount: values.registeredVoters,
-            senatorialDistrictId: values.senatorialDistrict
+            senatorialDistrictId: values.senatorialDistrict,
+            pdp: values.pdp,
+            apc: values.apc,
+            anpp: values.anpp,
+            others: values.others
         }
          setSubmitting(true);
          apiRequest(`${updateResult}/${match.params.id}`, 'put', {...requestBody})
