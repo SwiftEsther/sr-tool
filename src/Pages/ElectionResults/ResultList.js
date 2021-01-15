@@ -85,8 +85,9 @@ const ResultList = ({results, loading, getResults}) => {
                         <div className="table-header-data w-1/12">Ward</div>
                         <div className="table-header-data w-2/12">Polling Unit</div>
                         <div className="table-header-data w-1/12">APC</div>
+                        <div className="table-header-data w-1/12">ANPP</div>
                         <div className="table-header-data w-1/12">PDP</div>
-                        <div className="table-header-data w-2/12">Other Parties</div>
+                        <div className="table-header-data w-1/12">Others</div>
                         <div className="table-header-data w-1/12"></div>
                     </div>
                     
@@ -104,8 +105,10 @@ const ResultList = ({results, loading, getResults}) => {
                                 <div className="table-row-data w-1/12">{result.ward.name || ''}</div>
                                 <div className="table-row-data w-2/12">{result.pollingUnit.name || ''}</div>
                                 {result.resultPerParties.map((party) => <div className="table-row-data w-1/12" key={party.id}>{party.voteCount}</div>) }
-                                {/* <div className="table-row-data w-1/12">{result.pdp || ''}</div> */}
-                                <div className="table-row-data w-2/12">{result.others || ''}</div>
+                                {/* <div className="table-row-data w-1/12">{result.pdp || ''}</div>
+                                <div className="table-row-data w-1/12">{result.apc || ''}</div>
+                                <div className="table-row-data w-1/12">{result.anpp || ''}</div>
+                                <div className="table-row-data w-2/12">{result.others || ''}</div> */}
                                 <div className="table-row-data w-1/12"> 
                                     <span data-tip data-for={`ellipsis-result-${result.id}`} data-event='click'>
                                         <Ellipsis />

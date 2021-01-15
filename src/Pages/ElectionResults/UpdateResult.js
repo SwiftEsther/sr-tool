@@ -18,10 +18,9 @@ const UpdateResult = ({match, location, history}) => {
         partyAgent: result.partyAgent?.id,
         registeredVoters: result.registeredVotersCount,
         accreditedVoters: result.accreditedVotersCount,
-        pdp: result.pdp || '',
-        apc: result.apc || '',
-        anpp: result.anpp || '',
-        others: result.others || ''
+    }
+    for(let i = 0; i < result.resultPerParties.length; ++i) {
+        data[result.resultPerParties[i].politicalParty.code.toLowerCase()] = result.resultPerParties[i].voteCount;
     }
     const [resultState, dispatch] = useContext(ResultContext);
     const [currentResult, setCurrentResult] = useState(data);
