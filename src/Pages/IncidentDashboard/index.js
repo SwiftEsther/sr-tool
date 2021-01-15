@@ -105,10 +105,9 @@ const IncidentDashboard = ({match, location}) => {
                             {senatorialDistricts.map(district => (<option key={district.id} value={district.code}>{district.name}</option>))}
                         </select>
                 </div>
-                <div className="mt-8 mb-5">
-                    {/* <BarChart /> */}
+                {/* <div className="mt-8 mb-5">
                     <StackedBarChart keys={["Violence/Intimidation",  "Agent phone number unreachable", "Inadequaate Security", "Absence of form EC8A"]}/>
-                </div>
+                </div> */}
             </div>
             
         </Layout>
