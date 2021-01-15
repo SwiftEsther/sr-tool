@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allAgents, filterAgentByName, uploadAgent, filterAgents, getLgasByStateId} from '../../lib/url.js';
+import {allAgents, filterAgentByName, uploadAgent, filterAgents, getLgasByStateId, getWardsByLgaId} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -82,6 +82,16 @@ const Agents = ({match, location}) => {
             })}
     }
 
+    const getWards = (lgaId) => {
+        if(lgaId) {apiRequest(`${getWardsByLgaId}/${lgaId}`, 'get')
+            .then(res => {
+                setWards(res.wards);
+            })
+            .catch(err => {
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
+            })}
+    }
+
     const onPageChanged = data => {
         // const { allCountries } = this.state;
         // const { currentPage, totalPages, pageLimit } = data;
@@ -97,12 +107,13 @@ const Agents = ({match, location}) => {
         getLgas();
     }, []);
 
-    // useEffect(() => {
-    //     getSenatorialDistricts();
-    // }, [filter.ward])
+    useEffect(() => {
+        filterData(filter.ward, 'ward');
+    }, [filter.ward])
 
     useEffect(() => {
         filterData(filter.lga, 'lga');
+        getWards(filter.lga);
     }, [filter.lga])
 
     // useEffect(() => {
@@ -119,7 +130,7 @@ const Agents = ({match, location}) => {
                         <select 
                             name="lga" 
                             onChange={(e) => setFilter({...filter, lga: e.target.value})}
-                            onBlur={(e) => filterData(e.target.value, 'lga')}
+                            onBlur={(e) => setFilter({...filter, lga: e.target.value})}
                             value={filter.lga}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                             disabled={agentState.loading}
@@ -129,10 +140,11 @@ const Agents = ({match, location}) => {
                         </select>
                         <select 
                             name="ward" 
-                            onChange={filterData}
-                            onBlur={filterData}
+                            onChange={(e) => setFilter({...filter, ward: e.target.value})}
+                            onBlur={(e) => setFilter({...filter, ward: e.target.value})}
                             value={filter.ward}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm mx-4"
+                            disabled={agentState.loading || !filter.lga}
                         >
                             <option value='' disabled>All Wards</option>
                             {wards.map(ward => (<option key={ward.id} value={ward.id}>{ward.name}</option>))}
