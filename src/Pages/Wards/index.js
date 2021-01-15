@@ -93,7 +93,7 @@ const Wards = ({match, location}) => {
             pathname: match.path}]}/>
             <div className="my-6 shadow-container pl-2.5 lg:pr-7 pr-2.5 py-6">
                 <div className="lg:flex justify-between items-center px-1">
-                    <div className="xl:w-4/10 lg:w-6/10 flex items-center px-1 w-full">
+                    <div className="xl:w-4.5/10 lg:w-6/10 flex items-center px-1 w-full">
                         <select 
                             name="state" 
                             onChange={filterData}
