@@ -84,10 +84,10 @@ const ResultList = ({results, loading, getResults}) => {
                         <div className="table-header-data w-2/12">Local Government Area</div>
                         <div className="table-header-data w-1/12">Ward</div>
                         <div className="table-header-data w-2/12">Polling Unit</div>
-                        <div className="table-header-data w-1/12">APC</div>
                         <div className="table-header-data w-1/12">ANPP</div>
-                        <div className="table-header-data w-1/12">PDP</div>
+                        <div className="table-header-data w-1/12">APC</div>
                         <div className="table-header-data w-1/12">Others</div>
+                        <div className="table-header-data w-1/12">PDP</div>
                         <div className="table-header-data w-1/12"></div>
                     </div>
                     
