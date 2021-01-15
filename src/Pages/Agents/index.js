@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allAgents, filterAgentByName, uploadAgent} from '../../lib/url.js';
+import {allAgents, filterAgentByName, uploadAgent, filterAgents, getLgasByStateId} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -27,22 +27,19 @@ const Agents = ({match, location}) => {
         setSearch(event.target.value);
     }
 
-    const filterData = (e) => {
-        const name = e.currentTarget.name;
-        const value = e.currentTarget.value;
-        setFilter({...filter, [name]: value})
+    const filterData = (id,type) => {
+        const url = `${filterAgents}/${type}`;
+        setFilter({...filter, [type]: id});
         let query = pickBy(filter);
-        if(Object.keys(query).length) { dispatch({type: 'GET_AGENTS'});
-        //  setSubmitting(true);
-         apiRequest(allAgents, 'get', {params: query})
+        if(Object.keys(query).length) { dispatch({type: 'FILTER_AGENTS'});
+         apiRequest(`${url}/${id}`, 'get')
             .then((res) => {
-                dispatch({type: 'GET_AGENTS_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                dispatch({type: 'FILTER_AGENTS_SUCCESS', payload: {response: res}});
+                setCurrentAgents(res.partyAgents.slice(0, 11));
             })
             .catch((err) => {
-                dispatch({type: 'GET_AGENTS_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                dispatch({type: 'FILTER_AGENTS_FAILURE', payload: {error: err}});
+               showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
             });
         }
     }
@@ -75,6 +72,16 @@ const Agents = ({match, location}) => {
             });
     }
 
+    const getLgas = (stateId = 6) => {
+        if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
+            .then(res => {
+                setLgas(res.lgas);
+            })
+            .catch(err => {
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
+            })}
+    }
+
     const onPageChanged = data => {
         // const { allCountries } = this.state;
         // const { currentPage, totalPages, pageLimit } = data;
@@ -87,8 +94,21 @@ const Agents = ({match, location}) => {
 
     useEffect(() => {
         getAllAgents();
+        getLgas();
     }, []);
 
+    // useEffect(() => {
+    //     getSenatorialDistricts();
+    // }, [filter.ward])
+
+    useEffect(() => {
+        filterData(filter.lga, 'lga');
+    }, [filter.lga])
+
+    // useEffect(() => {
+    //     getLgas();
+    // }, [filter.pollingUnit])
+    
     return (
         <Layout location={location}>
             <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Agents',
@@ -98,13 +118,14 @@ const Agents = ({match, location}) => {
                     <div className="xl:w-4/10 lg:w-6/10 flex items-center px-1 w-full">
                         <select 
                             name="lga" 
-                            onChange={filterData}
-                            onBlur={filterData}
+                            onChange={(e) => setFilter({...filter, lga: e.target.value})}
+                            onBlur={(e) => filterData(e.target.value, 'lga')}
                             value={filter.lga}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
+                            disabled={agentState.loading}
                         >
                             <option value='' disabled>All Lgas</option>
-                            {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
+                            {lgas.map(lga => (<option key={lga.id} value={lga.id}>{lga.name}</option>))}
                         </select>
                         <select 
                             name="ward" 
@@ -114,7 +135,7 @@ const Agents = ({match, location}) => {
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm mx-4"
                         >
                             <option value='' disabled>All Wards</option>
-                            {wards.map(ward => (<option key={ward.id} value={ward.code}>{ward.name}</option>))}
+                            {wards.map(ward => (<option key={ward.id} value={ward.id}>{ward.name}</option>))}
                         </select>
                         <select 
                             name="pollingUnit" 
@@ -124,7 +145,7 @@ const Agents = ({match, location}) => {
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                         >
                             <option value='' disabled>All Polling Units</option>
-                            {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.code}>{pollingUnit.name}</option>))}
+                            {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.id}>{pollingUnit.name}</option>))}
                         </select>
                     </div>
                     <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
