@@ -16,6 +16,7 @@ const IncidentDashboard = ({match, location}) => {
     const [lgas, setLgas] = useState([]);
     const [dashboard, setDashboard] = useState();
     const [filter, setFilter] = useState({lga: '', senatorialDistrict: ''});
+    const [data, setData] = useState();
 
      const getDashboardData = (stateid = 6) => {
         dispatch({type: 'GET_INCIDENT_DASHBOARD'});
@@ -86,11 +87,11 @@ const IncidentDashboard = ({match, location}) => {
                         </select>
                     </div>
                     <div className="shadow-container my-7 pt-2 pb-7 px-9">
-                        <p className="text-2xl font-bold text-darkerGray mb-3">153 Incidents</p>
-                        <div className="font-light w-full flex text-xl"><span className="w-7/10">Ballot snatching</span><span className="w-3/10">{`20 (45%)`}</span></div>
-                        <div className="font-light w-full flex text-xl"><span className="w-7/10">Absence of EC8 form</span><span className="w-3/10">{`10 (25%)`}</span></div>
+                        <p className="text-2xl font-bold text-darkerGray mb-3">{dashboard?.incidentCount || 0} Incidents</p>
+                        {dashboard?.incidentReports.map((report) => <div className="font-light w-full flex text-xl"><span className="w-7/10">{report.incidentType}</span><span className="w-3/10">{`${report.count} (${report.percent}%)`}</span></div>)}
+                        {/* <div className="font-light w-full flex text-xl"><span className="w-7/10">Absence of EC8 form</span><span className="w-3/10">{`10 (25%)`}</span></div>
                         <div className="font-light w-full flex text-xl"><span className="w-7/10">Armed Robbery</span><span className="w-3/10">{`9 (15%)`}</span></div>
-                        <div className="font-light w-full flex text-xl"><span className="w-7/10">Civil unrest</span><span className="w-3/10">{`5 (10%)`}</span></div>
+                        <div className="font-light w-full flex text-xl"><span className="w-7/10">Civil unrest</span><span className="w-3/10">{`5 (10%)`}</span></div> */}
                     </div>
                 </div>
             </div>
