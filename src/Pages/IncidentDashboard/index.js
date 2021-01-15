@@ -88,10 +88,7 @@ const IncidentDashboard = ({match, location}) => {
                     </div>
                     <div className="shadow-container my-7 pt-2 pb-7 px-9">
                         <p className="text-2xl font-bold text-darkerGray mb-3">{dashboard?.incidentCount || 0} Incidents</p>
-                        {dashboard?.incidentReports.map((report) => <div className="font-light w-full flex text-xl"><span className="w-7/10">{report.incidentType}</span><span className="w-3/10">{`${report.count} (${report.percent}%)`}</span></div>)}
-                        {/* <div className="font-light w-full flex text-xl"><span className="w-7/10">Absence of EC8 form</span><span className="w-3/10">{`10 (25%)`}</span></div>
-                        <div className="font-light w-full flex text-xl"><span className="w-7/10">Armed Robbery</span><span className="w-3/10">{`9 (15%)`}</span></div>
-                        <div className="font-light w-full flex text-xl"><span className="w-7/10">Civil unrest</span><span className="w-3/10">{`5 (10%)`}</span></div> */}
+                        {dashboard?.incidentReports.map((report) => <div className="font-light w-full flex text-xl" key={report.id}><span className="w-7/10">{report.incidentType}</span><span className="w-3/10">{`${report.count} (${report.percent}%)`}</span></div>)}
                     </div>
                 </div>
             </div>
@@ -110,7 +107,7 @@ const IncidentDashboard = ({match, location}) => {
                 </div>
                 <div className="mt-8 mb-5">
                     {/* <BarChart /> */}
-                    <StackedBarChart keys={["form",  "ballot", "unrest", "robbery"]}/>
+                    <StackedBarChart keys={["Violence/Intimidation",  "Agent phone number unreachable", "Inadequaate Security", "Absence of form EC8A"]}/>
                 </div>
             </div>
             

@@ -9,9 +9,11 @@ import { IncidentContext } from '../../../contexts/IncidentContext.js';
 const IncidentsData = () => {
     const [incidentState, dispatch] = useContext(IncidentContext);
     const parties = {
-        'PDP': '#ff0000',
-        'APC': '#00b0f0',
-        'ANPP': '#eb5e00'
+        'level-1': '#ff0000',
+        'level-2': '#00b0f0',
+        'level-3': '#eb5e00',
+        'level-4': '#eb5e00',
+        'level-5': '#eb5e00'
     }
 
     const data = {
@@ -127,8 +129,8 @@ const IncidentsData = () => {
     }
 
     useEffect(() => {
-        getDashboardData();
-        getDashboardLgaData();
+        // getDashboardData();
+        // getDashboardLgaData();
     }, []);
 
     // const colorExtent = d3.extent(data, d => d.avg)
