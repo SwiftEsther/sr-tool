@@ -71,6 +71,9 @@ export const getAgent = `${baseUrl}/api/v${version}/party-agent`;
 export const updateAgent = `${baseUrl}/api/v${version}/party-agent`;
 export const deleteAgent = `${baseUrl}/api/v${version}/party-agent/delete`;
 export const uploadAgent = `${baseUrl}/api/v${version}/party-agent/upload`;
+export const filterAgentsByLga = `${baseUrl}/api/v${version}/party-agent/filter/lga`;
+export const filterAgentsByWard = `${baseUrl}/api/v${version}/party-agent/filter/ward`;
+export const filterAgentsByPollingUnit = `${baseUrl}/api/v${version}/party-agent/filter/polling-unit`;
 
 //----RESULT URLS----//
 export const allResults = `${baseUrl}/api/v${version}/result/all`;
