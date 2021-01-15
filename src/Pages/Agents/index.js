@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allAgents, filterAgentByName, uploadAgent, filterAgents, getLgasByStateId, getWardsByLgaId} from '../../lib/url.js';
+import {allAgents, filterAgentByName, uploadAgent, filterAgents, getLgasByStateId, getWardsByLgaId, getPollingUnitsByWardId} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -15,7 +15,7 @@ import Pagination from "../../shared/components/Pagination";
 const Agents = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [agentState, dispatch] = useContext(AgentContext);
-    const [filter, setFilter] = useState({lga: '', ward: '', pollingUnit: ''});
+    const [filter, setFilter] = useState({lga: '', ward: '', 'polling-unit': ''});
     const [lgas, setLgas] = useState([]);
     const [wards, setWards] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
@@ -92,6 +92,16 @@ const Agents = ({match, location}) => {
             })}
     }
 
+    const getPollingUnits = (wardId) =>{
+        if(wardId){apiRequest(`${getPollingUnitsByWardId}/${wardId}`, 'get')
+            .then((res) => {
+                setPollingUnits(res.pollingUnits)
+            })
+            .catch((err) => {
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
+            });}
+    }
+
     const onPageChanged = data => {
         // const { allCountries } = this.state;
         // const { currentPage, totalPages, pageLimit } = data;
@@ -109,6 +119,7 @@ const Agents = ({match, location}) => {
 
     useEffect(() => {
         filterData(filter.ward, 'ward');
+        getPollingUnits(filter.ward);
     }, [filter.ward])
 
     useEffect(() => {
@@ -116,9 +127,9 @@ const Agents = ({match, location}) => {
         getWards(filter.lga);
     }, [filter.lga])
 
-    // useEffect(() => {
-    //     getLgas();
-    // }, [filter.pollingUnit])
+    useEffect(() => {
+        filterData(filter.lga, 'polling-unit');
+    }, [filter['polling-unit']])
     
     return (
         <Layout location={location}>
@@ -126,7 +137,7 @@ const Agents = ({match, location}) => {
             pathname: match.path}]}/>
             <div className="my-6 shadow-container pl-2.5 lg:pr-7 pr-2.5 py-6">
                 <div className="lg:flex justify-between items-center px-1">
-                    <div className="xl:w-4/10 lg:w-6/10 flex items-center px-1 w-full">
+                    <div className="xl:w-4.5/10 lg:w-6/10 flex items-center px-1 w-full">
                         <select 
                             name="lga" 
                             onChange={(e) => setFilter({...filter, lga: e.target.value})}
@@ -151,10 +162,11 @@ const Agents = ({match, location}) => {
                         </select>
                         <select 
                             name="pollingUnit" 
-                            onChange={filterData}
-                            onBlur={filterData}
-                            value={filter.pollingUnit}
+                            onChange={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
+                            onBlur={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
+                            value={filter["polling-unit"]}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
+                            disabled={agentState.loading || !filter.ward}
                         >
                             <option value='' disabled>All Polling Units</option>
                             {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.id}>{pollingUnit.name}</option>))}
