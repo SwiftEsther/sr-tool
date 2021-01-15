@@ -37,6 +37,26 @@ const agentReducer = (state, action) => {
         success: false,
         error: action.payload.error,
       };
+    case 'FILTER_AGENTS':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'FILTER_AGENTS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        response: action.payload.response,
+        agents: action.payload.response.partyAgents
+      };
+    case 'FILTER_AGENTS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
     case 'CREATE_AGENT':
       return {
         ...state,
