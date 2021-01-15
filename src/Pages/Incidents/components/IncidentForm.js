@@ -281,7 +281,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                                 onBlur={(e)=>handleWardChange(e, setFieldValue)}
                                 value={values.ward}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
-                                disabled={!values.lga || values.incidentLevel == 1}
+                                disabled={!values.lga || values.incidentLevel == 2}
                             >
                                 <option value='' disabled>Ward</option>
                                 {wards.map(ward => (<option key={ward.id} value={ward.id}>{ward.name}</option>))}
@@ -295,7 +295,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
                                 onBlur={handleBlur}
                                 value={values.pollingUnit}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
-                                disabled={!values.ward || values.incidentLevel == 1 || values.incidentLevel == 2}
+                                disabled={!values.ward || values.incidentLevel == 2 || values.incidentLevel == 3}
                             >
                                 <option value='' disabled>Polling Unit</option>
                                 {pollingUnits.map(unit => (<option key={unit.id} value={unit.id}>{unit.name}</option>))}
