@@ -242,7 +242,8 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
                                 onBlur={(e)=>handleWardChange(e, setFieldValue)}
                                 value={values.ward}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
-                                disabled={!values.lga || values.votingLevel == 2}
+                                // disabled={!values.lga || values.votingLevel == 2}
+                                disabled={!values.lga}
                             >
                                 <option value='' disabled>Ward</option>
                                 {wards.map(ward => (<option key={ward.id} value={ward.id}>{ward.name}</option>))}
@@ -256,7 +257,8 @@ const ResultForm = ({formFields, handleFormSubmit}) => {
                                 onBlur={handleBlur}
                                 value={values.pollingUnit}
                                 className="w-full border border-primary rounded-sm py-3 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm text-darkerGray"
-                                disabled={!values.ward || values.votingLevel == 2 || values.votingLevel == 3}
+                                // disabled={!values.ward || values.votingLevel == 2 || values.votingLevel == 3}
+                                disabled = {!values.ward}
                             >
                                 <option value='' disabled>Polling Unit</option>
                                 {pollingUnits.map(unit => (<option key={unit.id} value={unit.id}>{unit.name}</option>))}
