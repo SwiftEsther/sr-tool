@@ -9,11 +9,11 @@ import { IncidentContext } from '../../../contexts/IncidentContext.js';
 const IncidentsData = ({data}) => {
     const [incidentState, dispatch] = useContext(IncidentContext);
     const colors = {
-        'level-5': '#fceaea',
-        'level-4': '#fddbdb',
+        'level-1': '#fceaea',
+        'level-2': '#fddbdb',
         'level-3': '#e6a4a4',
-        'level-2': '#f85757',
-        'level-1': '#f20101'
+        'level-4': '#f85757',
+        'level-5': '#f20101'
     }
 
     // const data = {
