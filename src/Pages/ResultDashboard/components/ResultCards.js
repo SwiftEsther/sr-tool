@@ -23,12 +23,12 @@ const ResultCards = ({data}) => {
             </div>
 
             <div className="flex justify-between items-center py-6 shadow-container px-2.5 my-2">
-                {data?.partyResult?.map((result) => {
-                    if(result.politicalParty.code !== "others") {
+                {data?.partyLgaResults?.map((result) => {
+                    if(result.partyName !== "others") {
                         return(
                         <div className="bg-oceanBlue py-4 text-center rounded-xsm .shadow-sm-container w-118">
-                            <div className="text-4xl font-bold my-4">{result.resultPerParty || 0}</div>
-                            <div className="text-xs">LGAs won by  {result.politicalParty.code}</div>
+                            <div className="text-4xl font-bold my-4">{result.lgaCount || 0}</div>
+                            <div className="text-xs">LGAs won by  {result.partyName}</div>
                         </div>)
                     }
                 })}
