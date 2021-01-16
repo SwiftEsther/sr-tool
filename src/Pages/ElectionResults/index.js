@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumbs } from "react-breadcrumbs";
 import { Link } from "react-router-dom";
 import Layout from "../../shared/Layout";
-import {allResults, uploadResult} from '../../lib/url.js';
+import {allResults, uploadResult, filterResults, getLgasByStateId, getWardsByLgaId, getPollingUnitsByWardId} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import Uploader from "../../shared/components/Uploader";
@@ -15,7 +15,7 @@ import ResultList from "./ResultList";
 const Results = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [resultState, dispatch] = useContext(ResultContext);
-    const [filter, setFilter] = useState({lga: '', ward: '', pollingUnit: ''});
+    const [filter, setFilter] = useState({lga: '', ward: '', 'polling-unit': ''});
     const [lgas, setLgas] = useState([]);
     const [wards, setWards] = useState([]);
     const [pollingUnits, setPollingUnits] = useState([]);
@@ -26,22 +26,19 @@ const Results = ({match, location}) => {
         setSearch(event.target.value);
     }
 
-    const filterData = (e) => {
-        const name = e.currentTarget.name;
-        const value = e.currentTarget.value;
-        setFilter({...filter, [name]: value})
+    const filterData = (id,type) => {
+        const url = `${filterResults}/${type}`;
+        setFilter({...filter, [type]: id});
         let query = pickBy(filter);
-        if(Object.keys(query).length) { dispatch({type: 'GET_RESULTS'});
-        //  setSubmitting(true);
-         apiRequest(allResults, 'get', {params: query})
+        if(Object.keys(query).length) { dispatch({type: 'FILTER_RESULTS'});
+         apiRequest(`${url}/${id}`, 'get')
             .then((res) => {
-                dispatch({type: 'GET_RESULTS_SUCCESS', payload: {response: res}});
-                // setSubmitting(false);
+                dispatch({type: 'FILTER_RESULTS_SUCCESS', payload: {response: res}});
+                setCurrentResults(res.results.slice(0, 11));
             })
             .catch((err) => {
-                dispatch({type: 'GET_RESULTS_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
-                // setSubmitting(false);
+                dispatch({type: 'FILTER_RESULTS_FAILURE', payload: {error: err}});
+               showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
             });
         }
     }
@@ -84,9 +81,54 @@ const Results = ({match, location}) => {
             });
     }
 
+    const getLgas = (stateId = 6) => {
+        if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
+            .then(res => {
+                setLgas(res.lgas);
+            })
+            .catch(err => {
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
+            })}
+    }
+
+    const getWards = (lgaId) => {
+        if(lgaId) {apiRequest(`${getWardsByLgaId}/${lgaId}`, 'get')
+            .then(res => {
+                setWards(res.wards);
+            })
+            .catch(err => {
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
+            })}
+    }
+
+    const getPollingUnits = (wardId) =>{
+        if(wardId){apiRequest(`${getPollingUnitsByWardId}/${wardId}`, 'get')
+            .then((res) => {
+                setPollingUnits(res.pollingUnits)
+            })
+            .catch((err) => {
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
+            });}
+    }
+
     useEffect(() => {
         getAllResults();
+        getLgas();
     }, []);
+
+    useEffect(() => {
+        filterData(filter.ward, 'ward');
+        getPollingUnits(filter.ward);
+    }, [filter.ward])
+
+    useEffect(() => {
+        filterData(filter.lga, 'lga');
+        getWards(filter.lga);
+    }, [filter.lga])
+
+    useEffect(() => {
+        filterData(filter['polling-unit'], 'polling-unit');
+    }, [filter['polling-unit']])
 
     return (
         <Layout location={location}>
@@ -97,33 +139,35 @@ const Results = ({match, location}) => {
                     <div className="xl:w-4.5/10 lg:w-6/10 flex items-center px-1 w-full">
                         <select 
                             name="lga" 
-                            onChange={filterData}
-                            onBlur={filterData}
+                            onChange={(e) => setFilter({...filter, lga: e.target.value})}
+                            onBlur={(e) => setFilter({...filter, lga: e.target.value})}
                             value={filter.lga}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
+                            disabled={resultState.loading || resultState.states?.length <= 0}
                         >
                             <option value='' disabled>All Lgas</option>
-                            {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
+                            {lgas.map(lga => (<option key={lga.id} value={lga.id}>{lga.name}</option>))}
                         </select>
                         <select 
                             name="ward" 
-                            onChange={filterData}
-                            onBlur={filterData}
+                            onChange={(e) => setFilter({...filter, ward: e.target.value})}
+                            onBlur={(e) => setFilter({...filter, ward: e.target.value})}
                             value={filter.ward}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm mx-4"
+                            disabled={resultState.loading || !filter.lga}
                         >
                             <option value='' disabled>All Wards</option>
-                            {wards.map(ward => (<option key={ward.id} value={ward.code}>{ward.name}</option>))}
+                            {wards.map(ward => (<option key={ward.id} value={ward.id}>{ward.name}</option>))}
                         </select>
                         <select 
-                            name="pollingUnit" 
-                            onChange={filterData}
-                            onBlur={filterData}
-                            value={filter.pollingUnit}
+                            name="polling-unit" 
+                            onChange={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
+                            onBlur={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
+                            disabled={resultState.loading || !filter.ward}
                         >
                             <option value='' disabled>All Polling Units</option>
-                            {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.code}>{pollingUnit.name}</option>))}
+                            {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.id}>{pollingUnit.name}</option>))}
                         </select>
                     </div>
                     <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
