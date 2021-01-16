@@ -13,6 +13,7 @@ const States = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [state, dispatch] = useContext(StateContext);
     const [currentStates, setCurrentStates] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -34,12 +35,12 @@ const States = ({match, location}) => {
     }
 
     const onPageChanged = data => {
-        const { currentPage, totalPages, pageLimit } = data;
+        const allStates = state.states;
+        const { currentPage, pageLimit } = data;
         const offset = (currentPage - 1) * pageLimit;
-        const states = state.response.states.slice(offset, offset + pageLimit);
+        const states = allStates?.slice(offset, offset + pageLimit);
+        setCurrentPage(currentPage);
         setCurrentStates(states);
-        // this.setState({ currentPage, currentCountries, totalPages });
-        console.log('Page changed',data)
     }
     
     const getLgas = async (stateId) => {
