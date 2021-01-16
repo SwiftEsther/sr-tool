@@ -62,13 +62,12 @@ const Incidents = ({match, location}) => {
     }
 
     const onPageChanged = data => {
-        // const { allCountries } = this.state;
-        // const { currentPage, totalPages, pageLimit } = data;
-        // const offset = (currentPage - 1) * pageLimit;
-        // const currentCountries = allCountries.slice(offset, offset + pageLimit);
-
-        // this.setState({ currentPage, currentCountries, totalPages });
-        console.log('Page changed',data)
+        const allIncidents = incidentState.incidents;
+        const { currentPage, pageLimit } = data;
+        const offset = (currentPage - 1) * pageLimit;
+        const incidents = allIncidents?.slice(offset, offset + pageLimit);
+        setCurrentPage(currentPage);
+        setCurrentIncidents(incidents);
     }
 
     const getAllIncidents = () => {
@@ -143,7 +142,7 @@ const Incidents = ({match, location}) => {
                         </button>
                     </div>
                 </div>
-                <IncidentList incidents={incidentState.incidents} loading={incidentState.loading} getIncidents={getAllIncidents}/>
+                <IncidentList incidents={currentIncidents} loading={incidentState.loading} getIncidents={getAllIncidents}/>
                 {!incidentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_INCIDENT" action_success="UPLOAD_INCIDENT_SUCCESS" action_error="UPLOAD_INCIDENT_FAILURE" url={uploadIncident} refresh={getAllIncidents}/>
