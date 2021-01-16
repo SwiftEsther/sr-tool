@@ -62,13 +62,12 @@ const Results = ({match, location}) => {
     }
 
     const onPageChanged = data => {
-        // const { allCountries } = this.state;
-        // const { currentPage, totalPages, pageLimit } = data;
-        // const offset = (currentPage - 1) * pageLimit;
-        // const currentCountries = allCountries.slice(offset, offset + pageLimit);
-
-        // this.setState({ currentPage, currentCountries, totalPages });
-        console.log('Page changed',data)
+        const allResults = resultState.results;
+        const { currentPage, pageLimit } = data;
+        const offset = (currentPage - 1) * pageLimit;
+        const results = allResults?.slice(offset, offset + pageLimit);
+        setCurrentPage(currentPage);
+        setCurrentResults(results);
     }
     
     const getAllResults = () => {
