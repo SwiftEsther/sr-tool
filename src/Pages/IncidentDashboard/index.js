@@ -88,7 +88,7 @@ const IncidentDashboard = ({match, location}) => {
                     </div>
                     <div className="shadow-container my-7 pt-2 pb-7 px-9">
                         <p className="text-2xl font-bold text-darkerGray mb-3">{dashboard?.incidentCount || 0} Incidents</p>
-                        {dashboard?.incidentReports.map((report) => <div className="font-light w-full flex text-xl" key={report.id}><span className="w-7/10">{report.incidentType}</span><span className="w-3/10">{`${report.count} (${report.percent}%)`}</span></div>)}
+                        {dashboard?.incidentReports.map((report) => <div className="font-light w-full flex text-xl" key={report.id}><span className="w-7/10">{report.incidentType}</span><span className="w-3/10">{`${report.count} (${report.percent?.toFixed(2) || 0}%)`}</span></div>)}
                     </div>
                 </div>
             </div>
