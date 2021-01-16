@@ -18,6 +18,7 @@ const Lgas = ({match, location}) => {
     const [filter, setFilter] = useState({senatorialDistrict: '', state: ''});
     const [districts, setDistricts] = useState([]);
     const [states, setStates] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
     const [currentLgas, setCurrentLgas] = useState([]);
 
     const handleChange = (event) => {
@@ -59,12 +60,12 @@ const Lgas = ({match, location}) => {
     }
 
     const onPageChanged = data => {
-        const { currentPage, totalPages, pageLimit } = data;
+        const allLgas = lgaState.lgas;
+        const { currentPage, pageLimit } = data;
         const offset = (currentPage - 1) * pageLimit;
-        const lgas = lgaState.lgas.slice(offset, offset + pageLimit);
+        const lgas = allLgas?.slice(offset, offset + pageLimit);
+        setCurrentPage(currentPage);
         setCurrentLgas(lgas);
-        // this.setState({ currentPage, currentCountries, totalPages });
-        console.log('Page changed',data)
     }
 
     const getAllLgas = () => {
