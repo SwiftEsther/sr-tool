@@ -13,6 +13,7 @@ const Parties = ({match, location}) => {
     const [search, setSearch] = useState('');
     const [partyState, dispatch] = useContext(PartyContext);
     const [currentParties, setCurrentParties] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -34,12 +35,12 @@ const Parties = ({match, location}) => {
     }
 
     const onPageChanged = data => {
-        const { currentPage, totalPages, pageLimit } = data;
+        const allParties = partyState.parties;
+        const { currentPage, pageLimit } = data;
         const offset = (currentPage - 1) * pageLimit;
-        const parties = partyState.response.politicalParties.slice(offset, offset + pageLimit);
+        const parties = allParties?.slice(offset, offset + pageLimit);
+        setCurrentPage(currentPage);
         setCurrentParties(parties);
-        // this.setState({ currentPage, currentCountries, totalPages });
-        console.log('Page changed',data)
     }
 
     const getAllParties = () => {
