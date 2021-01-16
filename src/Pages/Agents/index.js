@@ -21,7 +21,6 @@ const Agents = ({match, location}) => {
     const [pollingUnits, setPollingUnits] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentAgents, setCurrentAgents] = useState([]);
-   console.log(agentState)
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -127,7 +126,7 @@ const Agents = ({match, location}) => {
     }, [filter.lga])
 
     useEffect(() => {
-        filterData(filter.lga, 'polling-unit');
+        filterData(filter['polling-unit'], 'polling-unit');
     }, [filter['polling-unit']])
     
     return (
@@ -160,10 +159,11 @@ const Agents = ({match, location}) => {
                             {wards.map(ward => (<option key={ward.id} value={ward.id}>{ward.name}</option>))}
                         </select>
                         <select 
-                            name="pollingUnit" 
+                            name="polling-unit" 
                             onChange={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
                             onBlur={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
-                            value={filter["polling-unit"]}
+                            // onChange={(e) => console.log(e.target.value)}
+                            // value={filter["polling-unit"]}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                             disabled={agentState.loading || !filter.ward}
                         >
