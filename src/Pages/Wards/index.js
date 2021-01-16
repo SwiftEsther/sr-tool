@@ -20,6 +20,7 @@ const Wards = ({match, location}) => {
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
     const [currentWards, setCurrentWards] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -60,12 +61,12 @@ const Wards = ({match, location}) => {
     }
 
      const onPageChanged = data => {
-        const { currentPage, totalPages, pageLimit } = data;
+        const allWards = wardState.wards;
+        const { currentPage, pageLimit } = data;
         const offset = (currentPage - 1) * pageLimit;
-        const wards = wardState.wards.slice(offset, offset + pageLimit);
+        const wards = allWards?.slice(offset, offset + pageLimit);
+        setCurrentPage(currentPage);
         setCurrentWards(wards);
-        // this.setState({ currentPage, currentCountries, totalPages });
-        console.log('Page changed',data)
     }
 
     const getAllWards = () => {
