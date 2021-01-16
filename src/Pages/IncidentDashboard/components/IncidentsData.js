@@ -6,102 +6,102 @@ import { getDashboardByState, getDashboardByLga } from '../../../lib/url.js';
 import { showToast } from '../../../helpers/showToast.js';
 import { IncidentContext } from '../../../contexts/IncidentContext.js';
 
-const IncidentsData = () => {
+const IncidentsData = ({data}) => {
     const [incidentState, dispatch] = useContext(IncidentContext);
-    const parties = {
-        'level-1': '#ff0000',
-        'level-2': '#00b0f0',
-        'level-3': '#eb5e00',
-        'level-4': '#eb5e00',
-        'level-5': '#eb5e00'
+    const colors = {
+        'level-5': '#fceaea',
+        'level-4': '#fddbdb',
+        'level-3': '#e6a4a4',
+        'level-2': '#f85757',
+        'level-1': '#f20101'
     }
 
-    const data = {
-        "statusCode": "00",
-        "statusMessage": "Dashboard loaded.",
-        "totalStates": 3,
-        "totalLgas": 5,
-        "totalSenatorialDistricts": 3,
-        "totalRegisteredVotes": 6000,
-        "totalAccreditedVotes": 4000,
-        "totalVoteCounts": 680,
-        "totalWards": 4,
-        "totalPollingUnits": 6,
-        "resultReceived": 17,
-        "lgaWithResults": 1,
-        "wardsWithResults": 1,
-        "pollingUnitsWithResults": 2,
-        "lgas": [
-            {
-                "id": 1,
-                "slice": "STL70363",
-                "partyResult": [
-                    {
-                        "politicalParty": {
-                            "code": "APC",
-                            "name": "Action People's congress",
-                            "id": 1
-                        },
-                        "resultPerParty": null,
-                        "totalVoteCount": 190,
-                        "percent": 27.941176470588236
-                    },
-                    {
-                        "politicalParty": {
-                            "code": "PDP",
-                            "name": "People's democratic party.",
-                            "id": 2
-                        },
-                        "resultPerParty": null,
-                        "totalVoteCount": 400,
-                        "percent": 58.8235294117647
-                    },
-                    {
-                        "politicalParty": {
-                            "code": "ANPP",
-                            "name": "People's democratic party.",
-                            "id": 3
-                        },
-                        "resultPerParty": null,
-                        "totalVoteCount": 90,
-                        "percent": 13.235294117647058
-                    }
-                ]
-            }
-        ],
-        "partyResult": [
-            {
-                "politicalParty": {
-                    "code": "PDP",
-                    "name": "People's democratic party.",
-                    "id": 2
-                },
-                "resultPerParty": null,
-                "totalVoteCount": 400,
-                "percent": 58.8235294117647
-            },
-            {
-                "politicalParty": {
-                    "code": "APC",
-                    "name": "Action People's congress",
-                    "id": 1
-                },
-                "resultPerParty": null,
-                "totalVoteCount": 190,
-                "percent": 27.941176470588236
-            },
-            {
-                "politicalParty": {
-                    "code": "ANPP",
-                    "name": "People's democratic party.",
-                    "id": 3
-                },
-                "resultPerParty": null,
-                "totalVoteCount": 90,
-                "percent": 13.235294117647058
-            }
-        ]
-        }
+    // const data = {
+    //     "statusCode": "00",
+    //     "statusMessage": "Dashboard loaded.",
+    //     "totalStates": 3,
+    //     "totalLgas": 5,
+    //     "totalSenatorialDistricts": 3,
+    //     "totalRegisteredVotes": 6000,
+    //     "totalAccreditedVotes": 4000,
+    //     "totalVoteCounts": 680,
+    //     "totalWards": 4,
+    //     "totalPollingUnits": 6,
+    //     "resultReceived": 17,
+    //     "lgaWithResults": 1,
+    //     "wardsWithResults": 1,
+    //     "pollingUnitsWithResults": 2,
+    //     "lgas": [
+    //         {
+    //             "id": 1,
+    //             "slice": "STL70363",
+    //             "partyResult": [
+    //                 {
+    //                     "politicalParty": {
+    //                         "code": "APC",
+    //                         "name": "Action People's congress",
+    //                         "id": 1
+    //                     },
+    //                     "resultPerParty": null,
+    //                     "totalVoteCount": 190,
+    //                     "percent": 27.941176470588236
+    //                 },
+    //                 {
+    //                     "politicalParty": {
+    //                         "code": "PDP",
+    //                         "name": "People's democratic party.",
+    //                         "id": 2
+    //                     },
+    //                     "resultPerParty": null,
+    //                     "totalVoteCount": 400,
+    //                     "percent": 58.8235294117647
+    //                 },
+    //                 {
+    //                     "politicalParty": {
+    //                         "code": "ANPP",
+    //                         "name": "People's democratic party.",
+    //                         "id": 3
+    //                     },
+    //                     "resultPerParty": null,
+    //                     "totalVoteCount": 90,
+    //                     "percent": 13.235294117647058
+    //                 }
+    //             ]
+    //         }
+    //     ],
+    //     "partyResult": [
+    //         {
+    //             "politicalParty": {
+    //                 "code": "PDP",
+    //                 "name": "People's democratic party.",
+    //                 "id": 2
+    //             },
+    //             "resultPerParty": null,
+    //             "totalVoteCount": 400,
+    //             "percent": 58.8235294117647
+    //         },
+    //         {
+    //             "politicalParty": {
+    //                 "code": "APC",
+    //                 "name": "Action People's congress",
+    //                 "id": 1
+    //             },
+    //             "resultPerParty": null,
+    //             "totalVoteCount": 190,
+    //             "percent": 27.941176470588236
+    //         },
+    //         {
+    //             "politicalParty": {
+    //                 "code": "ANPP",
+    //                 "name": "People's democratic party.",
+    //                 "id": 3
+    //             },
+    //             "resultPerParty": null,
+    //             "totalVoteCount": 90,
+    //             "percent": 13.235294117647058
+    //         }
+    //     ]
+    //     }
     const getDashboardData = () => {
         dispatch({type: 'GET_DASHBOARD_BY_STATE'});
          apiRequest(`${getDashboardByState}/6`, 'get')
@@ -133,23 +133,28 @@ const IncidentsData = () => {
         // getDashboardLgaData();
     }, []);
 
-    // const colorExtent = d3.extent(data, d => d.avg)
-    // const colorScale = d3.scaleSequential()
-    //     .domain(colorExtent)
-    //     .interpolator(d3.interpolateRdBu);
-
     const colorMap = () => {
         const svg = document.getElementById('kano');
-        for(let i = 0; i < data.lgas.length; ++i) {
-            const color = parties[data.lgas[i].partyResult[0].politicalParty.code];
-            d3.select(svg).select(`#${data.lgas[i].slice}`)
+        for(let i = 0, color= colors['level-5']; i < data.length; ++i) {
+            if(data[i].count <= 10) {
+                color = colors['level-1']
+            }   else if(data[i].count <= 20) {
+                color = colors['level-2']
+            }   else if(data[i].count <= 40) {
+                color = colors['level-3']
+            }   else if(data[i].count <= 50) {
+                color = colors['level-4']
+            }   else if(data[i].count > 50) {
+                color = colors['level-5']
+            }
+            d3.select(svg).select(`#kano-${data[i].lga.code}`)
             .attr('fill', color)
         }
     }
 
     useEffect(() => {
         colorMap();
-    }, [])
+    }, [data])
 
     return (
         <div id="map" className="relative shadow-container rounded-sm my-4 ">

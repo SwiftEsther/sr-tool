@@ -61,7 +61,7 @@ const IncidentDashboard = ({match, location}) => {
                                         {id: 2,title: 'Incidents', pathname: match.path}]}/>
             <div className="w-full flex">
                 <div className="w-7/10 mr-4">
-                    <IncidentsData />
+                    <IncidentsData data={dashboard?.lgaIncidentReports || []}/>
                 </div>
                 <div className="w-3/10">
                     <div>
