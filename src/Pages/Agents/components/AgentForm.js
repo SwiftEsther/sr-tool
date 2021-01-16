@@ -30,9 +30,11 @@ const AgentForm = ({formFields, handleFormSubmit}) => {
             errors.lga = 'Local Government Area is required is required';
         }   else if(!values.pollingUnit) {
             errors.pollingUnit = 'Polling unit is required';
-        }   else if(!values.phoneNumber) {
-            errors.phoneNumber = 'Phone number is required';
-        }   else {
+        }   
+        // else if(!values.phoneNumber) {
+        //     errors.phoneNumber = 'Phone number is required';
+        // }   
+        else {
             setFormValid(true);
         }
         return errors;
