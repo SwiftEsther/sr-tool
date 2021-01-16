@@ -20,6 +20,7 @@ const PollingUnits = ({match, location}) => {
     const [states, setStates] = useState([]);
     const [lgas, setLgas] = useState([]);
     const [currentPollingUnits, setCurrentPollingUnits] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -60,12 +61,12 @@ const PollingUnits = ({match, location}) => {
     }
 
     const onPageChanged = data => {
-        const { currentPage, totalPages, pageLimit } = data;
+        const allPollingUnits = puState.pollingUnits;
+        const { currentPage, pageLimit } = data;
         const offset = (currentPage - 1) * pageLimit;
-        const units = puState.pollingUnits.slice(offset, offset + pageLimit);
-        setCurrentPollingUnits(units);
-        // this.setState({ currentPage, currentCountries, totalPages });
-        console.log('Page changed',data)
+        const pollingUnits = allPollingUnits?.slice(offset, offset + pageLimit);
+        setCurrentPage(currentPage);
+        setCurrentPollingUnits(pollingUnits);
     }
 
     const getAllPollingUnits = () => {
