@@ -228,6 +228,26 @@ const resultReducer = (state, action) => {
                 success: false,
                 error: action.payload.error
             };
+    case 'FILTER_RESULTS':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'FILTER_RESULTS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        response: action.payload.response,
+        results: action.payload.response.results
+      };
+    case 'FILTER_RESULTS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload.error,
+      };
     default:
       return {
         ...initialState,
