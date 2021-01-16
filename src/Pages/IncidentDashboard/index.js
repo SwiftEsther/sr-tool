@@ -92,7 +92,7 @@ const IncidentDashboard = ({match, location}) => {
                     </div>
                 </div>
             </div>
-            <div className="w-full shadow-container pt-4">
+            {/* <div className="w-full shadow-container pt-4">
                 <div className="flex w-full justify-end">
                     <select 
                             name="senatorialDistrict" 
@@ -105,10 +105,10 @@ const IncidentDashboard = ({match, location}) => {
                             {senatorialDistricts.map(district => (<option key={district.id} value={district.code}>{district.name}</option>))}
                         </select>
                 </div>
-                {/* <div className="mt-8 mb-5">
+                <div className="mt-8 mb-5">
                     <StackedBarChart keys={["Violence/Intimidation",  "Agent phone number unreachable", "Inadequaate Security", "Absence of form EC8A"]}/>
-                </div> */}
-            </div>
+                </div>
+            </div> */}
             
         </Layout>
     );
