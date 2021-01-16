@@ -83,6 +83,10 @@ export const getResultById = `${baseUrl}/api/v${version}/result`;
 export const updateResult = `${baseUrl}/api/v${version}/result`;
 export const deleteResult = `${baseUrl}/api/v${version}/result/delete`;
 export const uploadResult = `${baseUrl}/api/v${version}/result/upload`;
+export const filterResults = `${baseUrl}/api/v${version}/result/filter`;
+export const filterResultsByLga = `${baseUrl}/api/v${version}/result/filter/lga`;
+export const filterResultsByWard = `${baseUrl}/api/v${version}/result/filter/ward`;
+export const filterResultsByPollingUnit = `${baseUrl}/api/v${version}/result/filter/polling-unit`;
 
 //----INCIDENT URLS----//
 export const allIncidents = `${baseUrl}/api/v${version}/incident/all`;
