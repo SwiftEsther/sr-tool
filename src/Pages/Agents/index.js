@@ -142,7 +142,7 @@ const Agents = ({match, location}) => {
                             onBlur={(e) => setFilter({...filter, lga: e.target.value})}
                             value={filter.lga}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
-                            disabled={agentState.loading}
+                            disabled={agentState.loading || agentState.agents?.length <= 0}
                         >
                             <option value='' disabled>All Lgas</option>
                             {lgas.map(lga => (<option key={lga.id} value={lga.id}>{lga.name}</option>))}
@@ -162,8 +162,6 @@ const Agents = ({match, location}) => {
                             name="polling-unit" 
                             onChange={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
                             onBlur={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
-                            // onChange={(e) => console.log(e.target.value)}
-                            // value={filter["polling-unit"]}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                             disabled={agentState.loading || !filter.ward}
                         >
