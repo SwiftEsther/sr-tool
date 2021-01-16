@@ -103,13 +103,12 @@ const Agents = ({match, location}) => {
     }
 
     const onPageChanged = data => {
-        // const { allCountries } = this.state;
-        // const { currentPage, totalPages, pageLimit } = data;
-        // const offset = (currentPage - 1) * pageLimit;
-        // const currentCountries = allCountries.slice(offset, offset + pageLimit);
-
-        // this.setState({ currentPage, currentCountries, totalPages });
-        console.log('Page changed',data)
+        const allAgents = agentState.agents;
+        const { currentPage, pageLimit } = data;
+        const offset = (currentPage - 1) * pageLimit;
+        const agents = allAgents?.slice(offset, offset + pageLimit);
+        setCurrentPage(currentPage);
+        setCurrentAgents(agents);
     }
 
     useEffect(() => {
