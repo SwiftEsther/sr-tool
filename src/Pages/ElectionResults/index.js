@@ -25,6 +25,17 @@ const Results = ({match, location}) => {
     const handleChange = (event) => {
         setSearch(event.target.value);
     }
+    const headers = [
+        { label: 'Voting Level', key: 'votingLevel.name' },
+        { label: 'Senatorial District', key: 'senatorialDistrict.name' },
+        { label: 'Local Government Area', key: 'lga.name' },
+        { label: 'Ward', key: 'ward.name' },
+        { label: 'Polling Unit', key: 'pollingUnit.name' },
+        { label: 'ANPP', key: 'resultPerParties[0].voteCount' },
+        { label: 'APC', key: 'resultPerParties[1].voteCount' },
+        { label: 'Others', key: 'resultPerParties[2].voteCount' },
+        { label: 'PDP', key: 'resultPerParties[3].voteCount' },
+    ];
 
     const filterData = (id,type) => {
         const url = `${filterResults}/${type}`;
@@ -190,7 +201,7 @@ const Results = ({match, location}) => {
                 {!resultState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_RESULT" action_success="UPLOAD_RESULT_SUCCESS" action_error="UPLOAD_RESULT_FAILURE" url={uploadResult} refresh={getAllResults}/>
-                        {resultState.response?.results?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_RESULT_SUCCESS" />}
+                        {resultState.response?.results?.length > 0 &&  <Downloader dispatch={dispatch} action="DOWNLOAD_RESULT_SUCCESS" headers={headers} data={resultState.response?.results || []} filename={'election_results.csv'} /> }
                     </div>
                     {resultState.results.length > 0 && <div>
                         <Pagination totalRecords={resultState.results.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
