@@ -7,7 +7,7 @@ import { showToast } from '../../helpers/showToast';
 import {ReactComponent as BarChart} from '../../shared/assets/bar-chart.svg';
 import {ReactComponent as Rectangle} from '../../shared/assets/rectangle-3.svg';
  
- const Login = () => {
+ const Login = ({history}) => {
      const [authState, dispatch] = useContext(AuthContext);
      const handleLogin = (values, {setSubmitting}) => {
          dispatch({type: 'LOGIN'});
@@ -16,12 +16,24 @@ import {ReactComponent as Rectangle} from '../../shared/assets/rectangle-3.svg';
             .then((res) => {
                 dispatch({type: 'LOGIN_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
+                localStorage.setItem('access_token', res.token)
+                history.push('/results')
+                
             })
             .catch((err) => {
                 dispatch({type: 'LOGIN_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
                 setSubmitting(false);
             });
+            // .then((res) => {
+            //     dispatch({type: 'LOGIN_SUCCESS', payload: {response: res}});
+            //     setSubmitting(false);
+            // })
+            // .catch((err) => {
+            //     dispatch({type: 'LOGIN_FAILURE', payload: {error: err}});
+            //     showToast('error', 'Something went wrong. Please try again later')
+            //     setSubmitting(false);
+            // });
      }
       return (
         <div className="login-screen h-screen flex justify-center items-center">

@@ -90,7 +90,7 @@ function App() {
 
         <Route path="/incidents/create"  render ={routerProps => <IncidentController><CreateIncident {...routerProps}/></IncidentController>} />
         <Route path="/incidents/:id" render ={routerProps => <IncidentController><UpdateIncident {...routerProps}/></IncidentController>} />
-        <Route path="/incidents"  render ={routerProps => <IncidentController><Incidents {...routerProps}/></IncidentController>} />
+        <AuthenticatedRoute path="/incidents" isLoggedIn={userState.isLoggedIn} component ={routerProps => <IncidentController><Incidents {...routerProps}/></IncidentController>} />
 
         <Route path="/dashboard/results"  render ={routerProps => <ResultController><ResultDashboard {...routerProps}/></ResultController>} />
         <Route path="/dashboard/incidents"  render ={routerProps => <IncidentController>

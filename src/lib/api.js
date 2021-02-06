@@ -1,20 +1,20 @@
 import axios from 'axios';
 
 const baseApiCall = async (attrs) => {
+  let token = localStorage.getItem('access_token');
   let headers = {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
   };
 
-  let token = localStorage.getItem('access_token');
+  console.log(token)
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
-
+  console.log(headers)
   const axiosInstance = axios.create({
     headers,
   });
-
   return axiosInstance;
 };
 
