@@ -4,6 +4,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 import {login} from '../../lib/url.js';
 import {apiRequest} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
+import {ReactComponent as BarChart} from '../../shared/assets/bar-chart.svg';
+import {ReactComponent as Rectangle} from '../../shared/assets/rectangle-3.svg';
  
  const Login = () => {
      const [authState, dispatch] = useContext(AuthContext);
@@ -22,8 +24,10 @@ import { showToast } from '../../helpers/showToast';
             });
      }
       return (
-        <div className="bg-red-300 h-screen flex justify-center items-center">
-            <div className="xl:w-3.5/10 lg:w-6/12 xs:w-9/10 text-center">
+        <div className="login-screen h-screen flex justify-center items-center">
+            <span className="absolute left-0 top-0"><Rectangle /></span>
+            <div className="xl:w-3.5/10 lg:w-6/12 xs:w-9/10 text-center relative">
+            <span className="absolute -left-48 -top-24"><BarChart /></span>
                 <h1 className="text-5xl md:text-6.5xl text-primary font-bold mb-6">Welcome Back</h1>
                     <div className="shadow-sm p-8 md:p-16 bg-white">
                         <Formik
@@ -60,7 +64,7 @@ import { showToast } from '../../helpers/showToast';
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.username}
-                                            className="w-full border-b border-primary py-2 focus:outline-none bg-transparent placeholder-lightGray font-medium text-sm"
+                                            className="w-full border-b border-primary p-2 focus:outline-none bg-transparent placeholder-lightGray font-medium text-sm"
                                             placeholder="Username"
                                         />
                                         {errors.username && touched.username && <span className="text-xs text-red-600">{errors.username}</span>}
@@ -72,7 +76,7 @@ import { showToast } from '../../helpers/showToast';
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.password}
-                                            className="w-full border-b border-primary py-2 focus:outline-none bg-transparent placeholder-lightGray font-medium text-sm"
+                                            className="w-full border-b border-primary p-2 focus:outline-none bg-transparent placeholder-lightGray font-medium text-sm"
                                             placeholder="Password"
                                         />
                                         {errors.password && touched.password && <span className="text-xs text-red-600">{errors.password}</span>}

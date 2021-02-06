@@ -2,6 +2,17 @@ body {
   font-family: Gelion;
 }
 
+/* Login screen */
+.login-screen {
+  background: url(./shared/assets/triangle.svg);
+  background-size: cover;
+}
+
+.login-screen .inner {
+  /* background: url(./shared/assets/bar-chart.svg) -100% 0 no-repeat; */
+  /* background-size: cover; */
+}
+
 /* Sidenav styles */
 .side-nav {
   width: 0;
