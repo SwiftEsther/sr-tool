@@ -60,6 +60,7 @@ function App() {
         <Route path="/users/create" render ={routerProps => <UserController><CreateUser {...routerProps}/></UserController>} />
         <Route path="/users/:id" render ={routerProps => <UserController><UpdateUser {...routerProps}/></UserController>} />
         <Route path="/users"  render ={routerProps => <UserController><Users {...routerProps}/></UserController>} />
+        
         <Route path="/territories/states/create"  render ={routerProps => <StateController><CreateState {...routerProps}/></StateController>} />
         <Route path="/territories/states/:id" render ={routerProps => <StateController><UpdateState {...routerProps}/></StateController>} />
         <Route path="/territories/states"  render ={routerProps => <StateController><States {...routerProps}/></StateController>} />
@@ -72,24 +73,42 @@ function App() {
         <Route path="/territories/wards/:id" render ={routerProps => <WardController><UpdateWard {...routerProps}/></WardController>} />
         <Route path="/territories/wards"  render ={routerProps => <WardController><Wards {...routerProps}/></WardController>} />
 
-        <Route path="/territories/polling-units/create"  render ={routerProps => <PUController><CreatePollingUnit {...routerProps}/></PUController>} />
+        <AuthenticatedRoute path="/polling-units/create" component ={routerProps => <PUController><CreatePollingUnit {...routerProps}/></PUController>} />
+        <AuthenticatedRoute path="/polling-units/:id" component ={routerProps => <PUController><UpdatePollingUnit {...routerProps}/></PUController>} />
+        <AuthenticatedRoute path="/polling-units" component ={routerProps => <PUController><PollingUnits {...routerProps}/></PUController>} />
+
+        {/* <Route path="/territories/polling-units/create"  render ={routerProps => <PUController><CreatePollingUnit {...routerProps}/></PUController>} />
         <Route path="/territories/polling-units/:id" render ={routerProps => <PUController><UpdatePollingUnit {...routerProps}/></PUController>} />
-        <Route path="/territories/polling-units"  render ={routerProps => <PUController><PollingUnits {...routerProps}/></PUController>} />
+        <Route path="/territories/polling-units"  render ={routerProps => <PUController><PollingUnits {...routerProps}/></PUController>} /> */}
+        
+        <AuthenticatedRoute path="/parties/create" component ={routerProps => <PartyController><CreateParty {...routerProps}/></PartyController>} />
+        <AuthenticatedRoute path="/parties/:id" component ={routerProps => <PartyController><UpdateParty {...routerProps}/></PartyController>} />
+        <AuthenticatedRoute path="/parties" component ={routerProps => <PartyController><Parties {...routerProps}/></PartyController>} />
 
-        <Route path="/parties/create"  render ={routerProps => <PartyController><CreateParty {...routerProps}/></PartyController>} />
+        {/* <Route path="/parties/create"  render ={routerProps => <PartyController><CreateParty {...routerProps}/></PartyController>} />
         <Route path="/parties/:id" render ={routerProps => <PartyController><UpdateParty {...routerProps}/></PartyController>} />
-        <Route path="/parties"  render ={routerProps => <PartyController><Parties {...routerProps}/></PartyController>} />
+        <Route path="/parties"  render ={routerProps => <PartyController><Parties {...routerProps}/></PartyController>} /> */}
 
-        <Route path="/agents/create"  render ={routerProps => <AgentController><CreateAgent {...routerProps}/></AgentController>} />
+        <AuthenticatedRoute path="/agents/create" component ={routerProps => <AgentController><CreateAgent {...routerProps}/></AgentController>} />
+        <AuthenticatedRoute path="/agents/:id" component ={routerProps => <AgentController><UpdateAgent {...routerProps}/></AgentController>} />
+        <AuthenticatedRoute path="/agents" component ={routerProps => <AgentController><Agents {...routerProps}/></AgentController>} />
+
+        {/* <Route path="/agents/create"  render ={routerProps => <AgentController><CreateAgent {...routerProps}/></AgentController>} />
         <Route path="/agents/:id" render ={routerProps => <AgentController><UpdateAgent {...routerProps}/></AgentController>} />
-        <Route path="/agents"  render ={routerProps => <AgentController><Agents {...routerProps}/></AgentController>} />
+        <Route path="/agents"  render ={routerProps => <AgentController><Agents {...routerProps}/></AgentController>} /> */}
 
-        <Route path="/results/create"  render ={routerProps => <ResultController><CreateResult {...routerProps}/></ResultController>} />
+        {/* <Route path="/results/create"  render ={routerProps => <ResultController><CreateResult {...routerProps}/></ResultController>} />
         <Route path="/results/:id" render ={routerProps => <ResultController><UpdateResult {...routerProps}/></ResultController>} />
-        <Route path="/results"  render ={routerProps => <ResultController><Results {...routerProps}/></ResultController>} />
+        <Route path="/results"  render ={routerProps => <ResultController><Results {...routerProps}/></ResultController>} /> */}
 
-        <Route path="/incidents/create"  render ={routerProps => <IncidentController><CreateIncident {...routerProps}/></IncidentController>} />
-        <Route path="/incidents/:id" render ={routerProps => <IncidentController><UpdateIncident {...routerProps}/></IncidentController>} />
+        <AuthenticatedRoute path="/results/create" component ={routerProps => <ResultController><CreateResult {...routerProps}/></ResultController>} />
+        <AuthenticatedRoute path="/results/:id" component ={routerProps => <ResultController><UpdateResult {...routerProps}/></ResultController>} />
+        <AuthenticatedRoute path="/results" component ={routerProps => <ResultController><Results {...routerProps}/></ResultController>} />
+
+        {/* <Route path="/incidents/create"  render ={routerProps => <IncidentController><CreateIncident {...routerProps}/></IncidentController>} />
+        <Route path="/incidents/:id" render ={routerProps => <IncidentController><UpdateIncident {...routerProps}/></IncidentController>} /> */}
+        <AuthenticatedRoute path="/incidents/create" component ={routerProps => <IncidentController><CreateIncident {...routerProps}/></IncidentController>} />
+        <AuthenticatedRoute path="/incidents/:id" component ={routerProps => <IncidentController><UpdateIncident {...routerProps}/></IncidentController>} />
         <AuthenticatedRoute path="/incidents" component ={routerProps => <IncidentController><Incidents {...routerProps}/></IncidentController>} />
 
         <Route path="/dashboard/results"  render ={routerProps => <ResultController><ResultDashboard {...routerProps}/></ResultController>} />

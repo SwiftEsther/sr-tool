@@ -5,7 +5,10 @@ import { AuthContext } from '../contexts/AuthContext';
 const AuthenticatedRoute = ({component: Component, isLoggedIn, ...rest}) => {
   const [userState, dispatch] = useContext(AuthContext);
   useEffect(() => {
-    if(!userState.isLoggedIn) localStorage.multiRemove(['user', 'access_token']);
+    // if(!userState.isLoggedIn) localStorage.multiRemove(['user', 'access_token']);
+    if(!userState.isLoggedIn){
+      localStorage.clear();
+    }
   }, [userState.isLoggedIn])
   return (
     <Route
