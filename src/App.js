@@ -1,7 +1,7 @@
 import './App.css';
 import "./styles/main.css";
 import 'react-toastify/dist/ReactToastify.css';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import Modal from 'react-modal';
 import Users from './Pages/Users';
 import Login from './Pages/Login/Login';
@@ -90,7 +90,7 @@ function App() {
 
         <Route path="/incidents/create"  render ={routerProps => <IncidentController><CreateIncident {...routerProps}/></IncidentController>} />
         <Route path="/incidents/:id" render ={routerProps => <IncidentController><UpdateIncident {...routerProps}/></IncidentController>} />
-        <AuthenticatedRoute path="/incidents" isLoggedIn={userState.isLoggedIn} component ={routerProps => <IncidentController><Incidents {...routerProps}/></IncidentController>} />
+        <AuthenticatedRoute path="/incidents" component ={routerProps => <IncidentController><Incidents {...routerProps}/></IncidentController>} />
 
         <Route path="/dashboard/results"  render ={routerProps => <ResultController><ResultDashboard {...routerProps}/></ResultController>} />
         <Route path="/dashboard/incidents"  render ={routerProps => <IncidentController>
