@@ -8,6 +8,7 @@ import { showToast } from '../../helpers/showToast';
 import { PartyContext } from "../../contexts/PartyContext";
 import PartyList from "./PartyList";
 import Pagination from "../../shared/components/Pagination";
+import PartyIcon from "../../shared/assets/icons/PartyIcon";
 
 const Parties = ({match, location}) => {
     const [search, setSearch] = useState('');
@@ -17,7 +18,6 @@ const Parties = ({match, location}) => {
 
     const handleChange = (event) => {
         setSearch(event.target.value);
-        console.log(event.target.value)
     }
 
     const handleSearch = () => {
@@ -25,6 +25,7 @@ const Parties = ({match, location}) => {
          apiRequest(filterPartyByName, 'get', {params: {name: search}})
             .then((res) => {
                 dispatch({type: 'SEARCH_PARTY_BY_NAME_SUCCESS', payload: {response: res}});
+                console.log(res.politicalParties.slice(0, 11));
                 setCurrentParties(res.politicalParties.slice(0, 11));
                 showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
@@ -71,8 +72,9 @@ const Parties = ({match, location}) => {
                 <div className="my-6 shadow-container pl-2.5 lg:pr-7 pr-2.5 py-6">
                     <div className="lg:flex justify-between px-1 mt-16">
                         <div className="xl:w-8/10 lg:w-6/10 flex items-center px-1 w-full">
-                            <div className="w-7/10">
-                                <input className="border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search parties by code"/>
+                            <div className="w-7/10 flex items-center relative">
+                                <input className="search-input border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search parties by code"/>
+                                <span className="absolute right-12" onClick={getAllParties}><PartyIcon /></span>
                             </div>
                             <div className="w-3/10">
                                 <button disabled={search.length < 1} className="bg-primary button-padding py-3.5 text-white font-bold rounded-lg focus:outline-none" onClick={handleSearch}>
