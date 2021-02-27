@@ -151,8 +151,8 @@ const StateList = ({states, loading, getStates}) => {
                             <img src={state.svgUrl ? `${baseUrl}/api/v${version}${state.svgUrl}`: Map} alt="state map" width="38px" height="41px"/>
                         </div>
                         <div className="table-row-data w-2/10">
-                            <input type="radio" id="stateRadio"
-                                name="defaultState" value={state.defaultState} onChange={() => triggerSetDefault(state)} />
+                            <input type="radio" id={`stateRadio_${state.id}`}
+                                name={`defaultState_${state.id}`} value={state.defaultState} checked={state.defaultState} onChange={() => triggerSetDefault(state)} />
                         </div>
                         <div className="table-row-data w-2/10"> 
                             <span data-tip data-for={`ellipsis-state-${state.id}`} data-event='click'>
