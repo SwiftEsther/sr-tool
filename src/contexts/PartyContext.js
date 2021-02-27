@@ -124,6 +124,7 @@ const partyReducer = (state, action) => {
         loading: false,
         success: true,
         response: action.payload.response,
+        parties: action.payload.response.politicalParties
       };
     case 'SEARCH_PARTY_BY_NAME_FAILURE':
       return {
