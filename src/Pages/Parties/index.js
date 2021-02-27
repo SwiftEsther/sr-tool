@@ -73,8 +73,8 @@ const Parties = ({match, location}) => {
                     <div className="lg:flex justify-between px-1 mt-16">
                         <div className="xl:w-8/10 lg:w-6/10 flex items-center px-1 w-full">
                             <div className="w-7/10 flex items-center relative">
-                                <input className="search-input border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search parties by code"/>
-                                <span className="absolute right-12" onClick={getAllParties}><PartyIcon /></span>
+                                <input className="search-input border border-primary rounded-sm w-9.5/10 py-3 px-2 focus:outline-none" name="search" type="text" value={search} onChange={handleChange} placeholder="Search parties by name"/>
+                                <span className="absolute right-12 cursor-pointer" onClick={getAllParties}>Clear</span>
                             </div>
                             <div className="w-3/10">
                                 <button disabled={search.length < 1} className="bg-primary button-padding py-3.5 text-white font-bold rounded-lg focus:outline-none" onClick={handleSearch}>
