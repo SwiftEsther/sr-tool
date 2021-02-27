@@ -122,6 +122,12 @@ const Results = ({match, location}) => {
             });}
     }
 
+    const clearFilter = () => {
+        setFilter({lga: '', ward: '', 'polling-unit': ''});
+        setSearch("");
+        getAllResults();
+    }
+
     useEffect(() => {
         getAllResults();
         getLgas();
@@ -174,12 +180,14 @@ const Results = ({match, location}) => {
                             name="polling-unit" 
                             onChange={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
                             onBlur={(e) => setFilter({...filter, 'polling-unit': e.target.value})}
+                            value={filter["polling-unit"]}
                             className="w-full border border-primary rounded-sm py-4 px-2 focus:outline-none bg-transparent placeholder-darkerGray font-medium text-sm"
                             disabled={resultState.loading || !filter.ward}
                         >
                             <option value='' disabled>All Polling Units</option>
                             {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.id}>{pollingUnit.name}</option>))}
                         </select>
+                        <div className="cursor-pointer" onClick={clearFilter}>clear</div>
                     </div>
                     <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
                     <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/results/create">
