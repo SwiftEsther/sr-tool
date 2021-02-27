@@ -73,9 +73,9 @@ function App() {
         <Route path="/territories/wards/:id" render ={routerProps => <WardController><UpdateWard {...routerProps}/></WardController>} />
         <Route path="/territories/wards"  render ={routerProps => <WardController><Wards {...routerProps}/></WardController>} />
 
-        <AuthenticatedRoute path="/polling-units/create" component ={routerProps => <PUController><CreatePollingUnit {...routerProps}/></PUController>} />
-        <AuthenticatedRoute path="/polling-units/:id" component ={routerProps => <PUController><UpdatePollingUnit {...routerProps}/></PUController>} />
-        <AuthenticatedRoute path="/polling-units" component ={routerProps => <PUController><PollingUnits {...routerProps}/></PUController>} />
+        <AuthenticatedRoute path="/territories/polling-units/create" component ={routerProps => <PUController><CreatePollingUnit {...routerProps}/></PUController>} />
+        <AuthenticatedRoute path="/territories/polling-units/:id" component ={routerProps => <PUController><UpdatePollingUnit {...routerProps}/></PUController>} />
+        <AuthenticatedRoute path="/territories/polling-units" component ={routerProps => <PUController><PollingUnits {...routerProps}/></PUController>} />
 
         {/* <Route path="/territories/polling-units/create"  render ={routerProps => <PUController><CreatePollingUnit {...routerProps}/></PUController>} />
         <Route path="/territories/polling-units/:id" render ={routerProps => <PUController><UpdatePollingUnit {...routerProps}/></PUController>} />
