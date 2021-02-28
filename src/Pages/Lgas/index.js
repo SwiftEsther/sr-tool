@@ -25,6 +25,13 @@ const Lgas = ({match, location}) => {
         setSearch(event.target.value);
     }
 
+    const headers = [
+        { label: 'Local Government Area', key: 'lga.name' },
+        { label: 'Senatorial District', key: 'senatorialDistrict.name' },
+        { label: 'State', key: 'lga.state.name' },
+        { label: 'Number', key: 'lga.code' }
+    ];
+
     const filterData = (e) => {
         const name = e.currentTarget.name;
         const value = e.currentTarget.value;
@@ -136,7 +143,7 @@ const Lgas = ({match, location}) => {
                     <div className="flex justify-between items-center mt-4">
                         <div className="flex">
                             <Uploader dispatch={dispatch} action="UPLOAD_LGA" action_success="UPLOAD_LGA_SUCCESS" action_error="UPLOAD_LGA_FAILURE" url={uploadLga} refresh={getAllLgas}/>
-                            {lgaState.response?.lgas?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_LGA_SUCCESS" />}
+                            {lgaState.response?.lgas?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_LGA_SUCCESS" headers={headers} data={lgaState.response?.lgas || []} filename={'lgas.csv'} /> }
                         </div>
                         {lgaState.response?.lgas?.length > 0 && <div>
                         <Pagination totalRecords={lgaState.response?.lgas?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
