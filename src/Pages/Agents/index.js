@@ -26,6 +26,15 @@ const Agents = ({match, location}) => {
         setSearch(event.target.value);
     }
 
+    const headers = [
+        { label: 'First Name', key: 'firstname' },
+        { label: 'Last Name', key: 'lastname' },
+        { label: 'Local Government Area', key: 'lga?.name' },
+        { label: 'Ward', key: 'ward?.name' },
+        { label: 'Polling Unit', key: 'pollingUnit?.name' },
+        { label: 'Phone Number', key: 'phone' }
+    ];
+
     const filterData = (id,type) => {
         const url = `${filterAgents}/${type}`;
         setFilter({...filter, [type]: id});
@@ -189,7 +198,8 @@ const Agents = ({match, location}) => {
                 {!agentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_AGENT" action_success="UPLOAD_AGENT_SUCCESS" action_error="UPLOAD_AGENT_FAILURE" url={uploadAgent} refresh={getAllAgents}/>
-                            {agentState.response?.agents?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_AGENT_SUCCESS" />}
+                            {/* {agentState.response?.agents?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_AGENT_SUCCESS" />} */}
+                            {agentState.response?.agents?.length > 0 &&  <Downloader dispatch={dispatch} action="DOWNLOAD_AGENT_SUCCESS" headers={headers} data={agentState.response?.agents || []} filename={'agents.csv'} /> }
                     </div>
                     {agentState.agents.length > 0 && <div>
                         <Pagination totalRecords={agentState.agents?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
