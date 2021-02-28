@@ -9,6 +9,7 @@ import axios from 'axios';
 
 const CreateState = ({match, history, location}) => {
     const [state, dispatch] = useContext(StateContext);
+    let token = localStorage.getItem('access_token');
     const handleCreate = async(e, values, setSubmitting) => {
         e.preventDefault();
         console.log('vs;',values)
@@ -24,7 +25,8 @@ const CreateState = ({match, history, location}) => {
              url: createState,
              data: formData,
              headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
              }
          })
             .then((res) => {
