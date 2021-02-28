@@ -60,18 +60,30 @@ function App() {
         <Route path="/users/create" render ={routerProps => <UserController><CreateUser {...routerProps}/></UserController>} />
         <Route path="/users/:id" render ={routerProps => <UserController><UpdateUser {...routerProps}/></UserController>} />
         <Route path="/users"  render ={routerProps => <UserController><Users {...routerProps}/></UserController>} />
+
+        <AuthenticatedRoute path="/territories/states/create" component ={routerProps => <StateController><CreateState {...routerProps}/></StateController>} />
+        <AuthenticatedRoute path="/territories/states/:id" component ={routerProps => <StateController><UpdateState {...routerProps}/></StateController>} />
+        <AuthenticatedRoute path="/territories/states" component ={routerProps => <StateController><States {...routerProps}/></StateController>} />
         
-        <Route path="/territories/states/create"  render ={routerProps => <StateController><CreateState {...routerProps}/></StateController>} />
+        {/* <Route path="/territories/states/create"  render ={routerProps => <StateController><CreateState {...routerProps}/></StateController>} />
         <Route path="/territories/states/:id" render ={routerProps => <StateController><UpdateState {...routerProps}/></StateController>} />
-        <Route path="/territories/states"  render ={routerProps => <StateController><States {...routerProps}/></StateController>} />
+        <Route path="/territories/states"  render ={routerProps => <StateController><States {...routerProps}/></StateController>} /> */}
 
-        <Route path="/territories/lgas/create"  render ={routerProps => <LgaController><CreateLga {...routerProps}/></LgaController>} />
+        <AuthenticatedRoute path="/territories/lgas/create" component ={routerProps => <LgaController><CreateLga {...routerProps}/></LgaController>} />
+        <AuthenticatedRoute path="/territories/lgas/:id" component ={routerProps => <LgaController><UpdateLga {...routerProps}/></LgaController>} />
+        <AuthenticatedRoute path="/territories/lgas" component ={routerProps => <LgaController><Lgas {...routerProps}/></LgaController>} />
+
+        {/* <Route path="/territories/lgas/create"  render ={routerProps => <LgaController><CreateLga {...routerProps}/></LgaController>} />
         <Route path="/territories/lgas/:id" render ={routerProps => <LgaController><UpdateLga {...routerProps}/></LgaController>} />
-        <Route path="/territories/lgas"  render ={routerProps => <LgaController><Lgas {...routerProps}/></LgaController>} />
+        <Route path="/territories/lgas"  render ={routerProps => <LgaController><Lgas {...routerProps}/></LgaController>} /> */}
 
-        <Route path="/territories/wards/create"  render ={routerProps => <WardController><CreateWard {...routerProps}/></WardController>} />
+        <AuthenticatedRoute path="/territories/wards/create" component ={routerProps => <WardController><CreateWard {...routerProps}/></WardController>} />
+        <AuthenticatedRoute path="/territories/wards/:id" component ={routerProps => <WardController><UpdateWard {...routerProps}/></WardController>} />
+        <AuthenticatedRoute path="/territories/wards" component ={routerProps => <WardController><Wards {...routerProps}/></WardController>} />
+
+        {/* <Route path="/territories/wards/create"  render ={routerProps => <WardController><CreateWard {...routerProps}/></WardController>} />
         <Route path="/territories/wards/:id" render ={routerProps => <WardController><UpdateWard {...routerProps}/></WardController>} />
-        <Route path="/territories/wards"  render ={routerProps => <WardController><Wards {...routerProps}/></WardController>} />
+        <Route path="/territories/wards"  render ={routerProps => <WardController><Wards {...routerProps}/></WardController>} /> */}
 
         <AuthenticatedRoute path="/territories/polling-units/create" component ={routerProps => <PUController><CreatePollingUnit {...routerProps}/></PUController>} />
         <AuthenticatedRoute path="/territories/polling-units/:id" component ={routerProps => <PUController><UpdatePollingUnit {...routerProps}/></PUController>} />
@@ -111,9 +123,12 @@ function App() {
         <AuthenticatedRoute path="/incidents/:id" component ={routerProps => <IncidentController><UpdateIncident {...routerProps}/></IncidentController>} />
         <AuthenticatedRoute path="/incidents" component ={routerProps => <IncidentController><Incidents {...routerProps}/></IncidentController>} />
 
-        <Route path="/dashboard/results"  render ={routerProps => <ResultController><ResultDashboard {...routerProps}/></ResultController>} />
+        {/* <Route path="/dashboard/results"  render ={routerProps => <ResultController><ResultDashboard {...routerProps}/></ResultController>} />
         <Route path="/dashboard/incidents"  render ={routerProps => <IncidentController>
-        <IncidentDashboard {...routerProps}/></IncidentController>} />
+        <IncidentDashboard {...routerProps}/></IncidentController>} /> */}
+
+        <AuthenticatedRoute path="/dashboard/results" component ={routerProps => <ResultController><ResultDashboard {...routerProps}/></ResultController>} />
+        <AuthenticatedRoute path="/dashboard/incidents" component ={routerProps => <IncidentController><IncidentDashboard {...routerProps}/></IncidentController>} />
       </Switch>
     </>
   );
