@@ -21,6 +21,13 @@ const Wards = ({match, location}) => {
     const [lgas, setLgas] = useState([]);
     const [currentWards, setCurrentWards] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const headers = [
+        { label: 'Ward', key: 'ward.name' },
+        { label: 'LGA', key: 'ward.lga?.name' },
+        { label: 'Senatorial District', key: 'ward.senatorialDistrict?.name' },
+        { label: 'State', key: 'ward.state?.name' },
+        { label: 'Number', key: 'ward.code' }
+    ];
 
     const handleChange = (event) => {
         setSearch(event.target.value);
@@ -146,7 +153,7 @@ const Wards = ({match, location}) => {
                 <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_WARD" action_success="UPLOAD_WARD_SUCCESS" action_error="UPLOAD_WARD_FAILURE" url={uploadWard} refresh={getAllWards}/>
-                        {wardState.response?.wards?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_WARD_SUCCESS" />}
+                        {wardState.response?.wards?.length > 0 &&  <Downloader dispatch={dispatch} action="DOWNLOAD_WARD_SUCCESS" headers={headers} data={wardState.response?.wards || []} filename={'wards.csv'} /> }
                     </div>
                     {wardState.response?.wards?.length > 0 && <div>
                         <Pagination totalRecords={wardState.response?.wards?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
