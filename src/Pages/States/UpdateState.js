@@ -10,6 +10,7 @@ import axios from 'axios';
 
 const UpdateState = ({match, location, history}) => {
     console.log(location)
+    let token = localStorage.getItem('access_token');
     const [state, dispatch] = useContext(StateContext);
     const [currentState, setCurrentState] = useState(location.state?.state);
 
@@ -28,7 +29,8 @@ const UpdateState = ({match, location, history}) => {
              url: `${updateState}/${currentState.id}`,
              data: formData,
              headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
              }
          })
             .then((res) => {
