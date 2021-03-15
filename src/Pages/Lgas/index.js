@@ -26,10 +26,10 @@ const Lgas = ({match, location}) => {
     }
 
     const headers = [
-        { label: 'Local Government Area', key: 'lga.name' },
+        { label: 'Local Government Area', key: 'name' },
         { label: 'Senatorial District', key: 'senatorialDistrict.name' },
-        { label: 'State', key: 'lga.state.name' },
-        { label: 'Number', key: 'lga.code' }
+        { label: 'State', key: 'state.name' },
+        { label: 'Number', key: 'code' }
     ];
 
     const filterData = (e) => {

@@ -26,6 +26,16 @@ const Incidents = ({match, location}) => {
         setSearch(event.target.value);
     }
 
+    const headers = [
+        { label: 'Incident Type', key: 'incidentType.name' },
+        { label: 'Incident Status', key: 'incidentStatus.name' },
+        { label: 'Local Government Area', key: 'lga.name' },
+        { label: 'Ward', key: 'ward.name' },
+        { label: 'Polling Unit', key: 'pollingUnit.name' },
+        { label: 'Location', key: 'reportedLocation' },
+        { label: 'Phone number to contact', key: 'phoneNumberToContact' }
+    ];
+
     const filterData = (e) => {
         const name = e.currentTarget.name;
         const value = e.currentTarget.value;
@@ -146,7 +156,7 @@ const Incidents = ({match, location}) => {
                 {!incidentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_INCIDENT" action_success="UPLOAD_INCIDENT_SUCCESS" action_error="UPLOAD_INCIDENT_FAILURE" url={uploadIncident} refresh={getAllIncidents}/>
-                        {incidentState.incidents?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_INCIDENTS_SUCCESS" data={incidentState.incidents || []} filename={'incidents.csv'} />}
+                        {incidentState.incidents?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_INCIDENTS_SUCCESS" headers={headers} data={incidentState.incidents || []} location={location} filename={'election_incidents.csv'} />}
                     </div>
                     {incidentState.incidents?.length > 0 && <div>
                         <Pagination totalRecords={incidentState.incidents.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />

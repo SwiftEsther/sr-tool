@@ -22,11 +22,11 @@ const Wards = ({match, location}) => {
     const [currentWards, setCurrentWards] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const headers = [
-        { label: 'Ward', key: 'ward.name' },
-        { label: 'LGA', key: 'ward.lga?.name' },
-        { label: 'Senatorial District', key: 'ward.senatorialDistrict?.name' },
-        { label: 'State', key: 'ward.state?.name' },
-        { label: 'Number', key: 'ward.code' }
+        { label: 'Ward', key: 'name' },
+        { label: 'Local Government Area', key: 'lga.name' },
+        { label: 'Senatorial District', key: 'senatorialDistrict.name' },
+        { label: 'State', key: 'state.name' },
+        { label: 'Number', key: 'code' }
     ];
 
     const handleChange = (event) => {
