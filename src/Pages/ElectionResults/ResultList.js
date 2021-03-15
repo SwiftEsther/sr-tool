@@ -35,7 +35,7 @@ const ResultList = ({results, loading, getResults}) => {
             .then((res) => {
                 dispatch({type: 'DELETE_RESULT_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getResults();
             })
             .catch((err) => {

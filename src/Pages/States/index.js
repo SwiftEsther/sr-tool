@@ -26,7 +26,7 @@ const States = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'SEARCH_STATE_BY_NAME_SUCCESS', payload: {response: res}});
                 setCurrentStates([res.state]);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_STATE_BY_NAME_FAILURE', payload: {error: err}});
@@ -67,7 +67,7 @@ const States = ({match, location}) => {
                 }
                     dispatch({type: 'GET_STATES_SUCCESS', payload: {response: res}});
                 setCurrentStates(res.states.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_STATES_FAILURE', payload: {error: err}});

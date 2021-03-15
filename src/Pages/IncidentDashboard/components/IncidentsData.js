@@ -107,7 +107,7 @@ const IncidentsData = ({data}) => {
          apiRequest(`${getDashboardByState}/6`, 'get')
             .then((res) => {
                 dispatch({type: 'GET_DASHBOARD_BY_STATE_SUCCESS', payload: {response: res}});
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'GET_DASHBOARD_BY_STATE_FAILURE', payload: {error: err}});
@@ -120,7 +120,7 @@ const IncidentsData = ({data}) => {
          apiRequest(`${getDashboardByLga}/4`, 'get')
             .then((res) => {
                 dispatch({type: 'GET_DASHBOARD_BY_LGA_SUCCESS', payload: {response: res}});
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'GET_DASHBOARD_BY_LGA_FAILURE', payload: {error: err}});

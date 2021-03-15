@@ -35,7 +35,7 @@ const PollingUnitList = ({pollingUnits, loading, getPollingUnits}) => {
             .then((res) => {
                 dispatch({type: 'DELETE_POLLING_UNIT_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getPollingUnits();
             })
             .catch((err) => {

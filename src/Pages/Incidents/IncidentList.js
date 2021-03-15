@@ -35,7 +35,7 @@ const IncidentList = ({incidents, loading, getIncidents}) => {
             .then((res) => {
                 dispatch({type: 'DELETE_INCIDENT_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getIncidents();
             })
             .catch((err) => {

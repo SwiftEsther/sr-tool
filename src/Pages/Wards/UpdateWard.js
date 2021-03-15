@@ -34,7 +34,7 @@ const UpdateWard = ({match, location, history}) => {
                 dispatch({type: 'UPDATE_WARD_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/wards");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_WARD_FAILURE', payload: {error: err}});

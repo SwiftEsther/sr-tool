@@ -29,7 +29,7 @@ const CreateIncident = ({match, location, history}) => {
                 dispatch({type: 'CREATE_INCIDENT_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/incidents");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_INCIDENT_FAILURE', payload: {error: err}});

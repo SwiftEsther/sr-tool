@@ -52,7 +52,7 @@ const PollingUnits = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'SEARCH_POLLING_UNIT_BY_NAME_SUCCESS', payload: {response: res}});
                 setCurrentPollingUnits(res.pollingUnits.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_POLLING_UNIT_BY_NAME_FAILURE', payload: {error: err}});
@@ -75,7 +75,7 @@ const PollingUnits = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'GET_POLLING_UNITS_SUCCESS', payload: {response: res}});
                 setCurrentPollingUnits(res.pollingUnits.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_POLLING_UNITS_FAILURE', payload: {error: err}});

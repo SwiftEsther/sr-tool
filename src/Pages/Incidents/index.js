@@ -76,7 +76,7 @@ const Incidents = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'GET_INCIDENTS_SUCCESS', payload: {response: res}});
                 setCurrentIncidents(res.incidents);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_INCIDENTS_FAILURE', payload: {error: err}});

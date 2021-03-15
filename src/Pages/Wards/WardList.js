@@ -35,7 +35,7 @@ const WardList = ({wards, loading, getWards}) => {
             .then((res) => {
                 dispatch({type: 'DELETE_WARD_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getWards();
             })
             .catch((err) => {

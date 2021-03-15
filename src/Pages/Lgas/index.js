@@ -58,7 +58,7 @@ const Lgas = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'SEARCH_LGA_BY_NAME_SUCCESS', payload: {response: res}});
                 setCurrentLgas(res.lgas.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_LGA_BY_NAME_FAILURE', payload: {error: err}});
@@ -81,7 +81,7 @@ const Lgas = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'GET_LGAS_SUCCESS', payload: {response: res}});
                 setCurrentLgas(res.lgas.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_LGAS_FAILURE', payload: {error: err}});

@@ -19,7 +19,7 @@ const UpdateParty = ({match, location, history}) => {
                 dispatch({type: 'UPDATE_PARTY_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/parties");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);;
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);;
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_PARTY_FAILURE', payload: {error: err}});

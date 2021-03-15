@@ -42,7 +42,7 @@ const UpdateIncident = ({match, location, history}) => {
                 dispatch({type: 'UPDATE_INCIDENT_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/incidents");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_INCIDENT_FAILURE', payload: {error: err}});

@@ -37,7 +37,7 @@ const UpdateState = ({match, location, history}) => {
                 dispatch({type: 'UPDATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/states");
-                showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'State updated successfully'}`);
+                // showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'State updated successfully'}`);
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_STATE_FAILURE', payload: {error: err}});
