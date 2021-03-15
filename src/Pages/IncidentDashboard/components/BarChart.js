@@ -130,30 +130,29 @@ const BarChart = () => {
 
     return (
         <div id="graphic">
-            {/* <svg
+            <svg
                 width = {width + margin.left + margin.right}
                 height = {height + margin.top + margin.bottom}
-            > */}
+            >
                 {/* <g fill="none" fontSize="1rem" fontFamily="GelionBold" textAnchor="end">
                     <path d="M0.5,141.5V0.5" stroke="#000" />
                     {
                         data.map(d => )
                     }
                 </g> */}
-                {/* { */}
-                    {/* data.map(d =>  */}
-                        {/* <> */}
+                {
+                    data.map(d => 
+                        <>
                             {/* <g fill="#000" fontSize="1rem" fontFamily="GelionBold" textAnchor="end"> */}
-                                {/* <text y={y(d.name) + y.bandwidth() / 2 + 4} x={16} >{d.name}</text> */}
+                                <text y={y(d.name) + y.bandwidth() / 2 + 4} x={16} >{d.name}</text>
                             {/* </g> */}
                             
-                            {/* <rect className="bar" width={x(d.value)} height={y.bandwidth()} y={y(d.name)} x={60} fill={parties[d.name]}/>
-                            <text y={y(d.name) + y.bandwidth() / 2 + 4} x={x(d.value) + 70} >{d.value} {`(${percentege(d.value)}%)`}</text> */}
-                        {/* </> */}
-                    {/* )
-                } */}
-            {/* </svg> */}
-            I am working on it
+                            <rect className="bar" width={x(d.value)} height={y.bandwidth()} y={y(d.name)} x={60} fill={parties[d.name]}/>
+                            <text y={y(d.name) + y.bandwidth() / 2 + 4} x={x(d.value) + 70} >{d.value} {`(${percentege(d.value)}%)`}</text>
+                        </>
+                    )
+                }
+            </svg>
         </div>
     );
 }
