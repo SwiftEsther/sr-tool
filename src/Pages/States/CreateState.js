@@ -33,7 +33,7 @@ const CreateState = ({match, history, location}) => {
                 dispatch({type: 'CREATE_STATE_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/states");
-                showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'State created successfully'}`);
+                // showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'State created successfully'}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_STATE_FAILURE', payload: {error: err}});

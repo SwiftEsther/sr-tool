@@ -17,7 +17,7 @@ const CreateParty = ({match, history, location}) => {
                 dispatch({type: 'CREATE_PARTY_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/parties");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_PARTY_FAILURE', payload: {error: err}});

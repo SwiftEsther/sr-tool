@@ -52,7 +52,7 @@ const PollingUnits = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'SEARCH_POLLING_UNIT_BY_NAME_SUCCESS', payload: {response: res}});
                 setCurrentPollingUnits(res.pollingUnits.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_POLLING_UNIT_BY_NAME_FAILURE', payload: {error: err}});
@@ -75,7 +75,7 @@ const PollingUnits = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'GET_POLLING_UNITS_SUCCESS', payload: {response: res}});
                 setCurrentPollingUnits(res.pollingUnits.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_POLLING_UNITS_FAILURE', payload: {error: err}});
@@ -146,7 +146,7 @@ const PollingUnits = ({match, location}) => {
                 <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_POLLING_UNIT" action_success="UPLOAD_POLLING_UNIT_SUCCESS" action_error="UPLOAD_POLLING_UNIT_FAILURE" url={uploadPollingUnit} refresh={getAllPollingUnits}/>
-                            {puState.response?.pollingUnits?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_POLLING_UNIT_SUCCESS" />}
+                            {puState.response?.pollingUnits?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_POLLING_UNIT_SUCCESS" data={puState.response?.pollingUnits || []} filename={'polling_units.csv'}/>}
                     </div>
                     {puState.response?.pollingUnits?.length > 0 && <div>
                         <Pagination totalRecords={puState.response?.pollingUnits?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />

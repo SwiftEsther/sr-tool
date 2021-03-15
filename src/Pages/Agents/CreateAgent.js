@@ -29,7 +29,7 @@ const CreateAgent = ({match, location, history}) => {
                 dispatch({type: 'CREATE_AGENT_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/agents");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_AGENT_FAILURE', payload: {error: err}});

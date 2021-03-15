@@ -38,7 +38,7 @@ const UpdateAgent = ({match, location, history}) => {
                 dispatch({type: 'UPDATE_AGENT_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/agents");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_AGENT_FAILURE', payload: {error: err}});

@@ -35,7 +35,7 @@ const LgaList = ({lgas, loading, getLgas}) => {
             .then((res) => {
                 dispatch({type: 'DELETE_LGA_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getLgas();
             })
             .catch((err) => {

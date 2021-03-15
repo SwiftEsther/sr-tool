@@ -84,7 +84,7 @@ const Results = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'GET_RESULTS_SUCCESS', payload: {response: res}});
                 setCurrentResults(res.results.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_RESULTS_FAILURE', payload: {error: err}});

@@ -25,7 +25,7 @@ const CreatePollingUnit = ({match, history, location}) => {
                 dispatch({type: 'CREATE_POLLING_UNIT_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/polling-units");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_POLLING_UNIT_FAILURE', payload: {error: err}});

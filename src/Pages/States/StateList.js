@@ -43,7 +43,7 @@ const StateList = ({states, loading, getStates}) => {
             .then((res) => {
                 dispatch({type: 'SET_DEFAULT_STATE_SUCCESS', payload: {response: res}});
                 setShowDefault(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getStates();
             })
             .catch((err) => {
@@ -59,7 +59,7 @@ const StateList = ({states, loading, getStates}) => {
             .then((res) => {
                 dispatch({type: 'DELETE_STATE_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getStates();
             })
             .catch((err) => {

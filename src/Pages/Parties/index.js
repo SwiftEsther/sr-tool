@@ -27,7 +27,7 @@ const Parties = ({match, location}) => {
                 dispatch({type: 'SEARCH_PARTY_BY_NAME_SUCCESS', payload: {response: res}});
                 console.log(res.politicalParties.slice(0, 11));
                 setCurrentParties(res.politicalParties.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_PARTY_BY_NAME_FAILURE', payload: {error: err}});
@@ -50,7 +50,7 @@ const Parties = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'GET_PARTIES_SUCCESS', payload: {response: res}});
                 setCurrentParties(res.politicalParties.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_PARTIES_FAILURE', payload: {error: err}});

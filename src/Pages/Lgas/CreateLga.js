@@ -23,7 +23,7 @@ const CreateLga = ({match, history,location}) => {
                 dispatch({type: 'CREATE_LGA_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/lgas");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_LGA_FAILURE', payload: {error: err}});

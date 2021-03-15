@@ -69,7 +69,7 @@ const Uploader = ({dispatch, action, action_success, action_error, url, refresh}
          })
             .then((res) => {
                 dispatch({type: action_success, payload: {response: res}});
-                showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'Data imported successfully'}`);
+                // showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'Data imported successfully'}`);
                 refresh();
             })
             .catch((err) => {

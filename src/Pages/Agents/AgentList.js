@@ -36,7 +36,7 @@ const AgentList = ({agents, loading, getAgents}) => {
             .then((res) => {
                 dispatch({type: 'DELETE_AGENT_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getAgents();
             })
             .catch((err) => {

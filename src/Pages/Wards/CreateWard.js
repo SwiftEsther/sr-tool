@@ -24,7 +24,7 @@ const CreateWard = ({match, history, location}) => {
                 dispatch({type: 'CREATE_WARD_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/wards");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_WARD_FAILURE', payload: {error: err}});

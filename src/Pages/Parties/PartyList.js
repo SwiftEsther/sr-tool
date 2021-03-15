@@ -35,7 +35,7 @@ const PartyList = ({parties, loading, getParties}) => {
             .then((res) => {
                 dispatch({type: 'DELETE_PARTY_SUCCESS', payload: {response: res}});
                 setShowModal(false);
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 getParties();
             })
             .catch((err) => {

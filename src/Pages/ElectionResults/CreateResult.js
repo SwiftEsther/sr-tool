@@ -33,7 +33,7 @@ const CreateResult = ({match, location, history}) => {
                 dispatch({type: 'CREATE_RESULT_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/results");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_RESULT_FAILURE', payload: {error: err}});

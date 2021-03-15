@@ -58,7 +58,7 @@ const Agents = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'SEARCH_AGENT_BY_NAME_SUCCESS', payload: {response: res}});
                 setCurrentAgents(res.partyAgents.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_AGENT_BY_NAME_FAILURE', payload: {error: err}});
@@ -72,7 +72,7 @@ const Agents = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'GET_AGENTS_SUCCESS', payload: {response: res}});
                 setCurrentAgents(res.partyAgents.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_AGENTS_FAILURE', payload: {error: err}});

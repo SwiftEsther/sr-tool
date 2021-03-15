@@ -34,7 +34,7 @@ const UpdateLga = ({match, location, history}) => {
                 dispatch({type: 'UPDATE_LGA_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
                 history.push("/territories/lgas");
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'UPDATE_LGA_FAILURE', payload: {error: err}});

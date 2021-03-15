@@ -24,7 +24,7 @@ const IncidentDashboard = ({match, location}) => {
          apiRequest(`${getIncidentDashboard}/${stateid}`, 'get')
             .then((res) => {
                 dispatch({type: 'GET_INCIDENT_DASHBOARD_SUCCESS', payload: {response: res}});
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
                 setDashboard(res);
             })
             .catch((err) => {

@@ -59,7 +59,7 @@ const Wards = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'SEARCH_WARD_BY_NAME_SUCCESS', payload: {response: res}});
                 setCurrentWards(res.wards.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`);
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`);
             })
             .catch((err) => {
                 dispatch({type: 'SEARCH_WARD_BY_NAME_FAILURE', payload: {error: err}});
@@ -82,7 +82,7 @@ const Wards = ({match, location}) => {
             .then((res) => {
                 dispatch({type: 'GET_WARDS_SUCCESS', payload: {response: res}});
                 setCurrentWards(res.wards.slice(0, 11));
-                showToast('success', `${res.statusCode}: ${res.statusMessage}`)
+                // showToast('success', `${res.statusCode}: ${res.statusMessage}`)
             })
             .catch((err) => {
                 dispatch({type: 'GET_WARDS_FAILURE', payload: {error: err}});
