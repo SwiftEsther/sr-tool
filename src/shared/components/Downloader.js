@@ -41,7 +41,7 @@ const Downloader = ({dispatch, action, action_success, action_error, headers, da
 
     return (
         // <button className="border border-primary py-4 px-8 text-primary font-bold rounded-lg focus:outline-none" onClick={downloadCSV}>Download</button>
-        <CSVLink data={data} headers={headers} filename={filename}>Download</CSVLink>
+        <CSVLink className="border border-primary py-4 px-8 text-primary font-bold rounded-lg focus:outline-none" data={data} headers={headers} filename={filename}>Download</CSVLink>
     )
 }
 

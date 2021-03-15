@@ -22,6 +22,15 @@ const PollingUnits = ({match, location}) => {
     const [currentPollingUnits, setCurrentPollingUnits] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
+    const headers = [
+        { label: 'Polling Unit', key: 'name' },
+        { label: 'Ward', key: 'ward.name' },
+        { label: 'Local Government Area', key: 'lga.name' },
+        { label: 'Senatorial District', key: 'senatorialDistrict.name' },
+        { label: 'State', key: 'state.name' },
+        { label: 'Number', key: 'code' }
+    ];
+
     const handleChange = (event) => {
         setSearch(event.target.value);
     }
@@ -143,15 +152,15 @@ const PollingUnits = ({match, location}) => {
                     </div>
                 </div>
                 <WardList pollingUnits={currentPollingUnits} loading={puState.loading} getPollingUnits={getAllPollingUnits}/>
-                <div className="flex justify-between items-center mt-4">
+                {!puState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_POLLING_UNIT" action_success="UPLOAD_POLLING_UNIT_SUCCESS" action_error="UPLOAD_POLLING_UNIT_FAILURE" url={uploadPollingUnit} refresh={getAllPollingUnits}/>
-                            {puState.response?.pollingUnits?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_POLLING_UNIT_SUCCESS" data={puState.response?.pollingUnits || []} filename={'polling_units.csv'}/>}
+                            {puState.response?.pollingUnits?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_POLLING_UNIT_SUCCESS" headers={headers} data={puState.response?.pollingUnits || []} filename={'polling_units.csv'}/>}
                     </div>
                     {puState.response?.pollingUnits?.length > 0 && <div>
                         <Pagination totalRecords={puState.response?.pollingUnits?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
-                </div>
+                </div>}
             </div>
         </Layout>
     );

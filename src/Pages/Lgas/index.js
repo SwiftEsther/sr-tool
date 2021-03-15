@@ -26,10 +26,10 @@ const Lgas = ({match, location}) => {
     }
 
     const headers = [
-        { label: 'Local Government Area', key: 'lga.name' },
+        { label: 'Local Government Area', key: 'name' },
         { label: 'Senatorial District', key: 'senatorialDistrict.name' },
-        { label: 'State', key: 'lga.state.name' },
-        { label: 'Number', key: 'lga.code' }
+        { label: 'State', key: 'state.name' },
+        { label: 'Number', key: 'code' }
     ];
 
     const filterData = (e) => {
@@ -140,15 +140,15 @@ const Lgas = ({match, location}) => {
                         </div>
                     </div>
                     <LgaList lgas={currentLgas} loading={lgaState.loading} getLgas={getAllLgas}/>
-                    <div className="flex justify-between items-center mt-4">
+                    {!lgaState.loading && <div className="flex justify-between items-center mt-4">
                         <div className="flex">
                             <Uploader dispatch={dispatch} action="UPLOAD_LGA" action_success="UPLOAD_LGA_SUCCESS" action_error="UPLOAD_LGA_FAILURE" url={uploadLga} refresh={getAllLgas}/>
                             {lgaState.response?.lgas?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_LGA_SUCCESS" headers={headers} data={lgaState.response?.lgas || []} filename={'lgas.csv'} /> }
                         </div>
                         {lgaState.response?.lgas?.length > 0 && <div>
-                        <Pagination totalRecords={lgaState.response?.lgas?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                            <Pagination totalRecords={lgaState.response?.lgas?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
+                        </div>}
                     </div>}
-                    </div>
                 </div>
             </Layout>
         </LgaController>
