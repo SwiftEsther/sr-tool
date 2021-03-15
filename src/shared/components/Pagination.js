@@ -128,7 +128,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
 
               if (page === LEFT_PAGE) return (
                 <li key={index} className="page-item bg-primary px-4 py-2 border border-primary mx-4 text-white focus:outline-none rounded-sm">
-                  <a className="page-link" href="#" aria-label="Previous" onClick={handleMoveLeft}>
+                  <a className="page-link py-3 px-5" href="#" aria-label="Previous" onClick={handleMoveLeft}>
                     <span aria-hidden="true">&hellip;</span>
                     <span className="sr-only">Previous</span>
                   </a>
@@ -137,7 +137,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
 
               if (page === RIGHT_PAGE) return (
                 <li key={index} className="page-item bg-primary px-4 py-2 border border-primary mx-4 text-white focus:outline-none rounded-sm">
-                  <a className="page-link" href="#" aria-label="Next" onClick={handleMoveRight}>
+                  <a className="page-link py-3 px-5" href="#" aria-label="Next" onClick={handleMoveRight}>
                     <span aria-hidden="true">&hellip;</span>
                     <span className="sr-only">Next</span>
                   </a>
@@ -146,7 +146,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
 
               return (
                 <li key={index} className={`page-item ${ currentPage === page ? 'bg-white text-primary' : 'bg-primary text-white'} text-center w-12 py-2 border border-primary rounded-sm mx-4 focus:outline-none`}>
-                  <a className="page-link" href="#" onClick={handleClick(page) }>{ page }</a>
+                  <a className="page-link py-3 px-5" href="#" onClick={handleClick(page) }>{ page }</a>
                 </li>
               );
 
