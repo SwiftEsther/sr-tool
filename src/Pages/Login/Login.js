@@ -7,7 +7,8 @@ import { showToast } from '../../helpers/showToast';
 import {ReactComponent as BarChart} from '../../shared/assets/bar-chart.svg';
 import {ReactComponent as Rectangle} from '../../shared/assets/rectangle-3.svg';
  
- const Login = ({history}) => {
+ const Login = ({history, location}) => {
+     const {pathname} = location.state?.from;
      const [authState, dispatch] = useContext(AuthContext);
      const handleLogin = (values, {setSubmitting}) => {
          dispatch({type: 'LOGIN'});
@@ -16,9 +17,9 @@ import {ReactComponent as Rectangle} from '../../shared/assets/rectangle-3.svg';
             .then((res) => {
                 dispatch({type: 'LOGIN_SUCCESS', payload: {response: res}});
                 setSubmitting(false);
-                localStorage.setItem('access_token', res.token)
-                history.push('/results')
-                
+                localStorage.setItem('access_token', res.token);
+                history.push(pathname || "dashboard/results")
+                console.log(location);
             })
             .catch((err) => {
                 dispatch({type: 'LOGIN_FAILURE', payload: {error: err}});
