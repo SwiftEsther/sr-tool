@@ -129,6 +129,7 @@ function App() {
 
         <AuthenticatedRoute path="/dashboard/results" component ={routerProps => <ResultController><ResultDashboard {...routerProps}/></ResultController>} />
         <AuthenticatedRoute path="/dashboard/incidents" component ={routerProps => <IncidentController><IncidentDashboard {...routerProps}/></IncidentController>} />
+        <Redirect to="/login" />
       </Switch>
     </>
   );
