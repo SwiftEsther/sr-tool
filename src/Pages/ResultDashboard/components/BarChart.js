@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { commaSeparateNumber } from '../../../helpers/utils';
 
 const BarChart = ({data}) => {
     const yRef = useRef("yAxis");
@@ -173,7 +174,7 @@ const BarChart = ({data}) => {
                             {/* </g> */}
                             
                             {d.totalVoteCount > 0 && <rect className="bar" width={x(d.totalVoteCount)} height={y.bandwidth()} y={y(d?.politicalParty?.code)} x={60} fill={parties[d?.politicalParty?.code]}/>}
-                            {d.totalVoteCount > 0 && <text y={y(d?.politicalParty?.code) + y.bandwidth() / 2 + 4} x={x(d.totalVoteCount) + 70} >{d.totalVoteCount} {`(${d?.percent ? d.percent.toFixed(2) : 0}%)`}</text>}
+                            {d.totalVoteCount > 0 && <text y={y(d?.politicalParty?.code) + y.bandwidth() / 2 + 4} x={x(d.totalVoteCount) + 70} >{commaSeparateNumber(d.totalVoteCount)} {`(${d?.percent ? d.percent.toFixed(2) : 0}%)`}</text>}
                         </g>
                     )
                 }
