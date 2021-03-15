@@ -146,7 +146,7 @@ const Incidents = ({match, location}) => {
                 {!incidentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_INCIDENT" action_success="UPLOAD_INCIDENT_SUCCESS" action_error="UPLOAD_INCIDENT_FAILURE" url={uploadIncident} refresh={getAllIncidents}/>
-                        {incidentState.incidents?.length > 0 && <Downloader dispatch={dispatch} action="GET_INCIDENTS_SUCCESS" />}
+                        {incidentState.incidents?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_INCIDENTS_SUCCESS" data={incidentState.incidents || []} filename={'incidents.csv'} />}
                     </div>
                     {incidentState.incidents?.length > 0 && <div>
                         <Pagination totalRecords={incidentState.incidents.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
