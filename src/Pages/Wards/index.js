@@ -150,7 +150,7 @@ const Wards = ({match, location}) => {
                     </div>
                 </div>
                 <WardList wards={currentWards} loading={wardState.loading} getWards={getAllWards}/>
-                <div className="flex justify-between items-center mt-4">
+                {!wardState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_WARD" action_success="UPLOAD_WARD_SUCCESS" action_error="UPLOAD_WARD_FAILURE" url={uploadWard} refresh={getAllWards}/>
                         {wardState.response?.wards?.length > 0 &&  <Downloader dispatch={dispatch} action="DOWNLOAD_WARD_SUCCESS" headers={headers} data={wardState.response?.wards || []} filename={'wards.csv'} /> }
@@ -158,7 +158,7 @@ const Wards = ({match, location}) => {
                     {wardState.response?.wards?.length > 0 && <div>
                         <Pagination totalRecords={wardState.response?.wards?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
-                </div>
+                </div>}
             </div>
         </Layout>
     );

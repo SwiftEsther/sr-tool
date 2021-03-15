@@ -152,7 +152,7 @@ const PollingUnits = ({match, location}) => {
                     </div>
                 </div>
                 <WardList pollingUnits={currentPollingUnits} loading={puState.loading} getPollingUnits={getAllPollingUnits}/>
-                <div className="flex justify-between items-center mt-4">
+                {!puState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
                         <Uploader dispatch={dispatch} action="UPLOAD_POLLING_UNIT" action_success="UPLOAD_POLLING_UNIT_SUCCESS" action_error="UPLOAD_POLLING_UNIT_FAILURE" url={uploadPollingUnit} refresh={getAllPollingUnits}/>
                             {puState.response?.pollingUnits?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_POLLING_UNIT_SUCCESS" headers={headers} data={puState.response?.pollingUnits || []} filename={'polling_units.csv'}/>}
@@ -160,7 +160,7 @@ const PollingUnits = ({match, location}) => {
                     {puState.response?.pollingUnits?.length > 0 && <div>
                         <Pagination totalRecords={puState.response?.pollingUnits?.length} pageLimit={10} pageNeighbours={2} onPageChanged={onPageChanged} />
                     </div>}
-                </div>
+                </div>}
             </div>
         </Layout>
     );
