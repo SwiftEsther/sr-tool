@@ -8,7 +8,7 @@ import {ReactComponent as BarChart} from '../../shared/assets/bar-chart.svg';
 import {ReactComponent as Rectangle} from '../../shared/assets/rectangle-3.svg';
  
  const Login = ({history, location}) => {
-     const {pathname} = location.state?.from;
+     const pathname = location?.state?.from.pathname;
      const [authState, dispatch] = useContext(AuthContext);
      const handleLogin = (values, {setSubmitting}) => {
          dispatch({type: 'LOGIN'});
