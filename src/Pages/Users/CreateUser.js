@@ -28,7 +28,7 @@ const CreateUser = ({match, location, history}) => {
             })
             .catch((err) => {
                 dispatch({type: 'CREATE_USER_FAILURE', payload: {error: err}});
-                showToast('error', 'Something went wrong. Please try again later')
+                showToast('error', err.response?.data?.statusMessage || 'Something went wrong. Please try again later')
                 setSubmitting(false);
             });
     }
