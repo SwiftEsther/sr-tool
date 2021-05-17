@@ -1,20 +1,21 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import { Redirect, Route } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext';
 
 const AuthenticatedRoute = ({component: Component, isLoggedIn, ...rest}) => {
   const [userState, dispatch] = useContext(AuthContext);
+  const [token, setToken] = useState(localStorage.getItem("access_token"));
   useEffect(() => {
-    // if(!userState.isLoggedIn) localStorage.multiRemove(['user', 'access_token']);
-    if(!userState.isLoggedIn){
+    console.log(token);
+    if(!token){
       localStorage.clear();
     }
-  }, [userState.isLoggedIn])
+  }, [token])
   return (
     <Route
       {...rest}
       render={
-        (props) => userState.isLoggedIn === true
+        (props) => (token?.length) > 0 
             ? <Component {...props} />
             : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
     />
