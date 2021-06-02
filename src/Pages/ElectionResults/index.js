@@ -12,7 +12,7 @@ import Pagination from "../../shared/components/Pagination";
 import { ResultContext } from "../../contexts/ResultContext";
 import ResultList from "./ResultList";
 
-const Results = ({match, location}) => {
+const Results = ({match, location, history}) => {
     const [search, setSearch] = useState('');
     const [resultState, dispatch] = useContext(ResultContext);
     const [filter, setFilter] = useState({lga: '', ward: '', 'polling-unit': ''});
@@ -92,7 +92,7 @@ const Results = ({match, location}) => {
             });
     }
 
-    const getLgas = (stateId = 6) => {
+    const getLgas = (stateId = 1) => {
         if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
             .then(res => {
                 setLgas(res.lgas);
@@ -208,7 +208,7 @@ const Results = ({match, location}) => {
                 <ResultList results={currentResults} loading={resultState.loading} getResults={getAllResults}/>
                 {!resultState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="UPLOAD_RESULT" action_success="UPLOAD_RESULT_SUCCESS" action_error="UPLOAD_RESULT_FAILURE" url={uploadResult} refresh={getAllResults}/>
+                        <Uploader dispatch={dispatch} action="UPLOAD_RESULT" action_success="UPLOAD_RESULT_SUCCESS" action_error="UPLOAD_RESULT_FAILURE" url={uploadResult} refresh={getAllResults} logout={() => history.replace("/login")}/>
                         {resultState.response?.results?.length > 0 &&  <Downloader dispatch={dispatch} action="DOWNLOAD_RESULT_SUCCESS" headers={headers} data={resultState.response?.results || []} filename={'election_results.csv'} /> }
                     </div>
                     {resultState.results.length > 0 && <div>

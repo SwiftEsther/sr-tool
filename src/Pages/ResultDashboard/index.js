@@ -67,7 +67,7 @@ const ResultDashboard = ({match, location}) => {
             });
     }
 
-    const getLgas = (stateId = 6) => {
+    const getLgas = (stateId = 1) => {
         if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
             .then(res => {
                 setLgas(res.lgas);
@@ -77,7 +77,7 @@ const ResultDashboard = ({match, location}) => {
             })}
     }
 
-    const getSenatorialDistricts = (stateId = 6) => {
+    const getSenatorialDistricts = (stateId = 1) => {
         if(stateId) {apiRequest(`${getSenatorialDistrictsByStateId}/${stateId}`, 'get')
             .then(res => {
                 setSenatorialDistricts(res.senatorialDistricts);

@@ -12,7 +12,7 @@ import { WardContext } from "../../contexts/WardContext";
 import WardList from "./WardList";
 import Pagination from "../../shared/components/Pagination";
 
-const Wards = ({match, location}) => {
+const Wards = ({match, location, history}) => {
     const [search, setSearch] = useState('');
     const [wardState, dispatch] = useContext(WardContext);
     const [filter, setFilter] = useState({senatorialDistrict: '', state: '', lga: ''});
@@ -152,7 +152,7 @@ const Wards = ({match, location}) => {
                 <WardList wards={currentWards} loading={wardState.loading} getWards={getAllWards}/>
                 {!wardState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="UPLOAD_WARD" action_success="UPLOAD_WARD_SUCCESS" action_error="UPLOAD_WARD_FAILURE" url={uploadWard} refresh={getAllWards}/>
+                        <Uploader dispatch={dispatch} action="UPLOAD_WARD" action_success="UPLOAD_WARD_SUCCESS" action_error="UPLOAD_WARD_FAILURE" url={uploadWard} refresh={getAllWards} logout={() => history.replace("/login")}/>
                         {wardState.response?.wards?.length > 0 &&  <Downloader dispatch={dispatch} action="DOWNLOAD_WARD_SUCCESS" headers={headers} data={wardState.response?.wards || []} filename={'wards.csv'} /> }
                     </div>
                     {wardState.response?.wards?.length > 0 && <div>

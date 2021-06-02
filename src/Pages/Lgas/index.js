@@ -12,7 +12,7 @@ import Downloader from "../../shared/components/Downloader";
 import pickBy from 'lodash/pickBy'
 import Pagination from "../../shared/components/Pagination";
 
-const Lgas = ({match, location}) => {
+const Lgas = ({match, location, history}) => {
     const [search, setSearch] = useState('');
     const [lgaState, dispatch] = useContext(LgaContext);
     const [filter, setFilter] = useState({senatorialDistrict: '', state: ''});
@@ -85,7 +85,9 @@ const Lgas = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'GET_LGAS_FAILURE', payload: {error: err}});
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
+                err.response.data.status == 401 ?
+                history.replace("/login") :
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
             });
     }
 
@@ -142,7 +144,7 @@ const Lgas = ({match, location}) => {
                     <LgaList lgas={currentLgas} loading={lgaState.loading} getLgas={getAllLgas}/>
                     {!lgaState.loading && <div className="flex justify-between items-center mt-4">
                         <div className="flex">
-                            <Uploader dispatch={dispatch} action="UPLOAD_LGA" action_success="UPLOAD_LGA_SUCCESS" action_error="UPLOAD_LGA_FAILURE" url={uploadLga} refresh={getAllLgas}/>
+                            <Uploader dispatch={dispatch} action="UPLOAD_LGA" action_success="UPLOAD_LGA_SUCCESS" action_error="UPLOAD_LGA_FAILURE" url={uploadLga} refresh={getAllLgas} logout={() => history.replace("/login")}/>
                             {lgaState.response?.lgas?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_LGA_SUCCESS" headers={headers} data={lgaState.response?.lgas || []} filename={'lgas.csv'} /> }
                         </div>
                         {lgaState.response?.lgas?.length > 0 && <div>

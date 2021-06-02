@@ -12,7 +12,7 @@ import WardList from "./PollingUnitList";
 import { PUContext } from "../../contexts/PollingUnitContext";
 import Pagination from "../../shared/components/Pagination";
 
-const PollingUnits = ({match, location}) => {
+const PollingUnits = ({match, location, history}) => {
     const [search, setSearch] = useState('');
     const [puState, dispatch] = useContext(PUContext);
     const [filter, setFilter] = useState({senatorialDistrict: '', state: '', lga: ''});
@@ -154,7 +154,7 @@ const PollingUnits = ({match, location}) => {
                 <WardList pollingUnits={currentPollingUnits} loading={puState.loading} getPollingUnits={getAllPollingUnits}/>
                 {!puState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="UPLOAD_POLLING_UNIT" action_success="UPLOAD_POLLING_UNIT_SUCCESS" action_error="UPLOAD_POLLING_UNIT_FAILURE" url={uploadPollingUnit} refresh={getAllPollingUnits}/>
+                        <Uploader dispatch={dispatch} action="UPLOAD_POLLING_UNIT" action_success="UPLOAD_POLLING_UNIT_SUCCESS" action_error="UPLOAD_POLLING_UNIT_FAILURE" url={uploadPollingUnit} refresh={getAllPollingUnits} logout={() => history.replace("/login")}/>
                             {puState.response?.pollingUnits?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_POLLING_UNIT_SUCCESS" headers={headers} data={puState.response?.pollingUnits || []} filename={'polling_units.csv'}/>}
                     </div>
                     {puState.response?.pollingUnits?.length > 0 && <div>
