@@ -19,9 +19,9 @@ const IncidentDashboard = ({match, location}) => {
     const [filter, setFilter] = useState({lga: '', senatorialDistrict: ''});
     const [data, setData] = useState();
 
-     const getDashboardData = (stateid = 6) => {
+     const getDashboardData = (stateId = 1) => {
         dispatch({type: 'GET_INCIDENT_DASHBOARD'});
-         apiRequest(`${getIncidentDashboard}/${stateid}`, 'get')
+         apiRequest(`${getIncidentDashboard}/${stateId}`, 'get')
             .then((res) => {
                 dispatch({type: 'GET_INCIDENT_DASHBOARD_SUCCESS', payload: {response: res}});
                 // showToast('success', `${res.statusCode}: ${res.statusMessage}`);

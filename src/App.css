@@ -71,7 +71,7 @@ button.bg-primary:disabled {
   margin-top: 0.5rem;
 }
 
-.table .table-body .custom-table-row:nth-child(off) {
+.table .table-body .custom-table-row:nth-child(odd) {
   background-color: #fff;
 }
 

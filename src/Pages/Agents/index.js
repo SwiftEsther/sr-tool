@@ -12,7 +12,7 @@ import { AgentContext } from "../../contexts/AgentContext";
 import AgentList from "./AgentList";
 import Pagination from "../../shared/components/Pagination";
 
-const Agents = ({match, location}) => {
+const Agents = ({match, location, history}) => {
     const [search, setSearch] = useState('');
     const [agentState, dispatch] = useContext(AgentContext);
     const [filter, setFilter] = useState({lga: '', ward: '', 'polling-unit': ''});
@@ -76,11 +76,13 @@ const Agents = ({match, location}) => {
             })
             .catch((err) => {
                 dispatch({type: 'GET_AGENTS_FAILURE', payload: {error: err}});
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`)
+                err.response.data.status == 401 ?
+                history.replace("/login") :
+                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
             });
     }
 
-    const getLgas = (stateId = 6) => {
+    const getLgas = (stateId = 1) => {
         if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
             .then(res => {
                 setLgas(res.lgas);
@@ -197,7 +199,7 @@ const Agents = ({match, location}) => {
                 <AgentList agents={currentAgents} loading={agentState.loading} getAgents={getAllAgents}/>
                 {!agentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="UPLOAD_AGENT" action_success="UPLOAD_AGENT_SUCCESS" action_error="UPLOAD_AGENT_FAILURE" url={uploadAgent} refresh={getAllAgents}/>
+                        <Uploader dispatch={dispatch} action="UPLOAD_AGENT" action_success="UPLOAD_AGENT_SUCCESS" action_error="UPLOAD_AGENT_FAILURE" url={uploadAgent} refresh={getAllAgents} logout={() => history.replace("/login")}/>
                             {/* {agentState.response?.agents?.length > 0 && <Downloader dispatch={dispatch} action="UPLOAD_AGENT_SUCCESS" />} */}
                             {agentState.agents?.length > 0 &&  <Downloader dispatch={dispatch} action="DOWNLOAD_AGENT_SUCCESS" headers={headers} data={agentState.agents || []} filename={'agents.csv'} /> }
                     </div>

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { AuthContext } from '../../contexts/AuthContext';
 import {login} from '../../lib/url.js';
-import {apiRequest} from '../../lib/api.js';
+import {apiRequest, logout} from '../../lib/api.js';
 import { showToast } from '../../helpers/showToast';
 import {ReactComponent as BarChart} from '../../shared/assets/bar-chart.svg';
 import {ReactComponent as Rectangle} from '../../shared/assets/rectangle-3.svg';
@@ -23,7 +23,9 @@ import {ReactComponent as Rectangle} from '../../shared/assets/rectangle-3.svg';
             })
             .catch((err) => {
                 dispatch({type: 'LOGIN_FAILURE', payload: {error: err}});
-                showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
+                logout().then(() => {
+                    showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong. Please try again later."}`);
+                });
                 setSubmitting(false);
             });
             // .then((res) => {

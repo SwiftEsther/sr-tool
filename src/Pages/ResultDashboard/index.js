@@ -124,13 +124,13 @@ const ResultDashboard = ({match, location}) => {
             <Breadcrumbs className="shadow-container w-full lg:px-3.5 px-1 pt-7 pb-5 rounded-sm text-2xl font-bold" setCrumbs={() => [{id: 1,title: 'Dashboard',
                 pathname: "/dashboard"}, {id: 2,title: 'Results',
                 pathname: match.path}]}/>
-            <div className="w-full flex">
-                <div className="w-7/10 mr-4">
+            <div className="w-full lg:flex">
+                <div className="lg:w-7/10 w-full mr-4">
                     {/* {!dashboardState.loading &&  */}
                         <Results data={dashboard?.lgaResults || []} politicalParties={dashboard?.partyResult}/>
                     {/* } */}
                 </div>
-                <div className="w-3/10">
+                <div className="lg:w-3/10 w-full">
                     <div>
                         <select 
                             name="senatorialDistrict" 

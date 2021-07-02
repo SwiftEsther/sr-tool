@@ -3,7 +3,8 @@ import React from 'react';
 import * as XLSX from 'xlsx';
 import { showToast } from '../../helpers/showToast';
 
-const Uploader = ({dispatch, action, action_success, action_error, url, refresh}) => {
+const Uploader = ({dispatch, action, action_success, action_error, url, refresh, logout}) => {
+  const token = localStorage.getItem("access_token");
    // process CSV data
   const processData = dataString => {
     const dataStringLines = dataString.split(/\r\n|\n/);
@@ -64,16 +65,18 @@ const Uploader = ({dispatch, action, action_success, action_error, url, refresh}
              url: url,
              data: formData,
              headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
              }
          })
             .then((res) => {
                 dispatch({type: action_success, payload: {response: res}});
-                // showToast('success', `${res.statusCode || 'Success'}: ${res.statusMessage || 'Data imported successfully'}`);
                 refresh();
             })
             .catch((err) => {
                 dispatch({type: action_error, payload: {error: err}});
+                err.response.data.status == 401 ?
+                logout() :
                 showToast('error', `${err?.response?.data.statusCode || "Error"}: ${err?.response?.data.statusMessage || "Something went wrong while importing data. Please try again later."}`);
             });
     } else {

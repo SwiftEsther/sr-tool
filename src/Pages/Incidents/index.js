@@ -12,7 +12,7 @@ import Pagination from "../../shared/components/Pagination";
 import { IncidentContext } from "../../contexts/IncidentContext";
 import IncidentList from "./IncidentList";
 
-const Incidents = ({match, location}) => {
+const Incidents = ({match, location, history}) => {
     const [search, setSearch] = useState('');
     const [incidentState, dispatch] = useContext(IncidentContext);
     const [filter, setFilter] = useState({lga: '', ward: '', pollingUnit: ''});
@@ -155,7 +155,7 @@ const Incidents = ({match, location}) => {
                 <IncidentList incidents={currentIncidents} loading={incidentState.loading} getIncidents={getAllIncidents}/>
                 {!incidentState.loading && <div className="flex justify-between items-center mt-4">
                     <div className="flex">
-                        <Uploader dispatch={dispatch} action="UPLOAD_INCIDENT" action_success="UPLOAD_INCIDENT_SUCCESS" action_error="UPLOAD_INCIDENT_FAILURE" url={uploadIncident} refresh={getAllIncidents}/>
+                        <Uploader dispatch={dispatch} action="UPLOAD_INCIDENT" action_success="UPLOAD_INCIDENT_SUCCESS" action_error="UPLOAD_INCIDENT_FAILURE" url={uploadIncident} refresh={getAllIncidents} logout={() => history.replace("/login")}/>
                         {incidentState.incidents?.length > 0 && <Downloader dispatch={dispatch} action="DOWNLOAD_INCIDENTS_SUCCESS" headers={headers} data={incidentState.incidents || []} location={location} filename={'election_incidents.csv'} />}
                     </div>
                     {incidentState.incidents?.length > 0 && <div>

@@ -5,7 +5,7 @@ const ResultCards = ({data}) => {
         <div>
             <div className="flex justify-between items-center py-1 shadow-container px-3 mt-0.5">
                 <span className="text-lg">Results Received</span>
-                <span className="text-4xl font-bold">{`${data?.resultReceived?.toFixed(2) || 0}%`}</span>
+                <span className="text-4xl font-bold">{`${isNaN(data?.resultReceived) ? 0 : data?.resultReceived.toFixed(2)}%`}</span>
             </div>
             <div className="flex justify-between items-center py-6 shadow-container px-2.5 my-2">
                 <div className="bg-oceanBlue py-4 text-center rounded-xsm .shadow-sm-container w-118">

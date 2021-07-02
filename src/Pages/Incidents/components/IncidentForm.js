@@ -145,7 +145,7 @@ const IncidentForm = ({formFields, handleFormSubmit}) => {
             })
     }
 
-    const getLgas = (stateId=6) => {
+    const getLgas = (stateId=1) => {
         if(stateId) {apiRequest(`${getLgasByStateId}/${stateId}`, 'get')
             .then(res => {
                 setLgas(res.lgas);
