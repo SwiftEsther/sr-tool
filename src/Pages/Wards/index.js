@@ -23,8 +23,8 @@ const Wards = ({match, location, history}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const headers = [
         { label: 'Ward', key: 'name' },
-        { label: 'Local Government Area', key: 'lga.name' },
-        { label: 'Senatorial District', key: 'senatorialDistrict.name' },
+        { label: 'Local Government Area', key: 'lga?.name' },
+        { label: 'Senatorial District', key: 'senatorialDistrict?.name' },
         { label: 'State', key: 'state.name' },
         { label: 'Number', key: 'code' }
     ];

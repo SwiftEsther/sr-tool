@@ -97,10 +97,10 @@ const PollingUnitList = ({pollingUnits, loading, getPollingUnits}) => {
                     {pollingUnits.length > 0 ? 
                         pollingUnits.map((pu) => (<div key={pu.id} className="custom-table-row w-full flex">
                             <div className="table-row-data w-2/10">{pu.name || ''}</div>
-                            <div className="table-row-data w-1/10">{pu.ward.name || ''}</div>
-                            <div className="table-row-data w-1/10">{pu.lga.name || ''}</div>
+                            <div className="table-row-data w-1/10">{pu.ward?.name || ''}</div>
+                            <div className="table-row-data w-1/10">{pu.lga?.name || ''}</div>
                             <div className="table-row-data w-2/10">{pu.senatorialDistrict.name || ''}</div>
-                            <div className="table-row-data w-2/10">{pu.state.name || ''}</div>
+                            <div className="table-row-data w-2/10">{pu.state?.name || ''}</div>
                             <div className="table-row-data w-2/10">{pu.code || ''}</div>
                             <div className="table-row-data w-2/10"> 
                                 <span data-tip data-for={`ellipsis-pu-${pu.id}`} data-event='click'>

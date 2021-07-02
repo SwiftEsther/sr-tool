@@ -24,9 +24,9 @@ const PollingUnits = ({match, location, history}) => {
 
     const headers = [
         { label: 'Polling Unit', key: 'name' },
-        { label: 'Ward', key: 'ward.name' },
-        { label: 'Local Government Area', key: 'lga.name' },
-        { label: 'Senatorial District', key: 'senatorialDistrict.name' },
+        { label: 'Ward', key: 'ward?.name' },
+        { label: 'Local Government Area', key: 'lga?name' },
+        { label: 'Senatorial District', key: 'senatorialDistrict?.name' },
         { label: 'State', key: 'state.name' },
         { label: 'Number', key: 'code' }
     ];
