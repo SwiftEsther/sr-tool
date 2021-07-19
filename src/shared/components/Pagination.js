@@ -146,7 +146,7 @@ const Pagination = ({totalRecords = null, pageLimit = 30, pageNeighbours = 0, on
 
               return (
                 <li key={index} className={`page-item ${ currentPage === page ? 'bg-white text-primary' : 'bg-primary text-white'} text-center w-12 py-2 border border-primary rounded-sm mx-4 focus:outline-none`}>
-                  <a className="page-link py-3 px-5" href="#" onClick={handleClick(page) }>{ page }</a>
+                  <a className="page-link py-3" href="#" onClick={handleClick(page) }>{ page }</a>
                 </li>
               );
 
