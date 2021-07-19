@@ -99,7 +99,7 @@ const PollingUnitList = ({pollingUnits, loading, getPollingUnits}) => {
                             <div className="table-row-data w-2/10">{pu.name || ''}</div>
                             <div className="table-row-data w-1/10">{pu.ward?.name || ''}</div>
                             <div className="table-row-data w-1/10">{pu.lga?.name || ''}</div>
-                            <div className="table-row-data w-2/10">{pu.senatorialDistrict.name || ''}</div>
+                            <div className="table-row-data w-2/10">{pu.senatorialDistrict?.name || ''}</div>
                             <div className="table-row-data w-2/10">{pu.state?.name || ''}</div>
                             <div className="table-row-data w-2/10">{pu.code || ''}</div>
                             <div className="table-row-data w-2/10"> 

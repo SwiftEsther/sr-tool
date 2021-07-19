@@ -90,6 +90,12 @@ const Wards = ({match, location, history}) => {
             });
     }
 
+    const clearFilter = () => {
+        setFilter({senatorialDistrict: '', state: '', lga: ''});
+        setSearch("");
+        getAllWards();
+    }
+
     useEffect(() => {
         getAllWards();
     }, []);
@@ -132,6 +138,7 @@ const Wards = ({match, location, history}) => {
                             <option value='' disabled>LGA</option>
                             {lgas.map(lga => (<option key={lga.id} value={lga.code}>{lga.name}</option>))}
                         </select>
+                        <div className="cursor-pointer" onClick={clearFilter}>clear</div>
                     </div>
                     <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
                     <Link className="bg-primary py-3.5 px-16 add-btn text-white font-bold rounded-sm" to="/territories/wards/create">

@@ -94,6 +94,12 @@ const Incidents = ({match, location, history}) => {
             });
     }
 
+    const clearFilter = () => {
+        setFilter({lga: '', ward: '', 'polling-unit': ''});
+        setSearch("");
+        getAllIncidents();
+    }
+
     useEffect(() => {
         getAllIncidents();
     }, []);
@@ -135,6 +141,7 @@ const Incidents = ({match, location, history}) => {
                             <option value='' disabled>All Polling Units</option>
                             {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.code}>{pollingUnit.name}</option>))}
                         </select>
+                        <div className="cursor-pointer" onClick={clearFilter}>clear</div>
                     </div>
                     <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
                     <Link className="bg-primary py-4 px-16 text-white font-bold rounded-sm" to="/incidents/create">

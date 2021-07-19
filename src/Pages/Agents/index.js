@@ -136,6 +136,12 @@ const Agents = ({match, location, history}) => {
         getWards(filter.lga);
     }, [filter.lga])
 
+    const clearFilter = () => {
+        setFilter({lga: '', ward: '', 'polling-unit': ''});
+        setSearch("");
+        getAllAgents();
+    }
+
     useEffect(() => {
         filterData(filter['polling-unit'], 'polling-unit');
     }, [filter['polling-unit']])
@@ -179,6 +185,7 @@ const Agents = ({match, location, history}) => {
                             <option value='' disabled>All Polling Units</option>
                             {pollingUnits.map(pollingUnit => (<option key={pollingUnit.id} value={pollingUnit.id}>{pollingUnit.name}</option>))}
                         </select>
+                        <div className="cursor-pointer" onClick={clearFilter}>clear</div>
                     </div>
                     <div className="xl:w-2/10 lg:w-3/10 flex items-center lg:justify-end px-1 w-full lg:mt-0 mt-4">
                     <Link className="bg-primary py-3.5 px-16 text-white font-bold rounded-sm" to="/agents/create">

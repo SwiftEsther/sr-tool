@@ -13,9 +13,9 @@ const UpdateAgent = ({match, location, history}) => {
         first_name: agent.firstname,
         last_name: agent.lastname,
         phoneNumber: agent.phone,
-        lga: agent.lga.id,
-        ward: agent.ward.id,
-        pollingUnit: agent.pollingUnit.id
+        lga: agent.lga?.id,
+        ward: agent.ward?.id,
+        pollingUnit: agent.pollingUnit?.id
     }
     const [agentState, dispatch] = useContext(AgentContext);
     const [currentAgent, setCurrentAgent] = useState(data);

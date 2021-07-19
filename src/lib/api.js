@@ -26,7 +26,7 @@ export const login = async (payload) => {
 };
 
 export const logout = async () => {
-  await localStorage.multiRemove(['user', 'access_token']);
+  await localStorage.clear();
 };
 
 const apiCall = async (url, httpMethod, body, additionalParams) => {
